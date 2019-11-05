@@ -7,7 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('./config/cors');
-var logger = require('morgan'); 
+// var logger = require('morgan');
 /*
 서버에서 활성화
 const https = require('https');
@@ -19,7 +19,7 @@ const credentials = {key: key, cert:cert, ca:ca }
 */
 
 // Passport Config
-app.use(logger('dev'));
+// app.use(logger('dev'));
 require('./config/passport')(passport);
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
@@ -76,9 +76,6 @@ app.use(cors({origins: ["http://localhost:8080", "http://www.openclass.gq", "htt
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
-app.use('/prof', require('./routes/professor.js'));
-app.use('/stud', require('./routes/student.js'));
-app.use('/admin', require('./routes/admin.js'));
 const PORT = process.env.PORT || 5000;
 /*
 서버에서 활성화
