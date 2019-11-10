@@ -25,11 +25,10 @@ require('./config/passport')(passport);
 mongoose.Promise = global.Promise;
 
 // CONNECT TO MONGODB SERVER
-mongoose.connect('mongodb://localhost:27017/openclass', {
-  user: "openclass",
-  pass: "qwe123",
+mongoose.connect('mongodb://localhost:27017/heydude', {
   authSource: "admin",
-  useNewUrlParser:true
+  useNewUrlParser:true,
+  useUnifiedTopology : true
 } ).then(() => console.log('Successfully connected to mongodb'))
   .catch(e => console.error(e));
 mongoose.set('useCreateIndex', true);
