@@ -74,7 +74,6 @@ app.use(function(req, res, next) {
 app.use(cors({origins: ["http://localhost:8080", "http://www.openclass.gq", "http://openclass.gq", "https://www.openclass.gq", "https://openclass.gq"]}));
 
 // Routes
-app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 const PORT = process.env.PORT || 5000;
 /*
