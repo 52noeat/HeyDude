@@ -1,0 +1,20 @@
+.set-width{
+    min-width: 600px !important;
+    max-width: 900px !important;
+}
+/*html{*/
+    /*overflow: hidden !important;*/
+/*}*/
+.content-scroll{
+    overflow-y: scroll !important;
+    max-height: 84vh !important;
+    min-height: 84vh !important;
+    background: rgb(250,250,250);
+}
+.bar{
+    height: 8vh !important;
+}
+.center{
+    align-content: center;
+    text-align: center;
+}

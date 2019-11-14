@@ -13,7 +13,6 @@ router.get('/',(req,res)=>{
 
 router.get('/view',(req,res)=>{
     let friendID = req.body;
-
     Profile.findOne({userID: friendID})
         .then(thisProfile=>{
             if(thisProfile){
@@ -26,7 +25,6 @@ router.get('/view',(req,res)=>{
 
 router.post('/request',(req,res)=>{
     let {request} = req.body;
-
     let newRequest = new Request(request)
     newRequest.save()
         .then(result=>{

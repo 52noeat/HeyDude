@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const passportConfig= require('../config/passport');
+const passportConfig = require('../config/passport');
+const nodemailer = require('nodemailer');
 // Load User model
 const {User, Profile, FriendList, Request, Chat}=require('../models/index');
 

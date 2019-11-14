@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
+    userType: {type: Number, required: true},
     userID: {type: String, required: true},
-    userType: {type: boolean, required: true},
     userName: {type: String, required: true},
     birth: {type: String, required: true},
     nationality: {type: String, required: true},

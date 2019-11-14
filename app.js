@@ -1,26 +1,14 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
-const cors = require('./config/cors');
-// var logger = require('morgan');
-/*
-서버에서 활성화
-const https = require('https');
-const fs = require('fs');
-const key = fs.readFileSync('/etc/letsencrypt/live/backend.openclass.ga/privkey.pem');
-const cert = fs.readFileSync('/etc/letsencrypt/live/backend.openclass.ga/cert.pem');
-const ca = fs.readFileSync('/etc/letsencrypt/live/backend.openclass.ga/chain.pem');
-const credentials = {key: key, cert:cert, ca:ca }
-*/
+const ejs = require('ejs');
+var logger = require('morgan');
 
 // Passport Config
 // app.use(logger('dev'));
-require('./config/passport')(passport);
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
 
@@ -28,16 +16,22 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/heydude', {
   authSource: "admin",
   useNewUrlParser:true,
-  useUnifiedTopology : true
+  useUnifiedTopology:true
 } ).then(() => console.log('Successfully connected to mongodb'))
-  .catch(e => console.error(e));
+    .catch(e => console.error(e));
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-
+app.use('/dataset',express.static('dataset'));
+app.use(express.static('views'))
+app.use(express.static('css'))
+app.use(express.static('js'))
+app.use(express.static('scss'))
+app.use(express.static('vendor'))
 // EJS
-app.use(expressLayouts);
-app.set('view engine', 'ejs');
+
+app.set('view engine', 'html')
+app.engine('html', ejs.renderFile)
 
 // Express body parser
 app.use(bodyParser.json());
@@ -53,10 +47,6 @@ app.use(session({
   }
 }));
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Connect flash
 app.use(flash());
 
@@ -69,25 +59,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-//HTTP 접근 제어(cor) 처리
-app.use(cors({origins: ["http://localhost:8080", "http://www.openclass.gq", "http://openclass.gq", "https://www.openclass.gq", "https://openclass.gq"]}));
 
 // Routes
-app.use('/users', require('./routes/users.js'));
-const PORT = process.env.PORT || 5000;
-/*
-서버에서 활성화
-httpsServer = https.createServer(credentials, app);
-httpsServer.listen(PORT, function() {
-    console.log(`Server running on port ${PORT}`);
-});
-const IOserver = https.createServer(credentials, app);
-IOserver.listen(3000, function() {
-    console.log('Socket running on port 3000');
-});
+app.use('/', require('./routes/index.js'));
 
-module.exports = IOserver;
-*/
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
 module.exports = app;

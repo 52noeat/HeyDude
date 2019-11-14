@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
 const FriendListSchema = new mongoose.Schema({
+    userType: {type: Number, required: true},
     userID: {type: String, required: true},
-    userType: {type: boolean, required: true},
     password: {type: String, required: true},
     userName: {type: String, required: true},
     friendList : [

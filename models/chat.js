@@ -5,12 +5,12 @@ const ChatSchema = new mongoose.Schema({
     KName: {type: String, required: true},
     FID: {type: String, required: true},
     FName: {type: String, required: true},
-    exit: {type: boolean, default: false},
+    exit: {type: Boolean, default: false},
     contents : [
         new mongoose.Schema({
             userID: {type: String, required: true},
             content: {type: String, required: true},
-            read: {type: boolean, default: false}
+            read: {type: String, default: false}
         })
     ]
 });

@@ -16,6 +16,9 @@ module.exports = ()=> {
         if (!user) {
           return done(null, false);
         }
+        if(!user.active){
+          return done(null, false);
+        }
         // Match password
         bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw err;
