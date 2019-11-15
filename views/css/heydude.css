@@ -18,3 +18,8 @@
     align-content: center;
     text-align: center;
 }
+.body-size{
+    background: rgb(243,243,243);
+    margin: 0 auto;
+    max-width: 768px;
+}
