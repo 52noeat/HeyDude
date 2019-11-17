@@ -7,12 +7,13 @@
 /*}*/
 .content-scroll{
     overflow-y: scroll !important;
-    max-height: 84vh !important;
-    min-height: 84vh !important;
+    max-height: 83vh !important;
+    min-height: 83vh !important;
     background: rgb(250,250,250);
 }
 .bar{
-    height: 8vh !important;
+    max-height: 8vh !important;
+    min-height: 8vh !important;
 }
 .center{
     align-content: center;

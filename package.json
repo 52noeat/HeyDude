@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mdi/font": "^4.5.95",
     "autoincrement": "^1.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

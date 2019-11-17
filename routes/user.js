@@ -7,11 +7,6 @@ const nodemailer = require('nodemailer');
 // Load User model
 const {User, Profile, FriendList, Request, Chat}=require('../models/index');
 
-// Login Page
-router.get('/login', (req, res) => {
-  res.send(true)
-});
-
 // Duplicate User
 router.get('/duplicate/:userID', (req, res) => {
     var {userID} = req.params
@@ -117,7 +112,7 @@ router.post('/login',
             userName: req.user.userName,
             userID: req.user.userID
       });
-      
+
 });
 
 // Logout

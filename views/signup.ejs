@@ -18,8 +18,8 @@
     <link href="css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
-    <nav class="navbar navbar-dark bg-dark bar">
-        <button class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <nav class="navbar navbar-dark bg-primary bar">
+        <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
         <div>
             <!--<button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>-->
             <button type="button" onclick="PageToSignIn()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign In</button>
@@ -31,7 +31,7 @@
         <article class="container" >
             <div class="page-header" style="position: relative; overflow: hidden;">
                 <br>
-                <h2 align="center">Sign Up</h2>
+                <h2 align="center">Sign up</h2>
                 <br>
                 <hr>
             </div>
@@ -78,20 +78,19 @@
                     <span id="submit_feedback" disabled></span>
                 </div>
                 <div class="form-group">
-                    <button id="submit" class="btn btn-primary btn-block">Sign Up</button>
-                    <div align="center">
-                        <br><a href="signin.ejs" style="text-align:center; margin-top:15px">Sign In</a>
-                    </div>
+                    <button id="submit" class="btn btn-primary btn-block">Sign up</button>
                 </div>
             </div>
         </article>
     </div>
-    <nav class="navbar navbar-dark bg-dark bar">
-        <a class="navbar-brand" href="#">Hey Dude</a>
+    <nav class="navbar navbar-light bar" style="background-color: #e3f2fd;">
     </nav>
 </body>
 </html>
 <script>
+    function PageToHome() {
+        location.href="/"
+    }
     function SignOut() {
         location.href="/logout"
     }
@@ -103,11 +102,6 @@
     }
 
     $(document).ready(function() {
-
-        $("input").on("click", function()
-        {
-            alert('11');
-        })
 
         $("#id").blur(function() {
             checkId();
