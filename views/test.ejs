@@ -18,18 +18,25 @@
     <link href="css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
-    <nav class="navbar navbar-dark bg-dark bar">
-        <a class="navbar-brand" href="#">Hey Dude</a>
-    </nav>
-    <div class="content-scroll">
-<!--요안에만 채우시면됩니다.-->
+<nav class="navbar navbar-dark bg-dark bar">
+    <button class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
     </div>
-    <nav class="navbar navbar-dark bg-dark bar">
-        <a class="navbar-brand" href="#">Hey Dude</a>
-    </nav>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+</div>
+<nav class="navbar navbar-dark bg-dark bar">
+    <button class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+</nav>
 </body>
 </html>
 <script>
-
-
+    function SignOut() {
+        location.href= "/logout";
+    }
+    function PageToHome(){
+        location.href= "/";
+    }
 </script>

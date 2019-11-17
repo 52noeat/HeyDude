@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<head>
+    <meta charset="utf-8">
+    <title>HEY DUDE</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="css/heydude.css" rel="stylesheet">
+</head>
+<body class="body-size">
+<nav class="navbar navbar-dark bg-dark bar">
+    <button class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <!--<button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>-->
+        <button type="button" onclick="PageToSignIn()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign In</button>
+        <button type="button" onclick="PageToSignUp()" class="btn btn-outline-success my-2 my-sm-0" style="color: white">Sign Up</button>
+    </div>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+    <article class="container" >
+        <div class="page-header" style="position: relative; overflow: hidden;">
+            <br>
+            <h2 align="center">Sign UP</h2>
+            <br>
+            <hr>
+        </div>
+        <br>
+
+        <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
+            <div class="form-group">
+                <label class="sr-only" for="id">id</label>
+                <input type='text' class='form-control' id='id' name='id' maxlength="20" placeholder="Email@ajou.ac.kr">
+                <span id="id_feedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="pswd1">Password1</label>
+                <input type="password" class="form-control" id="pswd1" name="pswd1" maxlength="20" placeholder="Password">
+                <span id="pswd1_feedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="pswd2">Password2</label>
+                <input type="password" class="form-control" id="pswd2" name="pswd2" maxlength="20" placeholder="Password check">
+                <span id="pswd2_feedback"></span>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="name">Name</label>
+                <input type="text" class="form-control"  id="name" name="name" required placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="name">Nick Name</label>
+                <input type="text" class="form-control"  id="nickname" name="nickname" required placeholder="Nick Name">
+            </div>
+            <div class="form-group" style="display: flex; max-width: 340px;" >
+                <input type="text" class="form-control" style= "width: 90%" id="yy" name="year" maxlength="4" placeholder="yyyy">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="form-control" style= "width: 45%"  id="mm" name="month" maxlength="2" placeholder="mm">&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="form-control" style= "width: 45%"  id="dd" name="day" maxlength="2" placeholder="dd">
+            </div>
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" name="sex" id="male" value="male" checked>
+                <label class="custom-control-label" for="male">male</label>
+            </div>
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" class="custom-control-input" name="sex" id="female" value="female">
+                <label class="custom-control-label" for="female">female</label>
+            </div>
+            <div class="form-group">
+                <span id="submit_feedback" disabled></span>
+            </div>
+            <div class="form-group">
+                <button id="submit" class="btn btn-primary btn-block">Register</button>
+                <div align="center">
+                    <br><button type="button" onclick="SignIn()" style="text-align:center; margin-top:15px">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+<nav class="navbar navbar-dark bg-dark bar">
+    <button class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+</nav>
+</body>
+</html>
+<script>
+    function SignOut() {
+        location.href="/logout"
+    }
+    function PageToSignIn() {
+        location.href="/signin"
+    }
+    function PageToSignUp() {
+        location.href="/signup"
+    }
+</script>
