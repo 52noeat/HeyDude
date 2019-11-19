@@ -14,9 +14,17 @@ router.get('/signup', (req, res) => {
 router.get('/profileSet', (req, res) => {
     res.render('../views/profileSet.ejs');
 });
-
-router.get('/UserList', (req, res) => {
-    res.render('../views/UserList.ejs');
+router.get('/userList', (req, res) => {
+    res.render('../views/userList.ejs');
+});
+router.get('/userAdd', (req, res) => {
+    res.render('../views/userAdd.ejs');
+});
+router.get('/mypage', (req, res) => {
+    res.render('../views/mypage.ejs');
+});
+router.get('/myProfile', (req, res) => {
+    res.render('../views/myProfile.ejs');
 });
 
 module.exports = router;

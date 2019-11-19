@@ -39,8 +39,11 @@
 
             <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
                 <div class="form-group">
-                    <label class="sr-only" for="id">id</label>
-                    <input type='text' class='form-control' id='id' name='id' maxlength="20" placeholder="Email@ajou.ac.kr">
+                    <div style="display: flex">
+                        <label class="sr-only" for="id">id</label>
+                        <input type='text' class='form-control' style="width: 50%" id='id' name='id' maxlength="20" placeholder="Email">
+                        <input type='text' class='form-control' style="width: 50%" maxlength="20" placeholder="@ajou.ac.kr" disabled value="">
+                    </div>
                     <span id="id_feedback"></span>
                 </div>
                 <div class="form-group">
@@ -55,7 +58,7 @@
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="name">Name</label>
-                    <input type="text" class="form-control"  id="name" name="name" required placeholder="Name">
+                    <input type="text" class="form-control"  id="name" name="name" required placeholder="Name (en)">
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="nickname">Nick Name</label>
@@ -102,7 +105,6 @@
     }
 
     $(document).ready(function() {
-
         $("#id").blur(function() {
             checkId();
         });
@@ -129,26 +131,19 @@
 
         $("#submit").click(function(event) {
             $('#submit_feedback').hide();
-            if(!checkAgree()){
-                $('#submit_feedback').show();
-                showErrorMsg($('#submit_feedback'),"약관에 동의 하세요.");
-                return;
-            }else if(checkId()
+            if(checkId()
                 &&checkPswd1()
                 &&checkPswd2()
                 &&checkName()
+                &&checkNickname()
                 &&checkyy()
                 &&checkmm()
                 &&checkdd()
-                &&checkPhone()
-                &&checkEmail()
-                &&checkPostcode()
-                &&checkRoadAddress()
-                &&checkAddress()){
+                ){
                 submit();
             }else{
                 $('#submit_feedback').show();
-                showErrorMsg($('#submit_feedback'),"모든 항목을 작성하세요.");
+                showErrorMsg($('#submit_feedback'),"Please fill out all.");
                 return;
             }
 
@@ -157,32 +152,22 @@
     });
 
     function submit(){
-
         $.ajax({
             type:"POST",
-            url: "registerConfirm.php" ,
-            data:{
-                id : $('#id').val(),
-                pw : $('#pswd1').val(),
-                name : $('#name').val(),
-                birth : $('#yy').val()+$('#mm').val()+$('#dd').val(),
-                sex : $('input[name="sex"]:checked').val(),
-                phone : $('#phone').val(),
-                phone_agree : $("#phone_agree").is(':checked'),
-                email : $("#email").val(),
-                email_agree : $("#email_agree").is(':checked'),
-                postcode : $("#postcode").val(),
-                roadAddress : $("#roadAddress").val(),
-                address : $("#address").val(),
-                grade : $('input[name="grade"]:checked').val()
+            url: "/user/signup" ,
+            data: {
+                userID: $('#id').val(),
+                password: $('#pswd1').val(),
+                userName: $('#name').val(),
+                nickName: $('#nickname').val(),
+                // birth: $('#yy').val() + $('#mm').val() + $('#dd').val(),
+                sex: $('input[name="sex"]:checked').val()
             }
         }).done(function(result) {
-
             if (result) {
-                alert("회원가입에 축하드립니다.");
-                location.href='login.php';
+                location.href='/signin';
             } else {
-                showErrorMsg($('#submit_feedback'), "다시 시도해주세요.");
+                showErrorMsg($('#submit_feedback'), "Please try again.");
             }
         });
     }
@@ -197,7 +182,7 @@
 
         if ( id == "") {
             oMsg.show();
-            showErrorMsg(oMsg,"필수 정보입니다.");
+            showErrorMsg(oMsg,"required.");
             $("#id").addClass('is-invalid');
             return false;
         }
@@ -205,26 +190,26 @@
         var isID = /^[a-z0-9][a-z0-9_\-]{3,19}$/;
         if (!isID.test(id)) {
             oMsg.show();
-            showErrorMsg(oMsg,"4~20자의 영문 소문자, 숫자와 (_),(-)만 사용 가능합니다.");
+            showErrorMsg(oMsg,"Only 4~20 English lowercase letters, numbers, and (_) are allowed.");
             $("#id").addClass('is-invalid');
             return false;
         }
-
         $.ajax({
             type:"POST",
-            url: "idValidate.php" ,
+            url: "/user/duplicate" ,
             data:{
-                is_id : id
-            }
+                userID : id
+            },
+            dataType: "json"
         }).done(function(result) {
             if (result) {
                 oMsg.show();
-                showSuccessMsg(oMsg, "사용 가능한 아이디입니다.");
+                showSuccessMsg(oMsg, "available ID");
                 $("#id").addClass('is-valid');
 
             } else {
                 oMsg.show();
-                showErrorMsg(oMsg, "이미 사용중인 아이디입니다.");
+                showErrorMsg(oMsg, "unavailable ID");
                 $("#id").addClass('is-invalid');
             }
         });
@@ -232,8 +217,6 @@
     }
 
     function checkPswd1() {
-
-        var id = $("#id").val();
         var pw = $("#pswd1").val();
         var oMsg = $("#pswd1_feedback");
         $("#pswd1").removeClass('is-invalid');
@@ -241,31 +224,17 @@
         oMsg.hide();
         if (pw == "") {
             oMsg.show();
-            showErrorMsg(oMsg,"필수 정보입니다.");
+            showErrorMsg(oMsg,"required");
             return false;
         }
         if (isValidPasswd(pw) != true) {
             oMsg.show();
-            showErrorMsg(oMsg,"8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+            showErrorMsg(oMsg,"Please use 8 to 16 uppercase/lowercase letters, numbers, and special characters.");
             $("#pswd1").addClass('is-invalid');
             return false;
         }
         $("#pswd1").addClass('is-valid');
 
-        // $.ajax({
-        //     type:"GET",
-        //     url: "/user2/joinAjax.nhn?m=checkPswd&id=" + escape(encodeURIComponent(id)) + "&pw=" + escape(encodeURIComponent(pw)) ,
-        //     success : function(data) {
-        //         var result = data.substr(4);
-        //         if (result == 1) {
-        //             showErrorMsg(oMsg,"8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
-        //             return false;
-        //         } else {
-        //             oMsg.hide();
-        //         }
-        //         pwFlag = true;
-        //     }
-        // });
         return true;
     }
 
@@ -288,7 +257,7 @@
         if (pswd1.val() != pswd2.val()) {
             $("#pswd2").addClass('is-invalid');
             oMsg.show();
-            showErrorMsg(oMsg,"일치하지 않습니다.");
+            showErrorMsg(oMsg,"not match");
             return false;
         } else {
             $("#pswd2").addClass('is-valid');
@@ -300,6 +269,18 @@
     function checkName(){
         var val = $('#name');
         var oMsg = $('#name');
+        oMsg.removeClass('is-invalid');
+        if(val.val()==""){
+            oMsg.addClass('is-invalid');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function checkNickname(){
+        var val = $('#nickname');
+        var oMsg = $('#nickname');
         oMsg.removeClass('is-invalid');
         if(val.val()==""){
             oMsg.addClass('is-invalid');
@@ -339,68 +320,6 @@
         oMsg.removeClass('is-invalid');
         if(val.val()==""){
             oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function checkPhone(){
-        var val = $('#phone');
-        var oMsg = $('#phone');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }function checkEmail(){
-        var val = $('#email');
-        var oMsg = $('#email');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function checkPostcode(){
-        var val = $('#postcode');
-        var oMsg = $('#postcode');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function checkRoadAddress(){
-        var val = $('#roadAddress');
-        var oMsg = $('#roadAddress');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function checkAddress(){
-        var val = $('#address');
-        var oMsg = $('#address');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-    function checkAgree(){
-        var val = $('#agree');
-        if(val.is(':checked')==false){
             return false;
         }else{
             return true;
@@ -487,9 +406,9 @@
 
         var oMsg = $("#pswd1_feedback");
         if ((myKeyCode >= 65 && myKeyCode <= 90) && !myShiftKey) {
-            showErrorMsg(oMsg,"Caps Lock이 켜져 있습니다.");
+            showErrorMsg(oMsg,"Caps Lock is on.");
         } else if ((myKeyCode >= 97 && myKeyCode <= 122) && myShiftKey) {
-            showErrorMsg(oMsg,"Caps Lock이 켜져 있습니다.");
+            showErrorMsg(oMsg,"Caps Lock is on.");
         } else {
             hideMsg(oMsg);
         }
@@ -508,9 +427,9 @@
 
         var oMsg = $("#pswd2_feedback");
         if ((myKeyCode >= 65 && myKeyCode <= 90) && !myShiftKey) {
-            showErrorMsg(oMsg,"Caps Lock이 켜져 있습니다.");
+            showErrorMsg(oMsg,"Caps Lock is on.");
         } else if ((myKeyCode >= 97 && myKeyCode <= 122) && myShiftKey) {
-            showErrorMsg(oMsg,"Caps Lock이 켜져 있습니다.");
+            showErrorMsg(oMsg,"Caps Lock is on.");
         } else {
             hideMsg(oMsg);
         }

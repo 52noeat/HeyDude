@@ -4,28 +4,63 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const passportConfig = require('../config/passport');
 const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+
 // Load User model
 const {User, Profile, FriendList, Request, Chat}=require('../models/index');
 
 // Duplicate User
-router.get('/duplicate/:userID', (req, res) => {
-    var {userID} = req.params
+router.post('/duplicate', (req, res) => {
+    var {userID} = req.body
     User.findOne({userID: userID}).then(user => {
         if (user)
-            res.send(true)
-        else
             res.send(false)
+        else
+            res.send(true)
     });
 })
 
 // Register
 router.post('/signup', (req, res) => {
-  const { userType, userID, password, userName } = req.body;
+    const {userID, password, userName, nickName, sex} = req.body;
+    let code=0;
+    for(let n=0; n < 6;n++){
+            let num = Math.floor(Math.random() * 10);;
+            code=code*10;
+            code+= num;
+    }
+    code=code%1000000;
+
+    let transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'heydudeajou@gmail.com',
+            pass: 'rnrkd9wh!@'
+        }
+    }));
+
+    let mailOptions = {
+        from: 'heydudeajou@gmail.com',
+        to: userID+'@ajou.ac.kr',
+        subject: 'Verification code for HeyDude sign up',
+        text: 'your verification code is'+'\n'+code
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
     const newUser = new User({
-        userType: userType,
         userID: userID,
         password: password,
-        userName: userName
+        userName: userName,
+        nickName: nickName,
+        sex: sex,
+        verification : code
     });
     User.findOne({userID:userID}).then(ID=>{
       if(ID){
@@ -34,7 +69,7 @@ router.post('/signup', (req, res) => {
       else{
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
+              if(err) throw err;
             newUser.password = hash;
             newUser
                 .save()
@@ -138,10 +173,15 @@ router.post('/passwordCheck',(req,res)=>{
   })
 })
 
+router.get('/mail', async(req, res) => {
+    // let userID = 'whsso1101'
+
+
+});
+
 router.post('/edit', async (req,res)=> {
     let {userID, password} = req.body;
     let newPassword;
-
 
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, (err, hash) => {

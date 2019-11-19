@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<head>
+    <meta charset="utf-8">
+    <title>HEY DUDE</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="css/heydude.css" rel="stylesheet">
+</head>
+<body class="body-size">
+<nav class="navbar navbar-dark bg-primary bar">
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
+    </div>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+    <div class="column">
+        <table id="table">
+        </table>
+    </div>
+</div>
+<nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center;">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-home" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-group" href="/userList"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-comment" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account" href="/mypage"></a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>
+<script>
+    setTable()
+    function PageToHome() {
+        location.href="/"
+    }
+    function SignOut() {
+        location.href="/logout"
+    }
+    function PageToSignIn() {
+        location.href="/signin"
+    }
+    function PageToSignUp() {
+        location.href="/signup"
+    }
+    function setTable() {
+        let str =""
+        // for(){
+        //        str += "<tr><td>"
+        //    여기서 동적으로 입력
+        //        str += "</td></tr>"
+        // }
+        str += "<tr><td>"
+        str +=
+            "            <div class='card'>" +
+            "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
+            "                    <div class='profileinfo'>" +
+            "                        <h1>Tima</h1>" +
+            "                        <h3>23, Turkey, Male</h3>" +
+            "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
+            "                        <button class='button'>Detail</button>" +
+            "                        <button class='button' style='background-color: #01CB25'>Accept</button>" +
+            "                        <button class='button' style='background-color: #D90101'>Decline</button>" +
+            "                    </div>" +
+            "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
+            "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
+            "                    <button type='button' class='btn btn-warning' style= 'height: fit-content;' disabled>study</button>" +
+            "                </div>" +
+            "            </div>"
+        str += "</td></tr>"
+        str+= str;
+        $('#table').html(str)
+    }
+</script>
+
+<style>
+
+</style>
