@@ -15,4 +15,8 @@ router.get('/profileSet', (req, res) => {
     res.render('../views/profileSet.ejs');
 });
 
+router.get('/UserList', (req, res) => {
+    res.render('../views/UserList.ejs');
+});
+
 module.exports = router;
