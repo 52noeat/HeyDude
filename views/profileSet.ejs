@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<head>
+    <meta charset="utf-8">
+    <title>HEY DUDE</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="css/heydude.css" rel="stylesheet">
+</head>
+<body class="body-size">
+<nav class="navbar navbar-dark bg-primary bar">
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
+    </div>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+    <article class="container" >
+        <div class="page-header" style="position: relative; overflow: hidden;">
+            <br>
+            <h2 align="center">Profile</h2>
+            <br>
+            <hr>
+        </div>
+        <br>
+        <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
+            <div class="form-group">
+                <select class="btn btn-secondary dropdown-toggle" type="button" id="nationality" style="background-color: white; color: black"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="nationality">
+                    <option value="">---- Select Nationality ----</option>
+                    <option value="american">American</option>
+                    <option value="argentinean">Argentinean</option>
+                    <option value="australian">Australian</option>
+                    <option value="austrian">Austrian</option>
+                    <option value="bangladeshi">Bangladeshi</option>
+                    <option value="barbadian">Barbadian</option>
+                    <option value="barbudans">Barbudans</option>
+                    <option value="batswana">Batswana</option>
+                    <option value="belgian">Belgian</option>
+                    <option value="belizean">Belizean</option>
+                    <option value="beninese">Beninese</option>
+                    <option value="bosnian">Bosnian</option>
+                    <option value="brazilian">Brazilian</option>
+                    <option value="cambodian">Cambodian</option>
+                    <option value="canadian">Canadian</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="colombian">Colombian</option>
+                    <option value="cuban">Cuban</option>
+                    <option value="czech">Czech</option>
+                    <option value="dominican">Dominican</option>
+                    <option value="dutch">Dutch</option>
+                    <option value="egyptian">Egyptian</option>
+                    <option value="ethiopian">Ethiopian</option>
+                    <option value="french">French</option>
+                    <option value="german">German</option>
+                    <option value="ghanaian">Ghanaian</option>
+                    <option value="greek">Greek</option>
+                    <option value="honduran">Honduran</option>
+                    <option value="hungarian">Hungarian</option>
+                    <option value="icelander">Icelander</option>
+                    <option value="indian">Indian</option>
+                    <option value="indonesian">Indonesian</option>
+                    <option value="iranian">Iranian</option>
+                    <option value="iraqi">Iraqi</option>
+                    <option value="irish">Irish</option>
+                    <option value="israeli">Israeli</option>
+                    <option value="italian">Italian</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="kazakhstani">Kazakhstani</option>
+                    <option value="kenyan">Kenyan</option>
+                    <option value="kuwaiti">Kuwaiti</option>
+                    <option value="malaysian">Malaysian</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="monacan">Monacan</option>
+                    <option value="mongolian">Mongolian</option>
+                    <option value="moroccan">Moroccan</option>
+                    <option value="nepalese">Nepalese</option>
+                    <option value="new zealander">New Zealander</option>
+                    <option value="ni-vanuatu">Ni-Vanuatu</option>
+                    <option value="nicaraguan">Nicaraguan</option>
+                    <option value="nigerien">Nigerien</option>
+                    <option value="northern irish">Northern Irish</option>
+                    <option value="norwegian">Norwegian</option>
+                    <option value="omani">Omani</option>
+                    <option value="pakistani">Pakistani</option>
+                    <option value="paraguayan">Paraguayan</option>
+                    <option value="peruvian">Peruvian</option>
+                    <option value="polish">Polish</option>
+                    <option value="portuguese">Portuguese</option>
+                    <option value="russian">Russian</option>
+                    <option value="salvadoran">Salvadoran</option>
+                    <option value="saudi">Saudi</option>
+                    <option value="scottish">Scottish</option>
+                    <option value="singaporean">Singaporean</option>
+                    <option value="slovakian">Slovakian</option>
+                    <option value="slovenian">Slovenian</option>
+                    <option value="south korean">South Korean</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="swedish">Swedish</option>
+                    <option value="swiss">Swiss</option>
+                    <option value="taiwanese">Taiwanese</option>
+                    <option value="thai">Thai</option>
+                    <option value="togolese">Togolese</option>
+                    <option value="tongan">Tongan</option>
+                    <option value="tunisian">Tunisian</option>
+                    <option value="turkish">Turkish</option>
+                    <option value="ugandan">Ugandan</option>
+                    <option value="ukrainian">Ukrainian</option>
+                    <option value="uruguayan">Uruguayan</option>
+                    <option value="uzbekistani">Uzbekistani</option>
+                    <option value="venezuelan">Venezuelan</option>
+                    <option value="vietnamese">Vietnamese</option>
+                </select>
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>The biggest purpose of meeting foreign friends</label>
+            </div>
+                <div class="form-group custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" name="tag" id="play" value="play" checked>
+                    <label class="custom-control-label" for="play">play</label>
+                </div>
+                <div class="form-group custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" name="tag" id="culture" value="culture">
+                    <label class="custom-control-label" for="culture">culture</label>
+                </div>
+                <div class="form-group custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" name="tag" id="study" value="study">
+                    <label class="custom-control-label" for="study">study</label>
+                </div>
+            <div class="form-group">
+                <span id="submit_feedback" disabled></span>
+            </div>
+            <div class="form-group">
+                <button id="submit" class="btn btn-primary btn-block">Set Profile</button>
+            </div>
+        </div>
+    </article>
+</div>
+<nav class="navbar navbar-light " style="background-color: #e3f2fd;">
+    <ul class="nav nav-pills" style="font-size: larger;">
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-home" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-group" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-plus" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-comment" href="/"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account active" href="/"></a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>
+<script>
+    function PageToHome() {
+        location.href="/"
+    }
+    function SignOut() {
+        location.href="/logout"
+    }
+    function PageToSignIn() {
+        location.href="/signin"
+    }
+    function PageToSignUp() {
+        location.href="/signup"
+    }
+</script>
