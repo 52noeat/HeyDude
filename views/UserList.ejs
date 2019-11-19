@@ -30,45 +30,8 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <div class="column">
-        <div class="content">
-            <div class="card">
-                <div class="firstinfo"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg"/>
-                    <div class="profileinfo">
-                        <h1>Tima</h1>
-                        <h3>23, Turkey, Male</h3>
-                        <p class="bio">Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>
-                        <p><button class="button">Detail</button></p>
-                    </div>
-                    <p><tag>Play</tag></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="card">
-                <div class="firstinfo"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg"/>
-                    <div class="profileinfo">
-                        <h1>Francesco Moustache</h1>
-                        <h3>Python Ninja</h3>
-                        <p class="bio">Lived all my life on the top of mount Fuji, learning the way to be a Ninja Dev.</p>
-                        <p><button class="button">Detail</button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="card">
-                <div class="firstinfo"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg"/>
-                    <div class="profileinfo">
-                        <h1>Francesco Moustache</h1>
-                        <h3>Python Ninja</h3>
-                        <p class="bio">Lived all my life on the top of mount Fuji, learning the way to be a Ninja Dev.</p>
-                        <p><button class="button">Detail</button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <table id="table">
+        </table>
     </div>
 </div>
 <nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center;">
@@ -94,6 +57,7 @@
 </body>
 </html>
 <script>
+    setTable()
     function PageToHome() {
         location.href="/"
     }
@@ -105,6 +69,32 @@
     }
     function PageToSignUp() {
         location.href="/signup"
+    }
+    function setTable() {
+        let str =""
+        // for(){
+        //        str += "<tr><td>"
+        //    여기서 동적으로 입력
+        //        str += "</td></tr>"
+        // }
+        str += "<tr><td>"
+        str +=
+            "            <div class='card'>" +
+            "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
+            "                    <div class='profileinfo'>" +
+            "                        <h1>Tima</h1>" +
+            "                        <h3>23, Turkey, Male</h3>" +
+            "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
+            "                        <p><button class='button'>Detail</button></p>" +
+            "                    </div>" +
+            "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
+            "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
+            "                    <button type='button' class='btn btn-warning' style= 'height: fit-content;' disabled>study</button>" +
+            "                </div>" +
+            "            </div>"
+        str += "</td></tr>"
+        str+= str;
+        $('#table').html(str)
     }
 </script>
 
