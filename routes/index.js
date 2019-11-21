@@ -123,7 +123,9 @@ router.post('/board/write', function (req, res) {
 /* board find by id */
 router.get('/board/:id', function (req, res) {
     Board.findOne({_id: req.params.id}, function (err, board) {
-        res.render('../views/board.ejs', { title: 'Board', board: board });
+        console.log(req.params.id)
+        console.log(board)
+        res.render('../views/board.ejs', { title: 'Board', board: board});
     })
 });
 

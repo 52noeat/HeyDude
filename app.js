@@ -29,6 +29,7 @@ app.use(express.static('css'))
 app.use(express.static('js'))
 app.use(express.static('scss'))
 app.use(express.static('vendor'))
+
 // EJS
 
 app.set('view engine', 'html')
