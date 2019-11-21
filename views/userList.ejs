@@ -57,17 +57,23 @@
 <script>
     setTable()
     function PageToHome() {
-        location.href="/"
+        location.href="/home"
     }
     function SignOut() {
-        location.href="/logout"
+        $.ajax({
+            type:"GET",
+            url: "/user/signout" ,
+            data: {
+            }
+        }).done(function(result) {
+            if (result) {
+                location.replace('/signin');
+            } else {
+                location.reload();
+            }
+        });
     }
-    function PageToSignIn() {
-        location.href="/signin"
-    }
-    function PageToSignUp() {
-        location.href="/signup"
-    }
+
     function setTable() {
         let str =""
         // for(){

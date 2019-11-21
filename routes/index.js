@@ -1,9 +1,10 @@
 const express = require('express');
+const session = require('express-session');
 const router = express.Router();
 
 // Main Page
 router.get('/', (req, res) => {
-    res.render('../views/home.ejs');
+    res.render('../views/index.ejs');
 });
 router.get('/signin', (req, res) => {
     res.render('../views/signin.ejs');
@@ -11,20 +12,63 @@ router.get('/signin', (req, res) => {
 router.get('/signup', (req, res) => {
     res.render('../views/signup.ejs');
 });
+
+router.get('/verification',(req,res)=>{
+    let sess = req.session
+    console.log(sess)
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/verification.ejs');
+    }
+});
+router.get('/home',(req,res)=>{
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/home.ejs');
+    }
+});
 router.get('/profileSet', (req, res) => {
-    res.render('../views/profileSet.ejs');
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/profileSet.ejs');
+    }
 });
 router.get('/userList', (req, res) => {
-    res.render('../views/userList.ejs');
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/userList.ejs');
+    }
 });
 router.get('/userAdd', (req, res) => {
-    res.render('../views/userAdd.ejs');
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/userAdd.ejs');
+    }
 });
 router.get('/mypage', (req, res) => {
-    res.render('../views/mypage.ejs');
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/mypage.ejs');
+    }
 });
 router.get('/myProfile', (req, res) => {
-    res.render('../views/myProfile.ejs');
+    let sess = req.session
+    if(!sess.userID){
+        res.render('../views/signin.ejs');
+    }else{
+        res.render('../views/myProfile.ejs');
+    }
 });
 
 module.exports = router;

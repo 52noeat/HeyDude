@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const passportConfig = require('../config/passport');
+const session = require('express-session');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
@@ -129,32 +128,72 @@ router.post('/profile', (req, res) => {
     })
 });
 
-passportConfig();
-
-// Login
-router.post('/login',
-    passport.authenticate('local'),
-    (req, res) => {
-      let userType;
-      if(req.user.userType == false)
-          userType = false;
-      else
-          userType = true;
-      if(req.user.userID=="admin")
-          userType = 3;
-      res.send({
-            userType: userType,
-            userName: req.user.userName,
-            userID: req.user.userID
-      });
-
+// Signin
+router.post('/signin', (req, res) => {
+    let sess
+    let {userID,password} = req.body;
+        sess = req.session;
+    console.log(req.body);
+        User.findOne({
+            userID: userID
+        }).then(user => {
+            if (!user) {
+                res.send("1")
+            }
+            // Match password
+            else {
+                bcrypt.compare(password, user.password, (err, isMatch) => {
+                    if (err) throw err;
+                    if (isMatch) {
+                        sess.userID = user.userID;
+                        sess.verification = user.verification;
+                        if (user.verification != '1') {
+                            res.send("3")
+                        } else {
+                            res.send("4");
+                        }
+                    } else {
+                        res.send("2");
+                    }
+                });
+            }
+        });
 });
 
-// Logout
-router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.send("logout");
+// Verification
+router.post('/verification', (req, res) => {
+    let sess
+    let {verification} = req.body;
+    let userID;
+    sess = req.session;
+    userID = req.session.userID
+    User.findOne({
+        userID: userID
+    }).then(user => {
+        if (!user) {
+            res.send("1")
+        }else{
+            if(user.verification==verification){
+                User.updateOne({userID: userID}, {verification: '1'}).then(result=>{
+                    res.send("3")
+                })
+            }else{
+                res.send("2")
+            }
+        }
+    });
+});
+
+// Signout
+router.get('/signout', (req, res) => {
+    sess = req.session
+    req.session.destroy(function (err) {
+        if(err){
+            throw err
+        }else{
+            res.send('1');
+        }
+    })
 });
 
 router.post('/passwordCheck',(req,res)=>{
@@ -173,11 +212,6 @@ router.post('/passwordCheck',(req,res)=>{
   })
 })
 
-router.get('/mail', async(req, res) => {
-    // let userID = 'whsso1101'
-
-
-});
 
 router.post('/edit', async (req,res)=> {
     let {userID, password} = req.body;

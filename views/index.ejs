@@ -22,51 +22,21 @@
     <nav class="navbar navbar-dark bg-primary bar">
         <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
         <div>
-            <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
+            <!--<button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>-->
+            <button type="button" onclick="PageToSignIn()" class="btn btn-outline-info my-2 my-sm-0" style="border: none; color: white">Sign In</button>
+            <button type="button" onclick="PageToSignUp()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Up</button>
         </div>
     </nav>
     <div class="content-scroll">
 <!--요안에만 채우시면됩니다.-->
     </div>
-    <nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-home" href="/home"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account-group" href="/userList"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-comment" href="/"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account" href="/mypage"></a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     </nav>
-
 </body>
 </html>
 <script>
     function PageToHome() {
-        location.href="/home"
-    }
-    function SignOut() {
-        $.ajax({
-            type:"GET",
-            url: "/user/signout" ,
-            data: {
-            }
-        }).done(function(result) {
-            if (result) {
-                location.replace('/signin');
-            } else {
-                location.reload();
-            }
-        });
+        location.href="/"
     }
     function PageToSignIn() {
         location.replace("/signin")
@@ -78,15 +48,6 @@
 
 <style>
     .nav-pills {
-        justify-content: center;
-        width: 100%;
         font-size: larger;
-        background-color: #80bdff;
-    }
-    .nav-item  {
-        color: #0c5460;
-    }
-    .mdi-home{
-        color: #0c5460;
     }
 </style>

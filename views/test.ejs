@@ -22,44 +22,56 @@
 <nav class="navbar navbar-dark bg-primary bar">
     <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
     <div>
-        <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
     </div>
 </nav>
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
 </div>
-<nav class="navbar navbar-light " style="background-color: #e3f2fd;">
+<nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills" style="font-size: larger;">
         <li class="nav-item">
-            <a class="nav-link mdi mdi-home active" href="/"></a>
+            <a class="nav-link mdi mdi-home" href="/home"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-group" href="/"></a>
+            <a class="nav-link mdi mdi-account-group" href="/userList"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-plus" href="/"></a>
+            <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account" href="/"></a>
+            <a class="nav-link mdi mdi-account" href="/mypage"></a>
         </li>
     </ul>
 </nav>
+
 </body>
 </html>
 <script>
     function PageToHome() {
-        location.href="/"
+        location.href="/home"
     }
     function SignOut() {
-        location.href="/logout"
-    }
-    function PageToSignIn() {
-        location.href="/signin"
-    }
-    function PageToSignUp() {
-        location.href="/signup"
+        $.ajax({
+            type:"GET",
+            url: "/user/signout" ,
+            data: {
+            }
+        }).done(function(result) {
+            if (result) {
+                location.replace('/signin');
+            } else {
+                location.reload();
+            }
+        });
     }
 </script>
+
+<style>
+    .nav-pills {
+        font-size: larger;
+    }
+</style>
