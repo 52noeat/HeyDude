@@ -19,41 +19,59 @@
     <link href="css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
-    <nav class="navbar navbar-dark bg-primary bar">
-        <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
-        <div>
-            <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
-        </div>
-    </nav>
-    <div class="content-scroll">
-<!--요안에만 채우시면됩니다.-->
+<nav class="navbar navbar-dark bg-primary bar">
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
+    </div>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+    <div>
         <h1><%= title %></h1>
         <p>Welcome to <%= title %></p>
-        <a href="write">글쓰기</a><br>
-        <% if (board !== null){
-        for(var i = 0; i < board.length; i++) { %>
-            <a href="/board/<%= board[i]._id%>"><h3><%= i+1 %> - <%=board[i].title%></h3></a>
-        <%  }} %>
+        <h1>제목 : <%=board.title%> </h1>
+        <h3>작성자 : <%=board.author%> </h3>
+        <h3>내용 : <%=board.contents%> </h3>
     </div>
-    <nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-home active" href="/home"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account-group" href="/userList"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-comment" href="/chatList"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link mdi mdi-account" href="/mypage"></a>
-            </li>
-        </ul>
-    </nav>
+    <hr>
+    <div>
+        <% if (board.comments !== null) {
+            var comment = board.comments;
+        for(var i = 0; i < board.comments.length; i++) {%>
+        <h4>작성자 : <%=comment[i].author%></h4>
+        <h4>내용 : <%=comment[i].contents%></h4>
+        <hr>
+        <%}}%>
+    </div>
+    <div>
+        <form action="/comment/write" method="post">
+            <input type="text" name="id" value="<%=board._id%>" hidden>
+            댓글 : <textarea name="contents"></textarea><br>
+            글쓴이 : <input type="text" name="author"><br>
+            <input type="submit" value="확인">
+        </form>
+    </div>
+</div>
+<nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-home active" href="/home"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-group" href="/userList"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-comment" href="/chatList"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account" href="/mypage"></a>
+        </li>
+    </ul>
+</nav>
 
 </body>
 </html>
