@@ -21,7 +21,6 @@
 <nav class="navbar navbar-dark bg-primary bar">
     <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
     <div>
-        <!--<button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>-->
         <button type="button" onclick="PageToSignIn()" class="btn btn-outline-info my-2 my-sm-0" style="border: none; color: white">Sign In</button>
         <button type="button" onclick="PageToSignUp()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Up</button>
     </div>
@@ -38,14 +37,15 @@
             <br>
             <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
                 <div class="form-group">
-                    <label class="sr-only" for="id">id</label>
-                    <input type='text' class='form-control' id='id' name='id' maxlength="20" placeholder="Email@ajou.ac.kr">
-                    <span id="id_feedback"></span>
+                    <div style="display: flex">
+                        <label class="sr-only" for="id">id</label>
+                        <input type='text' class='form-control' style="width: 50%" id='id' name='id' maxlength="20" placeholder="Email">
+                        <input type='text' class='form-control' style="width: 50%" maxlength="20" placeholder="@ajou.ac.kr" disabled value="">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="pswd1">Password1</label>
-                    <input type="password" onclick="enterkey()" class="form-control" id="pswd1" name="pswd1" maxlength="20" placeholder="Password">
-                    <span id="pswd1_feedback"></span>
+                    <input type="password" onclick="enterkey()" class="form-control" id="pw" name="pw" maxlength="20" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <span id="submit_feedback" disabled></span>
@@ -62,16 +62,13 @@
 </html>
 <script>
     function PageToHome() {
-        location.href="/"
-    }
-    function SignOut() {
-        location.href="/logout"
+        location.href="/home"
     }
     function PageToSignIn() {
-        location.href="/signin"
+        location.replace("/signin")
     }
     function PageToSignUp() {
-        location.href="/signup"
+        location.replace("/signup")
     }
 
     $("#signin").on("click",function(e){
@@ -87,25 +84,35 @@
     function submit(){
         var id = $("#id").val();
         var pw = $("#pw").val();
-        $.ajax({
-            type: "POST",
-            url: "/signin/submit",
-            data: {
-                id: id,
-                pw: pw
-            }
-        }).done(function( msg ) {
-            $("#login_feedback").hide();
-            $("#pw").removeClass('is-invalid');
-            $("#id").removeClass('is-invalid');
-            if(!msg){
-                $("#login_feedback").html("비밀번호를 확인하세요.");
-                $("#login_feedback").show();
-                $("#pw").addClass('is-invalid');
-                $("#id").addClass('is-invalid');
-            }else{
-            location.replace("/");
-            }
-        });
+        if(pw==""||id==""){
+            return
+        }else {
+            $.ajax({
+                type:"POST",
+                url: "/user/signin" ,
+                data: {
+                    userID: id,
+                    password: pw
+                }
+            }).done(function(result) {
+                $("#submit_feedback").hide();
+                $("#pw").removeClass('is-invalid');
+                $("#id").removeClass('is-invalid');
+                if(result=="1") {
+                    $("#submit_feedback").html("아이디를 확인하세요.");
+                    $("#submit_feedback").show();
+                    $("#id").addClass('is-invalid');
+                }else if(result=="2"){
+                    $("#submit_feedback").html("비밀번호를 확인하세요.");
+                    $("#submit_feedback").show();
+                    $("#pw").addClass('is-invalid');
+                }
+                else if(result=="3"){
+                    location.replace("/verification");
+                }else{
+                    location.replace("/home");
+                }
+            });
+        }
     }
 </script>

@@ -41,7 +41,7 @@
     <nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
         <ul class="nav nav-pills" style="font-size: larger;">
             <li class="nav-item">
-                <a class="nav-link mdi mdi-home" href="/"></a>
+                <a class="nav-link mdi mdi-home" href="/home"></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account-group" href="/userList"></a>
@@ -62,16 +62,21 @@
 </html>
 <script>
     function PageToHome() {
-        location.href="/"
+        location.href="/home"
     }
     function SignOut() {
-        location.href="/logout"
-    }
-    function PageToSignIn() {
-        location.href="/signin"
-    }
-    function PageToSignUp() {
-        location.href="/signup"
+        $.ajax({
+            type:"GET",
+            url: "/user/signout" ,
+            data: {
+            }
+        }).done(function(result) {
+            if (result) {
+                location.replace('/signin');
+            } else {
+                location.reload();
+            }
+        });
     }
 </script>
 
