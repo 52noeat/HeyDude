@@ -48,7 +48,7 @@
                     <input type="password" onclick="enterkey()" class="form-control" id="pw" name="pw" maxlength="20" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <span id="submit_feedback" disabled></span>
+                    <span id="submit_feedback" style="color: red" disabled></span>
                 </div>
                 <div class="form-group">
                     <button id="signin" class="btn btn-primary btn-block">Sign in</button>
@@ -99,11 +99,11 @@
                 $("#pw").removeClass('is-invalid');
                 $("#id").removeClass('is-invalid');
                 if(result=="1") {
-                    $("#submit_feedback").html("아이디를 확인하세요.");
+                    $("#submit_feedback").html("Please check your ID.");
                     $("#submit_feedback").show();
                     $("#id").addClass('is-invalid');
                 }else if(result=="2"){
-                    $("#submit_feedback").html("비밀번호를 확인하세요.");
+                    $("#submit_feedback").html("Please check your password.");
                     $("#submit_feedback").show();
                     $("#pw").addClass('is-invalid');
                 }

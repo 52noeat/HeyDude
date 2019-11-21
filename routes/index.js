@@ -18,7 +18,7 @@ router.get('/signup', (req, res) => {
 
 router.get('/verification',(req,res)=>{
     let sess = req.session
-    console.log(sess)
+    console.log({userID:sess.userID, verification : sess.verification})
     if(!sess.userID){
         res.render('../views/signin.ejs');
     }else{

@@ -35,6 +35,8 @@
             </div>
             <br>
             <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
+                <a href="https://mail.google.com">Go to Gmail</a>
+                <br>
                 <div class="form-group">
                     <label class="sr-only" for="pswd1">verification</label>
                     <input type="text" onclick="enterkey()" class="form-control" id="verification" name="verification" maxlength="20" placeholder="Verification code" >
@@ -42,6 +44,9 @@
                 </div>
                 <div class="form-group">
                     <button id="submit" class="btn btn-primary btn-block">submit</button>
+                </div>
+                <div class="form-group">
+                    <button id="resend" class="btn btn-primary btn-block">resend</button>
                 </div>
             </div>
         </article>
@@ -73,12 +78,32 @@
         submit();
     })
 
+    $("#resend").on("click",function(e){
+        resend();
+    })
+
     function enterkey(){
         var keyCode = window.event.keyCode;
         if(keyCode == 13){
             submit();
         }
     }
+
+    function resend() {
+        alert("!!")
+        $.ajax({
+            type: "GET",
+            url: "/user/resend",
+            data: {
+
+            },
+            dataType: "json"
+        }).done(function( msg ) {
+            alert(msg)
+            location.replace("/verification");
+        });
+    }
+
     function submit(){
         var verification = $("#verification").val();
         $.ajax({

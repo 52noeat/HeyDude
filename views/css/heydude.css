@@ -23,7 +23,7 @@
 .body-size{
     background: rgb(243,243,243);
     margin: 0 auto;
-    max-width: 768px;
+    max-width: 800px;
 }
 tag {
     background-color: #80bdff;
@@ -124,3 +124,4 @@ tag {
 .button:hover {
     background-color: #a6b0b5;
 }
+
