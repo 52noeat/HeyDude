@@ -5,6 +5,7 @@
 /*html{*/
     /*overflow: hidden !important;*/
 /*}*/
+
 .content-scroll{
     overflow-y: scroll !important;
     max-height: 83vh !important;

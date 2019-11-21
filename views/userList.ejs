@@ -75,6 +75,7 @@
         //    여기서 동적으로 입력
         //        str += "</td></tr>"
         // }
+        for(var i=0; i<2; i++){
         str += "<tr><td>"
         str +=
             "            <div class='card'>" +
@@ -91,7 +92,8 @@
             "                </div>" +
             "            </div>"
         str += "</td></tr>"
-        str+= str;
+        }
+        // str+= str;
         $('#table').html(str)
     }
 </script>
