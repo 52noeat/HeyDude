@@ -78,6 +78,10 @@
         submit();
     })
 
+    $("#resend").on("click",function(e){
+        resend();
+    })
+
     function enterkey(){
         var keyCode = window.event.keyCode;
         if(keyCode == 13){
@@ -86,14 +90,16 @@
     }
 
     function resend() {
+        alert("!!")
         $.ajax({
-            type: "POST",
-            url: "/user/verification",
+            type: "GET",
+            url: "/user/resend",
             data: {
-                verification: verification
+
             },
             dataType: "json"
         }).done(function( msg ) {
+            alert(msg)
             location.replace("/verification");
         });
     }
