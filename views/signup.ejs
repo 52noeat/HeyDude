@@ -126,6 +126,7 @@
 
         $("#submit").click(function(event) {
             $('#submit_feedback').hide();
+            $('#submit').hide()
             if(checkId()
                 &&checkPswd1()
                 &&checkPswd2()
@@ -138,6 +139,7 @@
                 submit();
             }else{
                 $('#submit_feedback').show();
+                $('#submit').show()
                 showErrorMsg($('#submit_feedback'),"Please fill out all.");
                 return;
             }

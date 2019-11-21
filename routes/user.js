@@ -175,6 +175,7 @@ router.post('/verification', (req, res) => {
         }else{
             if(user.verification==verification){
                 User.updateOne({userID: userID}, {verification: '1'}).then(result=>{
+                    sess.verification='1'
                     res.send("3")
                 })
             }else{
