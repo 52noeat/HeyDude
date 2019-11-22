@@ -9,6 +9,8 @@
 <!-- Custom scripts for this template -->
 <head>
     <meta charset="utf-8">
+    <!-- 화면 꽉채우기 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>HEY DUDE</title>
     <!-- Bootstrap core CSS -->
     <link href="/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +22,7 @@
 </head>
 <body class="body-size">
     <nav class="navbar navbar-dark bg-primary bar">
-        <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+        <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
         <div>
             <button type="button" onclick="PageToSignIn()" class="btn btn-outline-info my-2 my-sm-0" style="border: none; color: white">Sign In</button>
             <button type="button" onclick="PageToSignUp()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Up</button>
@@ -64,9 +66,9 @@
                     <input type="text" class="form-control"  id="nickname" name="nickname" required placeholder="Nick Name">
                 </div>
                 <div class="form-group" style="display: flex; max-width: 340px;" >
-                    <input type="text" class="form-control" style= "width: 90%" id="yy" name="year" maxlength="4" placeholder="yyyy">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" class="form-control" style= "width: 45%"  id="mm" name="month" maxlength="2" placeholder="mm">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" class="form-control" style= "width: 45%"  id="dd" name="day" maxlength="2" placeholder="dd">
+                    <input type="tel" class="form-control" style= "width: 90%" id="yy" name="year" maxlength="4" placeholder="yyyy">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="tel" class="form-control" style= "width: 45%"  id="mm" name="month" maxlength="2" placeholder="mm">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="tel" class="form-control" style= "width: 45%"  id="dd" name="day" maxlength="2" placeholder="dd">
                 </div>
                 <div class="form-group custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" name="sex" id="male" value="male" checked>
@@ -99,6 +101,7 @@
     function PageToSignUp() {
         location.replace("/signup")
     }
+
 
     $(document).ready(function() {
         $("#id").blur(function() {
