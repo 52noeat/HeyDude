@@ -8,6 +8,8 @@
 <!-- Custom scripts for this template -->
 <head>
     <meta charset="utf-8">
+    <!-- 화면 꽉채우기 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>HEY DUDE</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +22,7 @@
 </head>
 <body class="body-size">
 <nav class="navbar navbar-dark bg-primary bar">
-    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
     <div>
         <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
     </div>
@@ -98,6 +100,8 @@
             "                </div>" +
             "            </div>"
         str += "</td></tr>"
+        str+= str;
+        str+= str;
         str+= str;
         $('#table').html(str)
     }
