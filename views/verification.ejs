@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/views/vendor/jquery/jquery.min.js"></script>
+<script src="/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Custom scripts for this template -->
 <head>
     <meta charset="utf-8">
@@ -12,12 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>HEY DUDE</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="css/heydude.css" rel="stylesheet">
+    <link href="/views/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/views/css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
 <nav class="navbar navbar-dark bg-primary bar">
@@ -37,6 +37,8 @@
             </div>
             <br>
             <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
+                <a href="https://mail.google.com">Go to Gmail</a>
+                <br>
                 <div class="form-group">
                     <label class="sr-only" for="pswd1">verification</label>
                     <input type="text" onclick="enterkey()" class="form-control" id="verification" name="verification" maxlength="20" placeholder="Verification code" >
@@ -44,6 +46,9 @@
                 </div>
                 <div class="form-group">
                     <button id="submit" class="btn btn-primary btn-block">submit</button>
+                </div>
+                <div class="form-group">
+                    <button id="resend" class="btn btn-primary btn-block">resend</button>
                 </div>
             </div>
         </article>
@@ -75,12 +80,32 @@
         submit();
     })
 
+    $("#resend").on("click",function(e){
+        resend();
+    })
+
     function enterkey(){
         var keyCode = window.event.keyCode;
         if(keyCode == 13){
             submit();
         }
     }
+
+    function resend() {
+        alert("!!")
+        $.ajax({
+            type: "GET",
+            url: "/user/resend",
+            data: {
+
+            },
+            dataType: "json"
+        }).done(function( msg ) {
+            alert(msg)
+            location.replace("/verification");
+        });
+    }
+
     function submit(){
         var verification = $("#verification").val();
         $.ajax({

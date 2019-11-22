@@ -83,6 +83,57 @@ router.post('/signup', (req, res) => {
     })
 });
 
+router.get('/resend', (req, res) => {
+    let code = 0;
+    for (let n = 0; n < 6; n++) {
+        let num = Math.floor(Math.random() * 10);
+        ;
+        code = code * 10;
+        code += num;
+    }
+
+    code = code % 1000000;
+    req.session.verification = code;
+    let userID = req.session.userID
+    req.session.userID = userID;
+
+    let transporter = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'heydudeajou@gmail.com',
+            pass: 'rnrkd9wh!@'
+        }
+    }));
+
+    let mailOptions = {
+        from: 'heydudeajou@gmail.com',
+        to: userID + '@ajou.ac.kr',
+        subject: 'Verification code for HeyDude sign up',
+        text: 'your verification code is' + '\n' + code
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.send('3')
+        } else {
+            console.log('Email sent: ' + info.response);
+            User.findOne({
+                userID: userID
+            }).then(user => {
+                if (!user) {
+                    res.send("1")
+                }else{
+                    User.updateOne({userID: userID}, {verification: code}).then(result=>{
+                        res.send("2")
+                    })
+                }
+            });
+        }
+    });
+});
+
 // Profile
 router.post('/profile', (req, res) => {
     const { userType, userID, userName, birth,
@@ -130,10 +181,9 @@ router.post('/profile', (req, res) => {
 
 // Signin
 router.post('/signin', (req, res) => {
-    let sess
+    let sess = req.session;
     let {userID,password} = req.body;
-        sess = req.session;
-    console.log(req.body);
+
         User.findOne({
             userID: userID
         }).then(user => {
@@ -175,6 +225,7 @@ router.post('/verification', (req, res) => {
         }else{
             if(user.verification==verification){
                 User.updateOne({userID: userID}, {verification: '1'}).then(result=>{
+                    sess.verification='1'
                     res.send("3")
                 })
             }else{

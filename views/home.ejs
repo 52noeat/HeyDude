@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/views/vendor/jquery/jquery.min.js"></script>
+<script src="/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Custom scripts for this template -->
 <head>
     <meta charset="utf-8">
@@ -12,13 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <title>HEY DUDE</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
     <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="css/heydude.css" rel="stylesheet">
+    <link href="/views/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/views/css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
     <nav class="navbar navbar-dark bg-primary bar">
@@ -29,11 +29,18 @@
     </nav>
     <div class="content-scroll">
 <!--요안에만 채우시면됩니다.-->
+        <h1><%= title %></h1>
+        <p>Welcome to <%= title %></p>
+        <a href="/write">글쓰기</a><br>
+        <% if (board !== null){
+        for(var i = 0; i < board.length; i++) { %>
+            <button type="button" id="board" value="<%= board[i]._id%>" ><h3><%= i+1 %> - <%=board[i].title%></h3></button>
+        <%  }} %>
     </div>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd; justify-content: center;">
         <ul class="nav nav-pills" style="font-size: larger;">
             <li class="nav-item">
-                <a class="nav-link mdi mdi-home" href="/home"></a>
+                <a class="nav-link mdi mdi-home active" href="/home"></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account-group" href="/userList"></a>
@@ -42,7 +49,7 @@
                 <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mdi mdi-comment" href="/"></a>
+                <a class="nav-link mdi mdi-comment" href="/chatList"></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -70,16 +77,35 @@
             }
         });
     }
-    function PageToSignIn() {
-        location.replace("/signin")
-    }
-    function PageToSignUp() {
-        location.replace("/signup")
+    $("#board").on("click",function(e){
+        submit($("#board").val());
+    })
+    function submit(id) {
+        $.ajax({
+            type:"GET",
+            url: "/home/board" ,
+            data: {
+                id:id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/setboard"
+            }
+        });
     }
 </script>
 
-<style>
-    .nav-pills {
-        font-size: larger;
-    }
-</style>
+<!--<style>-->
+<!--    .nav-pills {-->
+<!--        justify-content: center;-->
+<!--        width: 100%;-->
+<!--        font-size: larger;-->
+<!--        background-color: #80bdff;-->
+<!--    }-->
+<!--    .nav-item  {-->
+<!--        color: #0c5460;-->
+<!--    }-->
+<!--    .mdi-home{-->
+<!--        color: #0c5460;-->
+<!--    }-->
+<!--</style>-->

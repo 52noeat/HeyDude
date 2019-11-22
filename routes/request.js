@@ -54,3 +54,5 @@ router.delete('/decline',(req,res)=>{
             console.log(err);
         })
 })
+
+module.exports = router;

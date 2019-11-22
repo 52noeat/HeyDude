@@ -22,7 +22,7 @@
 </head>
 <body class="body-size">
 <nav class="navbar navbar-dark bg-primary bar">
-    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
     <div>
         <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
     </div>
@@ -40,13 +40,13 @@
             <a class="nav-link mdi mdi-home" href="/home"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-group active" href="/userList"></a>
+            <a class="nav-link mdi mdi-account-group" href="/userList"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-comment" href="/chatList"></a>
+            <a class="nav-link mdi mdi-comment active" href="/chatList"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -59,23 +59,17 @@
 <script>
     setTable()
     function PageToHome() {
-        location.href="/home"
+        location.href="/"
     }
     function SignOut() {
-        $.ajax({
-            type:"GET",
-            url: "/user/signout" ,
-            data: {
-            }
-        }).done(function(result) {
-            if (result) {
-                location.replace('/signin');
-            } else {
-                location.reload();
-            }
-        });
+        location.href="/logout"
     }
-
+    function PageToSignIn() {
+        location.href="/signin"
+    }
+    function PageToSignUp() {
+        location.href="/signup"
+    }
     function setTable() {
         let str =""
         // for(){
@@ -83,7 +77,6 @@
         //    여기서 동적으로 입력
         //        str += "</td></tr>"
         // }
-        for(var i=0; i<2; i++){
         str += "<tr><td>"
         str +=
             "            <div class='card'>" +
@@ -92,7 +85,8 @@
             "                        <h1>Tima</h1>" +
             "                        <h3>23, Turkey, Male</h3>" +
             "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
-            "                        <button class='button'>Detail</button>" +
+            "                        <button class='button' style='background-color: #01CB25'>Accept</button>" +
+            "                        <button class='button' style='background-color: #D90101'>Decline</button>" +
             "                    </div>" +
             "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
             "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
@@ -100,8 +94,7 @@
             "                </div>" +
             "            </div>"
         str += "</td></tr>"
-        }
-        // str+= str;
+        str+= str;
         $('#table').html(str)
     }
 </script>
