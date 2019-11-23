@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -23,17 +24,12 @@ mongoose.connect('mongodb://localhost:27017/heydude', {
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-app.use('/dataset',express.static('dataset'));
-app.use(express.static('views'))
-app.use(express.static('css'))
-app.use(express.static('js'))
-app.use(express.static('scss'))
-app.use(express.static('vendor'))
-
+app.use('/views',express.static('views'));
 // EJS
 
-app.set('view engine', 'html')
-app.engine('html', ejs.renderFile)
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs')
+
 
 // Express body parser
 app.use(bodyParser.json());
@@ -69,6 +65,7 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/user', require('./routes/user.js'));
+app.use('/home', require('./routes/home.js'));
 
 const PORT = process.env.PORT || 5000;
 

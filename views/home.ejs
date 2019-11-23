@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/views/vendor/jquery/jquery.min.js"></script>
+<script src="/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Custom scripts for this template -->
 <head>
     <meta charset="utf-8">
     <title>HEY DUDE</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
     <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="css/heydude.css" rel="stylesheet">
+    <link href="/views/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/views/css/heydude.css" rel="stylesheet">
 </head>
 <body class="body-size">
     <nav class="navbar navbar-dark bg-primary bar">
@@ -27,13 +27,21 @@
     </nav>
     <div class="content-scroll">
 <!--요안에만 채우시면됩니다.-->
+        <div class="column">
+            <table id="table">
+            </table>
+        </div>
+
         <h1><%= title %></h1>
         <p>Welcome to <%= title %></p>
-        <a href="write">글쓰기</a><br>
+        <a href="home/write">글쓰기</a><br>
         <% if (board !== null){
         for(var i = 0; i < board.length; i++) { %>
-            <a href="board/<%= board[i].id%>"><h3><%= i+1%> - <%= board[i].title%></h3></a>
+            <button class='btn-primary' id="board" type="button" value="<%= board[i]._id%>" ><h3><%= i+1 %> - <%=board[i].title%></h3></button>
+        <hr>
         <%  }} %>
+
+
 
     </div>
     <nav class="navbar navbar-light " style="background-color: #e3f2fd; justify-content: center">
@@ -59,6 +67,7 @@
 </body>
 </html>
 <script>
+    setTable()
     function PageToHome() {
         location.href="/home"
     }
@@ -76,25 +85,43 @@
             }
         });
     }
-    function PageToSignIn() {
-        location.replace("/signin")
+    $(document).on("click", "#board", function(e){
+        console.log(e.currentTarget.value);
+        submit(e.currentTarget.value);
+    })
+    function submit(id) {
+        $.ajax({
+            type:"GET",
+            url: "/home/board" ,
+            data: {
+                id:id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/setboard"
+            }
+        });
     }
-    function PageToSignUp() {
-        location.replace("/signup")
+
+    function setTable() {
+        let str =""
+        for(var i=0; i<2; i++){
+            str += "<tr><td>"
+            str +=
+                "            <div class='card'>" +
+                "                    <div class='title'>" +
+                "                        <h1>게시판</h1>" +
+                "                        <h3>23, Turkey, Male</h3>" +
+                "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
+                "                        <button class='button'>Detail</button>" +
+                "                    </div>" +
+                "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
+                "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
+                "                    <button type='button' class='btn btn-warning' style= 'height: fit-content;' disabled>study</button>" +
+                "                </div>" +
+                "            </div>"
+            str += "</td></tr>"
+        }
+        $('#table').html(str)
     }
 </script>
-
-<!--<style>-->
-<!--    .nav-pills {-->
-<!--        justify-content: center;-->
-<!--        width: 100%;-->
-<!--        font-size: larger;-->
-<!--        background-color: #80bdff;-->
-<!--    }-->
-<!--    .nav-item  {-->
-<!--        color: #0c5460;-->
-<!--    }-->
-<!--    .mdi-home{-->
-<!--        color: #0c5460;-->
-<!--    }-->
-<!--</style>-->
