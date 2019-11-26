@@ -30,7 +30,7 @@
     <div class="content-scroll">
         <div class="container">
             <br>
-            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>General Forum</h3></button>
+                <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>General Forum</h3></button>
             <br>
         <table class="table table-hover">
             <thead>
@@ -43,8 +43,10 @@
             </tr>
             </thead>
             <tbody>
+
             <% if (board !== null){%>
-            <%for(var i = board.length-1; i >= board.length-3; i--) %>
+            <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+
                 <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
                     <td>New</td>
                     <td><%= board[i].title%></td>
@@ -52,8 +54,11 @@
                     <td><%= board[i].HH_mm%></td>
                     <td><%= board[i].view_num%></td>
                 </tr>
-            <%  %>
-            <%} %>
+
+            <% if(i<=0)
+                break;
+            } }%>
+
             </tbody>
         </table>
         <hr/>

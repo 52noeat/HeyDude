@@ -15,6 +15,7 @@ router.get('/',(req,res)=>{
         Board.find({}, function (err, board) {
             if(board) {
                 res.render('../views/home.ejs', {title: 'Home', board: board});
+                console.log("render complete")
             }
         });
 });
@@ -52,7 +53,7 @@ router.post('/board/write', function (req, res) {
             alert("Login please");
             res.redirect('/home');
         }
-        res.redirect('/home');
+        res.redirect('/home/generalBoard');
     });
 });
 /* board find by id */

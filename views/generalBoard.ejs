@@ -43,7 +43,7 @@
             </tr>
             </thead>
             <tbody>
-            <% if (board !== null){%>
+            <% if (board.length !== 0){%>
             <%for(var i = board.length-1; i >= board.length-10; i--) { %>
                 <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
                     <td><%= i+1%></td>
@@ -52,13 +52,15 @@
                     <td><%= board[i].HH_mm%></td>
                     <td><%= board[i].view_num%></td>
                 </tr>
-            <%  }%>
-            <%} %>
+            <% if(i<=0)
+                break;
+            }
+            } %>
             </tbody>
         </table>
         <hr/>
         <div class="page">
-            <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="home/write">Write</a>
+            <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="write">Write</a>
             <ul class="pagination justify-content-center">
                 <% if (board !== null){%>
                 <%for(var j=0; j < board.length / page_num; j++) { %>
