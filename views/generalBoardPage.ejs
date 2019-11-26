@@ -22,20 +22,54 @@
 </head>
 <body class="body-size">
 <nav class="navbar navbar-dark bg-primary bar">
-    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
     <div>
         <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
     </div>
 </nav>
 <div class="content-scroll">
-    <!--요안에만 채우시면됩니다.-->
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form action="board/write" method="post">
-        제목 : <input type="text" name="title"><br>
-        내용 : <textarea name="contents"></textarea><br>
-        <input type="submit" value="확인">
-    </form>
+    <div class="container">
+        <br>
+        <div class="text-center"><h3 style="font-style: oblique"> General Forum</h3></div>
+        <br>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>View</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (board !== null){%>
+            <%for(var i = (page * page_num) - page_num; i< (page * page_num); i++) { %>
+                <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <td><%= i+1%></td>
+                    <td><%= board[i].title%></td>
+                    <td><%= board[i].userName%></td>
+                    <td><%= board[i].HH_mm%></td>
+                    <td><%= board[i].view_num%></td>
+                </tr>
+            <%  }%>
+            <%} %>
+            </tbody>
+        </table>
+        <hr/>
+        <div class="page">
+            <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="home/write">Write</a>
+            <ul class="pagination justify-content-center">
+                <% if (board !== null){%>
+                <%for(var j=0; j < board.length / page_num; j++) { %>
+                    <li class="page-item"><a class="page-link" href="home/page/<%= j+1%>>"><%= j+1%></a></li>
+                <%  }%>
+                <%} %>
+            </ul>
+        </div>
+
+        <!--요안에만 채우시면됩니다.-->
+    </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills">
@@ -60,6 +94,7 @@
 </body>
 </html>
 <script>
+
     function PageToHome() {
         location.href="/home"
     }
@@ -77,10 +112,21 @@
             }
         });
     }
-    function PageToSignIn() {
-        location.replace("/signin")
-    }
-    function PageToSignUp() {
-        location.replace("/signup")
+    $(document).on("click", "#board1", function(e){
+        console.log(e.currentTarget.value);
+        submit(e.currentTarget.value);
+    })
+    function submit(id) {
+        $.ajax({
+            type:"GET",
+            url: "/home/board" ,
+            data: {
+                id:id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/setboard"
+            }
+        });
     }
 </script>

@@ -28,23 +28,48 @@
         </div>
     </nav>
     <div class="content-scroll">
+        <div class="container">
+            <br>
+            <div class="text-center"><h3 style="font-style: oblique"> General Forum</h3></div>
+            <br>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>View</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (board !== null){%>
+            <%for(var i = board.length-1; i >= 0; i--) { %>
+                <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <td><%= i+1%></td>
+                    <td><%= board[i].title%></td>
+                    <td><%= board[i].userName%></td>
+                    <td><%= board[i].HH_mm%></td>
+                    <td><%= board[i].view_num%></td>
+                </tr>
+            <%  }%>
+            <%} %>
+            </tbody>
+        </table>
+        <hr/>
+    <div class="page">
+        <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="home/write">Write</a>
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+            </ul>
+    </div>
+
 <!--요안에만 채우시면됩니다.-->
-        <div class="column">
-            <table id="table">
-            </table>
         </div>
-
-        <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
-        <a href="home/write">글쓰기</a><br>
-        <% if (board !== null){
-        for(var i = 0; i < board.length; i++) { %>
-            <button class='btn-primary' id="board" type="button" value="<%= board[i]._id%>" ><h3><%= i+1 %> - <%=board[i].title%></h3></button>
-        <hr>
-        <%  }} %>
-
-
-
     </div>
     <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
         <ul class="nav nav-pills">
@@ -69,7 +94,7 @@
 </body>
 </html>
 <script>
-    setTable()
+
     function PageToHome() {
         location.href="/home"
     }
@@ -87,7 +112,7 @@
             }
         });
     }
-    $(document).on("click", "#board", function(e){
+    $(document).on("click", "#board1", function(e){
         console.log(e.currentTarget.value);
         submit(e.currentTarget.value);
     })
@@ -103,27 +128,5 @@
                 location.href="/home/setboard"
             }
         });
-    }
-
-    function setTable() {
-        let str =""
-        for(var i=0; i<2; i++){
-            str += "<tr><td>"
-            str +=
-                "            <div class='card'>" +
-                "                    <div class='title'>" +
-                "                        <h1>게시판</h1>" +
-                "                        <h3>23, Turkey, Male</h3>" +
-                "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
-                "                        <button class='button'>Detail</button>" +
-                "                    </div>" +
-                "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
-                "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
-                "                    <button type='button' class='btn btn-warning' style= 'height: fit-content;' disabled>study</button>" +
-                "                </div>" +
-                "            </div>"
-            str += "</td></tr>"
-        }
-        $('#table').html(str)
     }
 </script>

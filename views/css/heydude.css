@@ -49,6 +49,7 @@ tag {
     margin-top: auto;
     margin-bottom: auto;
 }
+
 .navbar-light ul{
     width: 100%;
 }
@@ -74,6 +75,14 @@ tag {
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+}
+.btn_board{
+    /*background-color: white;*/
+    color: black;
+    height: fit-content;
+}
+.btn_write{
+    justify-content: right;
 }
 .badgescard span {
     font-size: 1.6em;
