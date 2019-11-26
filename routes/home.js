@@ -8,19 +8,30 @@ const {User, Profile, FriendList, Request, Chat,Board,Comment}=require('../model
 let this_board;
 let id;
 let HH_mm;
-
+let page_num = 10;
 router.get('/',(req,res)=>{
     let sess = req.session;
     let user_name = req.session.userName;
         Board.find({}, function (err, board) {
             if(board) {
-                res.render('../views/home.ejs', {title: 'General Forum', board: board});
-            }
-            else{
-                alert("Login Please")
-                res.render('../views/signin.ejs');
+                res.render('../views/home.ejs', {title: 'Home', board: board});
             }
         });
+});
+router.get('/generalBoard', function(req, res){
+    Board.find({}, function (err, board){
+        if(board){
+            res.render('../views/generalBoard.ejs', {title: 'General Forum', board: board, page_num: page_num});
+        }
+    });
+});
+router.get('/generalBoard/:page', function(req, res){
+    let page = req.params.page;
+    Board.find({}, function (err, board){
+        if(board){
+            res.render('../views/generalBoardPage.ejs', {title: 'General Forum', board: board, page_num: page_num, page: page});
+        }
+    });
 });
 /* Write board page */
 router.get('/write', function(req, res, next) {
@@ -115,12 +126,13 @@ router.post('/request',(req,res)=>{
         .catch(err=>{console.log(err)})
 })
 
-// router.get('/page/2', function(req, res){
-//     Board.find({}, function (err, board) {
-//         if(board) {
-//             res.render('../views/generalBoardPage.ejs', {title: 'General Forum',board: board, page: 2, page_num: 10})
-//         }
-//     });
-// })
+router.get('/page/:page', function(req, res){
+    Board.find({}, function (err, board) {
+        if(board) {
+            console.log(board);
+            res.render('../views/generalBoardPage.ejs', {title: 'General Forum',board: board, page: 1, page_num: 10});
+        }
+    });
+})
 
 module.exports = router;

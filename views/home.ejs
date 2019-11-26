@@ -30,12 +30,12 @@
     <div class="content-scroll">
         <div class="container">
             <br>
-            <div class="text-center"><h3 style="font-style: oblique"> General Forum</h3></div>
+            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>General Forum</h3></button>
             <br>
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>No.</th>
+                <th>Update</th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Date</th>
@@ -44,9 +44,9 @@
             </thead>
             <tbody>
             <% if (board !== null){%>
-            <%for(var i = board.length-1; i >= 0; i--) { %>
+            <%for(var i = board.length-1; i >= board.length-3; i--) { %>
                 <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
-                    <td><%= i+1%></td>
+                    <td>New</td>
                     <td><%= board[i].title%></td>
                     <td><%= board[i].userName%></td>
                     <td><%= board[i].HH_mm%></td>
@@ -57,16 +57,6 @@
             </tbody>
         </table>
         <hr/>
-    <div class="page">
-        <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="home/write">Write</a>
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-            </ul>
-    </div>
 
 <!--요안에만 채우시면됩니다.-->
         </div>
@@ -109,6 +99,18 @@
                 location.replace('/signin');
             } else {
                 location.reload();
+            }
+        });
+    }
+    function PageToGeneralBoard(){
+        $.ajax({
+            type:"GET",
+            url: "/home/generalBoard" ,
+            data: {
+            }
+        }).done(function(result) {
+            if(result){
+                location.href="/home/generalBoard"
             }
         });
     }

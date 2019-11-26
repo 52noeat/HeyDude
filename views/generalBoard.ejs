@@ -44,18 +44,15 @@
             </thead>
             <tbody>
             <% if (board !== null){%>
-            <%for(var i = board.length -((page-1) * page_num) -1; i >= board.length - ((page-1) * page_num) -page_num; i--) { %>
-                <% if(i < 0){
-                    break;
-                }else{ %>
-                    <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
-                        <td><%= i+1%></td>
-                        <td><%= board[i].title%></td>
-                        <td><%= board[i].userName%></td>
-                        <td><%= board[i].HH_mm%></td>
-                        <td><%= board[i].view_num%></td>
-                    </tr>
-            <% } }%>
+            <%for(var i = board.length-1; i >= board.length-10; i--) { %>
+                <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <td><%= i+1%></td>
+                    <td><%= board[i].title%></td>
+                    <td><%= board[i].userName%></td>
+                    <td><%= board[i].HH_mm%></td>
+                    <td><%= board[i].view_num%></td>
+                </tr>
+            <%  }%>
             <%} %>
             </tbody>
         </table>
@@ -65,7 +62,7 @@
             <ul class="pagination justify-content-center">
                 <% if (board !== null){%>
                 <%for(var j=0; j < board.length / page_num; j++) { %>
-                    <li class="page-item"><a class="page-link" href="<%= j+1%>"><%= j+1%></a></li>
+                    <li class="page-item"><a class="page-link" href="generalBoard/<%= j+1%>"><%= j+1%></a></li>
                 <%  }%>
                 <%} %>
             </ul>
