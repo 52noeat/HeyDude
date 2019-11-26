@@ -151,6 +151,7 @@ router.post('/signin', (req, res) => {
                     if (err) throw err;
                     if (isMatch) {
                         sess.userID = user.userID;
+                        sess.userName = user.userName;
                         sess.verification = user.verification;
                         sess.userName = user.userName;
                         sess.sex = user.sex;

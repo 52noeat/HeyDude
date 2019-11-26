@@ -24,8 +24,7 @@ mongoose.connect('mongodb://localhost:27017/heydude', {
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
-
-app.use('/views',express.static('views'))
+app.use('/views',express.static('views'));
 // EJS
 
 app.set('views', path.join(__dirname, 'views'));

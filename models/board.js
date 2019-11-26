@@ -8,10 +8,14 @@ var commentSchema = new Schema({
 });
 
 var boardSchema = new Schema({
-    title: String,
-    contents: String,
+    title: {type: String, required: true},
+    contents: {type: String, required: true},
     author: String,
     board_date: {type: Date, default: Date.now()},
+    userName: {type: String},
+    MM_DD: String,
+    HH_mm: String,
+    view_num: {type: Number, default:0},
     comments: [commentSchema]
 });
 
