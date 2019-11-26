@@ -21,7 +21,7 @@ router.post('/duplicate', (req, res) => {
 
 // Register
 router.post('/signup', (req, res) => {
-    const {userID, password, userName, nickName, sex} = req.body;
+    const {userID, password, userName, sex} = req.body;
     let code=0;
     for(let n=0; n < 6;n++){
             let num = Math.floor(Math.random() * 10);;
@@ -57,7 +57,6 @@ router.post('/signup', (req, res) => {
         userID: userID,
         password: password,
         userName: userName,
-        nickName: nickName,
         sex: sex,
         verification : code
     });
@@ -134,50 +133,6 @@ router.get('/resend', (req, res) => {
     });
 });
 
-// Profile
-router.post('/profile', (req, res) => {
-    const { userType, userID, userName, birth,
-        nationality, language, goal, wish, introduce } = req.body;
-
-    const newProfile = new User({
-        userType: userType,
-        userID: userID,
-        userName: userName,
-        birth: birth,
-        nationality: nationality,
-        language: language,
-        goal: goal,
-        wish: wish,
-        introduce: introduce
-    });
-    Profile.findOne({userID:userID}).then(profile=>{
-        if(profile){
-            Profile.findOneAndUpdate({
-                userType: userType,
-                userID: userID,
-                userName: userName,
-                birth: birth,
-                nationality: nationality,
-                language: language,
-                goal: goal,
-                wish: wish,
-                introduce: introduce
-            })
-                .then(()=>{
-                    res.send(true)
-                }).catch(err=>console.log(err));
-        }
-        else{
-            newProfile
-                .save()
-                .then(profile => {
-                    console.log(userID + '회원 정보가 등록되었습니다.');
-                    res.send(true);
-                })
-                .catch(err => console.log(err));
-        }
-    })
-});
 
 // Signin
 router.post('/signin', (req, res) => {
@@ -198,6 +153,9 @@ router.post('/signin', (req, res) => {
                         sess.userID = user.userID;
                         sess.userName = user.userName;
                         sess.verification = user.verification;
+                        sess.userName = user.userName;
+                        sess.sex = user.sex;
+
                         if (user.verification != '1') {
                             res.send("3")
                         } else {

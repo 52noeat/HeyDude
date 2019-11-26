@@ -38,6 +38,7 @@
     "session-file-store": "^1.2.0",
     "should": "^13.2.3",
     "socket.io": "^2.2.0",
+    "soket.io": "0.0.1-security",
     "websocket": "^1.0.28"
   },
   "devDependencies": {

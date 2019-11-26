@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const ChatSchema = new mongoose.Schema({
-    KID: {type: String, required: true},
-    KName: {type: String, required: true},
-    FID: {type: String, required: true},
-    FName: {type: String, required: true},
+    chatCode: {type: String, required: true},
+    ID1: {type: String, required: true},
+    Name1: {type: String, required: true},
+    ID2: {type: String, required: true},
+    Name2: {type: String, required: true},
     exit: {type: Boolean, default: false},
     contents : [
         new mongoose.Schema({

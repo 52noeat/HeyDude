@@ -12,9 +12,13 @@
     background: rgb(250,250,250);
     margin: 0 auto;
 }
+.content-scroll table{
+    font-size: 1.3em;
+    width: 100%;
+}
 .bar{
-    max-height: 8vh !important;
-    min-height: 8vh !important;
+    max-height: 7vh !important;
+    min-height: 7vh !important;
 }
 .center{
     align-content: center;
@@ -23,8 +27,8 @@
 .body-size{
     background: rgb(243,243,243);
     margin: 0 auto;
-    /*width: 100%;*/
-    max-width: 800px;
+    max-width: 1024px;
+    width: 100%;
 }
 tag {
     background-color: #80bdff;
@@ -53,7 +57,7 @@ tag {
 .navbar-light ul{
     width: 100%;
 }
-.navbar-light li{font-size: xx-large;width: 20%;display: inline-block; text-align: center;}
+.navbar-light li{font-size: x-large;width: 20%;display: inline-block; text-align: center;}
 
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,400";
 .firstinfo {
@@ -69,7 +73,7 @@ tag {
 .card {
     width: 100%;
     min-height: 100px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 3px;
     background-color: white;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
@@ -85,7 +89,7 @@ tag {
     justify-content: right;
 }
 .badgescard span {
-    font-size: 1.6em;
+    font-size: 1em;
     margin: 0px 6px;
     opacity: 0.6;
 }
@@ -97,21 +101,29 @@ tag {
 }
 .firstinfo img {
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 5em;
+    height: 5em;
 }
 .firstinfo .profileinfo {
-    padding: 0px 20px;
+    padding: 0px 10px;
 }
 .firstinfo .profileinfo h1 {
-    font-size: 1.8em;
+    font-size: 0.8em;
+    text-align: left;
+}
+.firstinfo .profileinfo h1 button{
+    font-size: 0.6em;
+    padding: 0.2em;
+    width: 4em;
 }
 .firstinfo .profileinfo h3 {
-    font-size: 1.2em;
+    font-size: 0.6em;
     color: #009688;
     font-style: italic;
 }
 .firstinfo .profileinfo p.bio {
+    font-size: 0.6em;
+    margin: 0 0;
     padding: 10px 0px;
     color: #5A5A5A;
     line-height: 1.2;
@@ -140,15 +152,16 @@ tag {
 }
 
 .button {
+    font-size: 0.6em;
     border: none;
     outline: 0;
     display: inline-block;
-    padding: 8px;
+    padding: 0.5em;
     color: white;
     background-color: #3768c8;
     text-align: center;
     cursor: pointer;
-    width: 100px;
+    width: 6em;
 }
 
 .button:hover {
