@@ -17,8 +17,8 @@
     width: 100%;
 }
 .bar{
-    max-height: 7vh !important;
-    min-height: 7vh !important;
+    max-height: 8vh !important;
+    min-height: 8vh !important;
 }
 .center{
     align-content: center;
@@ -27,7 +27,7 @@
 .body-size{
     background: rgb(243,243,243);
     margin: 0 auto;
-    max-width: 1024px;
+    max-width: 768px;
     width: 100%;
 }
 tag {
@@ -151,6 +151,8 @@ tag {
     }
 }
 
+
+
 .button {
     font-size: 0.6em;
     border: none;
@@ -168,3 +170,9 @@ tag {
     background-color: #a6b0b5;
 }
 
+/*iPhone 5*/
+@media all and (max-width: 360px){
+    .navbar-light li{
+        font-size: larger;
+    }
+}
