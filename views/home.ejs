@@ -44,7 +44,7 @@
             </thead>
             <tbody>
             <% if (board !== null){%>
-            <%for(var i = board.length-1; i >= board.length-3; i--) { %>
+            <%for(var i = board.length-1; i >= board.length-3; i--) %>
                 <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
                     <td>New</td>
                     <td><%= board[i].title%></td>
@@ -52,7 +52,7 @@
                     <td><%= board[i].HH_mm%></td>
                     <td><%= board[i].view_num%></td>
                 </tr>
-            <%  }%>
+            <%  %>
             <%} %>
             </tbody>
         </table>

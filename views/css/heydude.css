@@ -5,6 +5,7 @@
 /*html{*/
 /*overflow: hidden !important;*/
 /*}*/
+
 .content-scroll{
     overflow-y: scroll !important;
     max-height: 84vh !important;
@@ -150,8 +151,6 @@ tag {
         left: -78px;
     }
 }
-
-
 
 .button {
     font-size: 0.6em;
