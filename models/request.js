@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 
 const RequestSchema = new mongoose.Schema({
-    userType: {type: Number, required: true},
     userID: {type: String, required: true},
     userName: {type: String, required: true},
     friendID: {type: String, required: true}

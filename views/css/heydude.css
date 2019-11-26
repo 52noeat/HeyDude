@@ -17,8 +17,8 @@
     width: 100%;
 }
 .bar{
-    max-height: 8vh !important;
-    min-height: 8vh !important;
+    max-height: 7vh !important;
+    min-height: 7vh !important;
 }
 .center{
     align-content: center;
@@ -28,6 +28,7 @@
     background: rgb(243,243,243);
     margin: 0 auto;
     max-width: 1024px;
+    width: 100%;
 }
 tag {
     background-color: #80bdff;

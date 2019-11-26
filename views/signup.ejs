@@ -61,15 +61,6 @@
                     <label class="sr-only" for="name">Name</label>
                     <input type="text" class="form-control"  id="name" name="name" required placeholder="Name (en)">
                 </div>
-                <div class="form-group">
-                    <label class="sr-only" for="nickname">Nick Name</label>
-                    <input type="text" class="form-control"  id="nickname" name="nickname" required placeholder="Nick Name">
-                </div>
-                <div class="form-group" style="display: flex; max-width: 340px;" >
-                    <input type="tel" class="form-control" style= "width: 90%" id="yy" name="year" maxlength="4" placeholder="yyyy">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="tel" class="form-control" style= "width: 45%"  id="mm" name="month" maxlength="2" placeholder="mm">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="tel" class="form-control" style= "width: 45%"  id="dd" name="day" maxlength="2" placeholder="dd">
-                </div>
                 <div class="form-group custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" name="sex" id="male" value="male" checked>
                     <label class="custom-control-label" for="male">male</label>
@@ -135,10 +126,6 @@
                 &&checkPswd1()
                 &&checkPswd2()
                 &&checkName()
-                &&checkNickname()
-                &&checkyy()
-                &&checkmm()
-                &&checkdd()
                 ){
                 submit();
             }else{
@@ -160,8 +147,6 @@
                 userID: $('#id').val(),
                 password: $('#pswd1').val(),
                 userName: $('#name').val(),
-                nickName: $('#nickname').val(),
-                // birth: $('#yy').val() + $('#mm').val() + $('#dd').val(),
                 sex: $('input[name="sex"]:checked').val()
             }
         }).done(function(result) {
@@ -270,54 +255,6 @@
     function checkName(){
         var val = $('#name');
         var oMsg = $('#name');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function checkNickname(){
-        var val = $('#nickname');
-        var oMsg = $('#nickname');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function checkyy(){
-        var val = $('#yy');
-        var oMsg = $('#yy');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function checkmm(){
-        var val = $('#mm');
-        var oMsg = $('#mm');
-        oMsg.removeClass('is-invalid');
-        if(val.val()==""){
-            oMsg.addClass('is-invalid');
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function checkdd(){
-        var val = $('#dd');
-        var oMsg = $('#dd');
         oMsg.removeClass('is-invalid');
         if(val.val()==""){
             oMsg.addClass('is-invalid');
