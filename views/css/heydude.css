@@ -13,8 +13,8 @@
     margin: 0 auto;
 }
 .bar{
-    max-height: 8vh !important;
-    min-height: 8vh !important;
+    max-height: 7vh !important;
+    min-height: 7vh !important;
 }
 .center{
     align-content: center;

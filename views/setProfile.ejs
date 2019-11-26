@@ -37,10 +37,27 @@
         </div>
         <br>
         <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
+            <div style="font-weight: bold; font-size: large;">
+                <label>Age (kor)</label>
+            </div>
+            <div class="form-group" style="display: flex; max-width: 340px;" >
+                <input type="number" class="form-control" style= "width: 90%" id="age" name="age" onkeypress="return lengthCheckofExp(this)" maxlength="3">
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>Major</label>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="major">Major</label>
+                <input type='text' class='form-control' id='major' name='major' maxlength="30">
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>Nationality</label>
+            </div>
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="nationality" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="nationality">
                     <option value="">---- Select Nationality ----</option>
+                    <option value="south korean">South Korean</option>
                     <option value="american">American</option>
                     <option value="argentinean">Argentinean</option>
                     <option value="australian">Australian</option>
@@ -125,10 +142,22 @@
                     <option value="vietnamese">Vietnamese</option>
                 </select>
             </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>Language</label>
+            </div>
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language1" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language1">
                     <option value="">---- language ----</option>
+                    <option value="KO">Korean</option>
+                    <option value="EN">English</option>
+                    <option value="FR">French</option>
+                    <option value="ZH">Chinese</option>
+                    <option value="DE">German</option>
+                    <option value="ES">Spanish</option>
+                    <option value="IT">Italian</option>
+                    <option value="JA">Japanese</option>
+                    <option value="RU">Russian</option>
                     <option value="AF">Afrikanns</option>
                     <option value="SQ">Albanian</option>
                     <option value="AR">Arabic</option>
@@ -206,8 +235,6 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="level1">
                     <option value="">---- level ----</option>
                     <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Beginner">Beginner</option>
                     <option value="Advanced">Advanced</option>
                     <option value="Native">Native</option>
                 </select>
@@ -216,6 +243,15 @@
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language2" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language2">
                     <option value="">---- language ----</option>
+                    <option value="KO">Korean</option>
+                    <option value="EN">English</option>
+                    <option value="FR">French</option>
+                    <option value="ZH">Chinese</option>
+                    <option value="DE">German</option>
+                    <option value="ES">Spanish</option>
+                    <option value="IT">Italian</option>
+                    <option value="JA">Japanese</option>
+                    <option value="RU">Russian</option>
                     <option value="AF">Afrikanns</option>
                     <option value="SQ">Albanian</option>
                     <option value="AR">Arabic</option>
@@ -301,6 +337,15 @@
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language3" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language3">
                     <option value="">---- language ----</option>
+                    <option value="KO">Korean</option>
+                    <option value="EN">English</option>
+                    <option value="FR">French</option>
+                    <option value="ZH">Chinese</option>
+                    <option value="DE">German</option>
+                    <option value="ES">Spanish</option>
+                    <option value="IT">Italian</option>
+                    <option value="JA">Japanese</option>
+                    <option value="RU">Russian</option>
                     <option value="AF">Afrikanns</option>
                     <option value="SQ">Albanian</option>
                     <option value="AR">Arabic</option>
@@ -383,32 +428,47 @@
                 </select>
             </div>
             <div style="font-weight: bold; font-size: large;">
-                <label>The biggest purpose of meeting foreign friends</label>
+                <label>Religion</label>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="religion">Religion</label>
+                <input type='text' class='form-control' id='religion' name='religion' maxlength="20" placeholder="ex) none, christianity">
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>The best purpose of meeting foreign friends</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="tag" id="play" value="play" checked>
-                <label class="custom-control-label" for="play">play</label>
+                <input type="radio" class="custom-control-input" name="tendency" id="play" value="play" checked>
+                <label class="custom-control-label" for="play">Play</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="tag" id="culture" value="culture">
-                <label class="custom-control-label" for="culture">culture</label>
+                <input type="radio" class="custom-control-input" name="tendency" id="culture" value="culture">
+                <label class="custom-control-label" for="culture">Culture</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="tag" id="study" value="study">
-                <label class="custom-control-label" for="study">study</label>
+                <input type="radio" class="custom-control-input" name="tendency" id="study" value="study">
+                <label class="custom-control-label" for="study">Study</label>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Interest</label>
             </div>
             <div class="form-group">
-                <label class="sr-only" for="Interest">Interest</label>
-                <input type='text' class='form-control' id='Interest' name='Interest' maxlength="20" placeholder="ex) movie, korea history, food">
+                <label class="sr-only" for="interest">Interest</label>
+                <input type='text' class='form-control' id='interest' name='interest' placeholder="ex) movie, korea history, food">
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>Hate</label>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="hate">Hate</label>
+                <input type='text' class='form-control' id='hate' name='hate' placeholder="ex) smoking, fighter, pervert">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>What to do with</label>
             </div>
             <div class="input-group">
-                <textarea class="form-control" id='do' name='do' aria-label="With textarea"></textarea>
+                <textarea class="form-control" id='wish' name='wish' aria-label="With textarea" placeholder=
+                "ex) I want to talk in a cafe."></textarea>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Introduce</label>
@@ -464,4 +524,48 @@
             }
         });
     }
+    function lengthCheckofExp(obj)
+    {
+        if(obj.value.length >= obj.maxLength)
+        {
+            return false;
+        }
+    }
+
+    $("#submit").click(function () {
+        alert("!!");
+        let language = Array();
+        let level = Array()
+        language[0]= $('#language1').val()
+        language[1]= $('#language2').val()
+        language[2]= $('#language3').val()
+        level[0]= $('#level1').val()
+        level[1]= $('#level2').val()
+        level[2]= $('#level3').val()
+        $.ajax({
+            type:"POST",
+            url: "/profile/set" ,
+            data: {
+                age : $('#age').val(),
+                nationality : $('#nationality').val(),
+                major: $('#major').val(),
+                language : language,
+                level : level,
+                religion : $('#religion').val(),
+                tendency : $('input[name="tendency"]:checked').val(),
+                interest : $('#interest').val(),
+                hate : $('#hate').val(),
+                wish : $('#wish').val(),
+                introduce : $('#introduce').val()
+            }
+        }).done(function(result) {
+            alert(result)
+            // if (result) {
+            //     location.href = '/home';
+            // } else {
+            //     showErrorMsg($('#submit_feedback'), "Please try again.");
+            // }
+        });
+    })
+
 </script>
