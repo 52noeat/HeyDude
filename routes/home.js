@@ -36,14 +36,13 @@ router.get('/generalBoard/:page', function(req, res){
 });
 /* Write board page */
 router.get('/write', function(req, res, next) {
-    res.render('../views/write.ejs', { title: '글쓰기' });
+    res.render('../views/write.ejs');
 });
 /* board insert mongo */
 router.post('/board/write', function (req, res) {
     var board = new Board();
     board.title = req.body.title;
     board.contents = req.body.contents;
-    board.author = req.body.author;
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.HH_mm = moment().format("HH:mm");

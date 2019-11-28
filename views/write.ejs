@@ -29,13 +29,35 @@
 </nav>
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form action="board/write" method="post">
-        제목 : <input type="text" name="title"><br>
-        내용 : <textarea name="contents"></textarea><br>
-        <input type="submit" value="확인">
-    </form>
+    <div>
+        <div class="card-header"><h2>Write</h2></div>
+        <div class="card-body">
+            <div class="container">
+                <form action="/home/board/write" method="post">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="subject">Title</label>
+                            <input type="text" class="form-control" name ="title" id="title" placeholder="Enter title">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Contents:</label>
+                            <textarea class="form-control" rows="10" name="contents" id="contents" placeholder="Enter Comment"></textarea>
+                        </div>
+<!--                        파일 첨부 폼, 파일 첨부 기능 추가시 포함.-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="File">File input</label>-->
+<!--                            <input type="file" id="File">-->
+<!--                        </div>-->
+                        <div class="center-block" style="text-align: right">
+                            <input type="submit" value="Submit">
+                            <input type="reset" value="Reset">
+                            <input type="button" value="Back" style="margin-right: 3%" onclick="history.back(1)">
+                        </div>
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills">
@@ -84,3 +106,19 @@
         location.replace("/signup")
     }
 </script>
+
+<style>
+    input{
+        font-size: large;
+        border-radius: 5px;
+        margin-right: 5px;
+        border: 1px solid #7abaff;
+        background-color: skyblue;
+        color:white;
+        padding: 5px;
+    }
+    input:hover{
+        color: #80bdff;
+        background-color: rgba(0,0,0,0);
+    }
+</style>
