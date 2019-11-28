@@ -13,12 +13,14 @@
     background: rgb(250,250,250);
     margin: 0 auto;
 }
+/*userCard 폰트크기*/
 .content-scroll table{
     font-size: 1.3em;
     width: 100%;
 }
-.content-scroll .container{
-    font-size: 0.6em;
+/*Forum 폰트크기*/
+.content-scroll .container .table-hover{
+    font-size: 0.8em;
     width: 100%;
 }
 .bar{
@@ -85,6 +87,10 @@ tag {
     position: relative;
     overflow: hidden;
 }
+.card .profileCard{
+    margin-left: 10%;
+    margin-right: 10%;
+}
 .btn_board{
     /*background-color: white;*/
     color: black;
@@ -98,40 +104,23 @@ tag {
     margin: 0px 6px;
     opacity: 0.6;
 }
-
+/*userCard*/
 .firstinfo {
     flex-direction: row;
     z-index: 2;
     position: relative;
     margin: 0 auto;
 }
-.myprofileinfo {
-    flex-direction: row;
-    z-index: 2;
-    position: relative;
-}
 .firstinfo img {
     border-radius: 50%;
     width: 5em;
     height: 5em;
 }
-.myprofileinfo img {
-    border-radius: 50%;
-    width: 15em;
-    height: 15em;
-}
 .firstinfo .profileinfo {
-    padding: 0px 10px;
-}
-.myprofileinfo .profileinfo {
     padding: 0px 10px;
 }
 .firstinfo .profileinfo h1 {
     font-size: 0.9em;
-    text-align: left;
-}
-.myprofileinfo .profileinfo h1 {
-    font-size: 3em;
     text-align: left;
 }
 .firstinfo .profileinfo h1 button{
@@ -139,18 +128,8 @@ tag {
     padding: 0.2em;
     width: 4em;
 }
-.myprofileinfo .profileinfo h1 button{
-    font-size: 0.9em;
-    padding: 0.2em;
-    width: 4em;
-}
 .firstinfo .profileinfo h3 {
     font-size: 0.6em;
-    color: #009688;
-    font-style: italic;
-}
-.myprofileinfo .profileinfo h3 {
-    font-size: 2.4em;
     color: #009688;
     font-style: italic;
 }
@@ -162,14 +141,44 @@ tag {
     line-height: 1.2;
     font-style: initial;
 }
+/*프로필*/
+.myprofileinfo .userFace{
+    text-align: center;
+}
+.myprofileinfo .userFace img{
+    border-radius: 50%;
+    width: 15em;
+    height: 15em;
+}
+.myprofileinfo .profileinfo {
+    padding: 0px 10px;
+}
+.myprofileinfo .profileinfo h1 {
+    font-size: 2em;
+    text-align: center;
+}
+.myprofileinfo .profileinfo h1 button{
+    font-size: 1em;
+    padding: 0.2em;
+    width: 4em;
+}
+.myprofileinfo .profileinfo h3 {
+    font-size: 0.9em;
+}
+.myprofileinfo .profileinfo td {
+    font-size: 0.9em;
+    color: #009688;
+    font-style: italic;
+}
+
 .specific p{
-    font-size: 2.5em;
+    font-size: 1.3em;
     color: #5A5A5A;
     line-height: 0.8;
     font-style: initial;
 }
 .specific label{
-    font-size: 1.4em;
+    font-size: 1.5em;
     line-height: 1.2;
     font-style: initial;
 }
