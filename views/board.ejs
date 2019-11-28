@@ -30,7 +30,8 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <div class="card">
-        <% if (board.length > 0){%>
+        <% if (board !== null){
+        %>
         <h5>작성자 : <%=board.userName%> </h5>
         <h5>시간 : <%=board.HH_mm%> </h5>
         <h5>제목 : <%=board.title%> </h5>
