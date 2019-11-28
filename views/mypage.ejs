@@ -27,16 +27,17 @@
             <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
         </div>
     </nav>
-    <div class="content-scroll">
+    <div class="content-scroll" >
         <article class="container" >
             <div class="page-header" style="position: relative; overflow: hidden;">
                 <br>
                 <h2 align="center">My Page</h2>
                 <hr>
             </div>
-            <br>
-            <div style="margin-left: 30%">
-                <a href="/profile/myProfile">My Profile</a>
+            <div class="list-group" id="myList" role="tablist" style="font-size: 1rem;">
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="/profile/myProfile" role="tab">My Profile</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">User Info</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
             </div>
         </article>
     </div>
