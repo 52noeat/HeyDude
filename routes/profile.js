@@ -68,4 +68,36 @@ router.post('/set', (req, res) => {
     })
 });
 
+router.get('/myProfile', (req, res) => {
+    let userID = req.session.userID;
+    // if(!sess.userID){
+    //     res.render('../views/signin.ejs');
+    // }else{
+    console.log(userID)
+    Profile.findOne({userID:userID}).then(profile=>{
+        if(profile){
+            console.log(profile)
+            res.render('../views/myProfile.ejs',{profile : profile});
+        }else{
+            res.render('../views/myProfile.ejs');
+        }
+    })
+    // }
+});
+
+router.get('/edit', (req, res) => {
+    let userID = req.session.userID;
+    // if(!sess.userID){
+    //     res.render('../views/signin.ejs');
+    // }else{
+    Profile.findOne({userID:userID}).then(profile=>{
+        if(profile){
+            res.render('../views/editProfile.ejs',{profile : profile});
+        }else{
+            res.render('../views/editProfile.ejs');
+        }
+    })
+    // }
+});
+
 module.exports = router;

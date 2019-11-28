@@ -37,39 +37,71 @@
         </div>
         <br>
         <div class='card'>
-            <div class='firstinfo'>
+            <div style="margin-left: 10%">
+            <div class='firstinfo' >
                 <img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
                 <div class='profileinfo'>
-                    <h1>Tima</h1>
-                    <h3>23, Turkey, Male</h3>
-                </div>
-                <div style="margin-left: 30%">
-                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>
+                    <h1><%=profile.userName%></h1>
+                    <%if(profile.tendency=="play"){%>
+                        <div style="margin-left: 30%">
+                            <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FFB6B9;'>play</button>
+                        </div>
+                    <%}else if(profile.tendency=="culture"){%>
+                        <div style="margin-left: 30%">
+                            <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FAE3D9;'>culture</button>
+                        </div>
+                    <%}else if(profile.tendency=="study"){%>
+                        <div style="margin-left: 30%">
+                            <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
+                        </div>
+                    <%}%>
+                    <h3><%=profile.age%>, <%=profile.nationality%>, <%=profile.sex%>, <%=profile.major%></h3>
                 </div>
             </div>
+            <%if(profile.active){%>
             <div class="custom-control custom-switch" style="margin-left: 3%; margin-top: 2px;" >
                 <input type="checkbox" class="custom-control-input" checked id="active" name="active">
                 <label class="custom-control-label" for="active" id="activeval">active</label>
             </div>
+            <%}else{%>
+            <div class="custom-control custom-switch" style="margin-left: 3%; margin-top: 2px;" >
+                <input type="checkbox" class="custom-control-input"  id="active" name="active">
+                <label class="custom-control-label" for="active" id="activeval">inactive</label>
+            </div>
+            <%}%>
+                <div style="font-weight: bold; font-size: large;">
+                    <label>language</label>
+                </div>
+                <div class="form-group">
+                    <p class='bio'><%=profile.language[0]%>,</p>
+                </div>
             <br>
+
             <div style="font-weight: bold; font-size: large;">
                 <label>Interest</label>
             </div>
             <div class="form-group">
-                <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>
+                <p class='bio'><%=profile.interest%></p>
+            </div>
+            <div style="font-weight: bold; font-size: large;">
+                <label>Hate</label>
+            </div>
+            <div class="input-group">
+                <p class='bio'><%=profile.hate%></p>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>What to do with</label>
             </div>
             <div class="input-group">
-                <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>
+                <p class='bio'><%=profile.wish%></p>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Introduce</label>
             </div>
             <div class="input-group">
-                <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>
+                <p class='bio'><%=profile.introduce%></p>
             </div>
+        </div>
         </div>
     </div>
 </div>

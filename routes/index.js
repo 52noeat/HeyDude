@@ -72,13 +72,6 @@ router.get('/setProfile', (req, res) => {
     res.render('../views/setProfile.ejs');
     // }
 });
-router.get('/myProfile', (req, res) => {
-    let sess = req.session
-    // if(!sess.userID){
-    //     res.render('../views/signin.ejs');
-    // }else{
-        res.render('../views/myProfile.ejs');
-    // }
-});
+
 
 module.exports = router;

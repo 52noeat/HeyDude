@@ -103,6 +103,7 @@ tag {
     flex-direction: row;
     z-index: 2;
     position: relative;
+    margin-left: 10%;
 }
 .firstinfo img {
     border-radius: 50%;
@@ -113,21 +114,21 @@ tag {
     padding: 0px 10px;
 }
 .firstinfo .profileinfo h1 {
-    font-size: 0.8em;
+    font-size: 1.2em;
     text-align: left;
 }
 .firstinfo .profileinfo h1 button{
-    font-size: 0.6em;
+    font-size: 0.9em;
     padding: 0.2em;
     width: 4em;
 }
 .firstinfo .profileinfo h3 {
-    font-size: 0.6em;
+    font-size: 0.9em;
     color: #009688;
     font-style: italic;
 }
 .firstinfo .profileinfo p.bio {
-    font-size: 0.6em;
+    font-size: 0.9em;
     margin: 0 0;
     padding: 10px 0px;
     color: #5A5A5A;
