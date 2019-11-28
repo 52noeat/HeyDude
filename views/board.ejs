@@ -29,32 +29,48 @@
 </nav>
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
-    <div>
-        <% if (board !== null){%>
-        <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
-        <h1>제목 : <%=board.title%> </h1>
-        <h3>내용 : <%=board.contents%> </h3>
+    <div class="card">
+        <% if (board !== null){
+        %>
+        <h5>작성자 : <%=board.userName%> </h5>
+        <h5>시간 : <%=board.HH_mm%> </h5>
+        <h5>제목 : <%=board.title%> </h5>
+        <h5>내용 : <%=board.contents%> </h5>
         <%}%>
     </div>
     <hr>
-    <div>
-        <% if (board.comments !== null) {
-            var comment = board.comments;
-        for(var i = 0; i < board.comments.length; i++) {%>
-        <h4>내용 : <%=comment[i].contents%></h4>
-        <hr>
-        <%}}%>
-    </div>
+
     <div>
         <form action="/home/comment/write" method="post">
-            <input type="text" name="id" value="<%=board._id%>" hidden>
-            댓글 : <textarea name="contents"></textarea><br>
-            <input type="submit" value="확인">
+            <form role="form">
+                <div class="form-group">
+                    <label for="comments">Comments:</label>
+                    <textarea class="form-control" rows="4" name="contents" id="contents" placeholder="Enter Comments"></textarea>
+                </div>
+                <div class="center-block" style="text-align: right">
+                    <input type="text" name="id" value="<%=board._id%>" hidden>
+                    <input type="submit" value="Submit">
+                    <input type="reset" style="margin-right: 3%" value="Reset">
+                </div>
+            </form>
         </form>
     </div>
-
-
+    <br>
+    <div>
+        <% if (board.comments !== null) {
+            var comment = board.comments;%>
+        <label>Comments[<%= comment.length%>]</label>
+        <%for(var i = board.comments.length -1 ; i >= 0; i--) {
+            if(i<0)
+                break; %>
+        <div class="card">
+            <h5><%=comment[i].userName%></h5>
+            <h6><%=comment[i].contents%></h6>
+            <h6 style="color: grey; font-weight: lighter"><%=comment[i].HH_mm%></h6>
+        </div>
+        <%}}%>
+        <hr>
+    </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills">
@@ -104,17 +120,18 @@
     }
 </script>
 
-<!--<style>-->
-<!--    .nav-pills {-->
-<!--        justify-content: center;-->
-<!--        width: 100%;-->
-<!--        font-size: larger;-->
-<!--        background-color: #80bdff;-->
-<!--    }-->
-<!--    .nav-item  {-->
-<!--        color: #0c5460;-->
-<!--    }-->
-<!--    .mdi-home{-->
-<!--        color: #0c5460;-->
-<!--    }-->
-<!--</style>-->
+<style>
+    input{
+        font-size: large;
+        border-radius: 5px;
+        margin-right: 5px;
+        border: 1px solid #7abaff;
+        background-color: skyblue;
+        color:white;
+        padding: 5px;
+    }
+    input:hover{
+        color: #80bdff;
+        background-color: rgba(0,0,0,0);
+    }
+</style>

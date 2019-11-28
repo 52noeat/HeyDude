@@ -36,14 +36,13 @@ router.get('/generalBoard/:page', function(req, res){
 });
 /* Write board page */
 router.get('/write', function(req, res, next) {
-    res.render('../views/write.ejs', { title: '글쓰기' });
+    res.render('../views/write.ejs');
 });
 /* board insert mongo */
 router.post('/board/write', function (req, res) {
     var board = new Board();
     board.title = req.body.title;
     board.contents = req.body.contents;
-    board.author = req.body.author;
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.HH_mm = moment().format("HH:mm");
@@ -84,8 +83,9 @@ router.get('/setboard', (req, res)=> {
 router.post('/comment/write', function (req, res){
     var comment = new Comment();
     comment.contents = req.body.contents;
-    comment.author = req.body.author;
+    comment.userName = req.session.userName;
     comment.comment_date = Date.now();
+    comment.HH_mm = moment().format("HH:mm");
 
     Board.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
         if(err){

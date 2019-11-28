@@ -30,27 +30,30 @@
     <div class="content-scroll">
         <div class="container">
             <br>
-                <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>General Forum</h3></button>
+            <div style="text-align: center">
+                <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique"><h3>General Forum</h3></button>
+            </div>
             <br>
-        <table class="table table-hover">
+        <table class="table table-hover" style="table-layout: fixed">
             <thead>
             <tr>
-                <th>Update</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>View</th>
+                <th width="15%">Update</th>
+                <th width="40%">Title</th>
+                <th width="20%">Author</th>
+                <th width="15%">Date</th>
+                <th width="10%">View</th>
             </tr>
             </thead>
             <tbody>
 
             <% if (board !== null){%>
             <%for(var i = board.length-1; i >= board.length-3; i--){ %>
-
+                <% if(i<0)
+                    break;%>
                 <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
                     <td>New</td>
-                    <td><%= board[i].title%></td>
-                    <td><%= board[i].userName%></td>
+                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
+                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
                     <td><%= board[i].HH_mm%></td>
                     <td><%= board[i].view_num%></td>
                 </tr>
@@ -61,6 +64,75 @@
 
             </tbody>
         </table>
+            <br>
+            <div style="text-align: center">
+            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Semester Forum</h3></button>
+            </div>
+            <br>
+            <table class="table table-hover" style="table-layout: fixed">
+                <thead>
+                <tr>
+                    <th width="15%">Update</th>
+                    <th width="40%">Title</th>
+                    <th width="20%">Author</th>
+                    <th width="15%">Date</th>
+                    <th width="10%">View</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% if (board !== null){%>
+                <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+                    <% if(i<0)
+                        break;%>
+                    <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                        <td>New</td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
+                        <td><%= board[i].HH_mm%></td>
+                        <td><%= board[i].view_num%></td>
+                    </tr>
+
+
+               <% } }%>
+
+                </tbody>
+            </table>
+            <br>
+            <div style="text-align: center">
+            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Help Forum</h3></button>
+            </div>
+            <br>
+            <table class="table table-hover" style="table-layout: fixed">
+                <thead>
+                <tr>
+                    <th width="15%">Update</th>
+                    <th width="40%">Title</th>
+                    <th width="20%">Author</th>
+                    <th width="15%">Date</th>
+                    <th width="10%">View</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% if (board !== null){%>
+                <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+                    <% if(i<0)
+                        break;%>
+                    <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                        <td>New</td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
+                        <td><%= board[i].HH_mm%></td>
+                        <td><%= board[i].view_num%></td>
+                    </tr>
+
+                <% if(i<=0)
+                    break;
+                } }%>
+
+                </tbody>
+            </table>
         <hr/>
 
 <!--요안에만 채우시면됩니다.-->

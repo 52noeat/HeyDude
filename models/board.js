@@ -3,7 +3,9 @@ var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
     contents: String,
-    author: String,
+    userName: String,
+    MM_DD: String,
+    HH_mm: String,
     comment_date: {type: Date, default: Date.now()}
 });
 
