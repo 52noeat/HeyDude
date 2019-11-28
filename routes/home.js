@@ -83,8 +83,9 @@ router.get('/setboard', (req, res)=> {
 router.post('/comment/write', function (req, res){
     var comment = new Comment();
     comment.contents = req.body.contents;
-    comment.author = req.body.author;
+    comment.userName = req.session.userName;
     comment.comment_date = Date.now();
+    comment.HH_mm = moment().format("HH:mm");
 
     Board.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
         if(err){
