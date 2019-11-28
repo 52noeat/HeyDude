@@ -81,20 +81,40 @@
         str +=
             "            <div class='cardList'>" +
             "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
-            "                    <div class='profileinfo'>" +
+            "                    <table>"+
+            "                    <td class='profileinfo'>" +
             "                        <h1>Tima</h1>" +
-            "                        <h3>23, Turkey, Male</h3>" +
-            "                        <p class='bio'>Hi, I introduce myself, my name is tima, I like a soju, and ~~~</p>" +
-            "                        <button class='button' style='background-color: #01CB25'>Accept</button>" +
-            "                        <button class='button' style='background-color: #D90101'>Decline</button>" +
-            "                    </div>" +
-            "                    <button type='button' class='btn btn-success' style= 'height: fit-content;' disabled>play</button>" +
-            "                    <button type='button' class='btn btn-danger' style= 'height: fit-content;' disabled>culture</button>" +
-            "                    <button type='button' class='btn btn-warning' style= 'height: fit-content;' disabled>study</button>" +
+            "                        <h3>21, Turkey, Male</h3>" +
+            "                        <p class='bio'>How are you? </p>" +
+            "                    </td>" +
+            "                    <td class='chatInfo'>" +
+            "                        <p class='alarmNum'>　</p>" +
+            "                        <br>" +
+            "                        <p class='chatTime'>AM 11:50</p>" +
+            "                    </td>" +
+            "                    </table>"+
             "                </div>" +
             "            </div>"
         str += "</td></tr>"
-        str+= str;
+        str += "<tr><td>"
+        str +=
+            "            <div class='card'>" +
+            "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
+            "                    <table>"+
+            "                    <td class='profileinfo'>" +
+            "                        <h1>Park Jihun</h1>" +
+            "                        <h3>23, South Korea, Male</h3>" +
+            "                        <p class='bio'>안녕? </p>" +
+            "                    </td>" +
+            "                    <td class='chatInfo'>" +
+            "                        <p class='alarmNum'>　</p>" +
+            "                        <br>" +
+            "                        <p class='chatTime'>AM 10:28</p>" +
+            "                    </td>" +
+            "                    </table>"+
+            "                </div>" +
+            "            </div>"
+        str += "</td></tr>"
         $('#table').html(str)
     }
 </script>

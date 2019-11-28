@@ -109,7 +109,6 @@ tag {
     flex-direction: row;
     z-index: 2;
     position: relative;
-    margin: 0 auto;
 }
 .firstinfo img {
     border-radius: 50%;
@@ -141,6 +140,18 @@ tag {
     line-height: 1.2;
     font-style: initial;
 }
+/*채팅 리스트*/
+.firstinfo table{
+    font-size: 1em;
+}
+.firstinfo .chatInfo{
+    font-size: 0.5em;
+    text-align: right;
+}
+.firstinfo .chatInfo .alarmNum{
+    font-size: 1.7em;
+    color: #ff253a;
+}
 /*프로필*/
 .myprofileinfo .userFace{
     text-align: center;
@@ -149,6 +160,8 @@ tag {
     border-radius: 50%;
     width: 15em;
     height: 15em;
+}
+.myprofileinfo .tendency{
 }
 .myprofileinfo .profileinfo {
     padding: 0px 10px;
@@ -170,7 +183,6 @@ tag {
     color: #009688;
     font-style: italic;
 }
-
 .specific p{
     font-size: 1.3em;
     color: #5A5A5A;
@@ -182,6 +194,8 @@ tag {
     line-height: 1.2;
     font-style: initial;
 }
+
+
 @keyframes animainfos {
     0% {
         bottom: 10px;
