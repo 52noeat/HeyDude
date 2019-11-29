@@ -38,6 +38,11 @@
                 <h5>내용 : <%=board.contents%> </h5>
                 <h6 style="color: grey; font-weight: lighter;">작성자 : <%=board.userName%> </h6>
                 <h6 style="color: grey; font-weight: lighter;">시간 : <%=board.time%> </h6>
+                <div style="text-align: right">
+                    <button class="btn_modify" onclick="Modify('<%= board._id%>', '<%= board.userName%>')">Modify</button>
+                    <button class="btn_modify" onclick="Delete('<%= board._id%>', '<%= board.userName%>')" style="margin-right: 2%">Delete</button>
+                </div>
+                <p/>
             </div>
         </div>
         <%}%>
@@ -99,6 +104,24 @@
 </body>
 </html>
 <script>
+    function Delete(id, userName){
+        $.ajax({
+            type:"GET",
+            url: "/home/semesterDelete" ,
+            data: {
+                id:id,
+                userName:userName
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/semesterBoard/1"
+            }
+            else{
+                alert("No permision!");
+            }
+        });
+
+    }
     function PageToHome() {
         location.href="/home"
     }
@@ -135,6 +158,19 @@
         padding: 5px;
     }
     input:hover{
+        color: #80bdff;
+        background-color: rgba(0,0,0,0);
+    }
+    .btn_modify{
+        font-size: large;
+        border-radius: 5px;
+        margin-right: 5px;
+        border: 1px solid #7abaff;
+        background-color: skyblue;
+        color:white;
+        padding: 5px;
+    }
+    .btn_modify:hover{
         color: #80bdff;
         background-color: rgba(0,0,0,0);
     }

@@ -254,7 +254,46 @@ router.get('/helpSetboard/comment', function (req, res) {
         res.render('../views/helpBoard.ejs', {title: 'Board', board: board});
     })
 });
-
+/*id를 이용해 게시글 Delete*/
+router.get('/generalDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("no permission");
+        res.send('2');
+    }else {
+        generalBoard.deleteOne({_id: req.query.id})
+            .then(board => {
+                if (board) {
+                    res.send('1');
+                }
+            })
+    }
+});
+router.get('/semesterDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("no permission");
+        res.send('2');
+    }else {
+        semesterBoard.deleteOne({_id: req.query.id})
+            .then(board => {
+                if (board) {
+                    res.send('1');
+                }
+            })
+    }
+});
+router.get('/helpDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("no permission");
+        res.send('2');
+    }else {
+        helpBoard.deleteOne({_id: req.query.id})
+            .then(board => {
+                if (board) {
+                    res.send('1');
+                }
+            })
+    }
+});
 
 
 router.get('/view',(req,res)=>{
