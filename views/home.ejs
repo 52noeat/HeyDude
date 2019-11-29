@@ -46,16 +46,16 @@
             </thead>
             <tbody>
 
-            <% if (board !== null){%>
-            <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+            <% if (generalBoard !== null){%>
+            <%for(var i = generalBoard.length-1; i >= generalBoard.length-3; i--){ %>
                 <% if(i<0)
                     break;%>
-                <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                <tr id='generalBoard' onclick="generalSubmit('<%= generalBoard[i]._id%>')" value="<%= generalBoard[i]._id%>">
                     <td>New</td>
-                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
-                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
-                    <td><%= board[i].HH_mm%></td>
-                    <td><%= board[i].view_num%></td>
+                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= generalBoard[i].title%></td>
+                    <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= generalBoard[i].userName%></td>
+                    <td><%= generalBoard[i].time%></td>
+                    <td><%= generalBoard[i].view_num%></td>
                 </tr>
 
             <% if(i<=0)
@@ -66,7 +66,7 @@
         </table>
             <br>
             <div style="text-align: center">
-            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Semester Forum</h3></button>
+            <button type="button" onclick="PageToSemesterBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Semester Forum</h3></button>
             </div>
             <br>
             <table class="table table-hover" style="table-layout: fixed">
@@ -81,16 +81,16 @@
                 </thead>
                 <tbody>
 
-                <% if (board !== null){%>
-                <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+                <% if (semesterBoard !== null){%>
+                <%for(var i = semesterBoard.length-1; i >= semesterBoard.length-3; i--){ %>
                     <% if(i<0)
                         break;%>
-                    <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <tr id='semesterBoard' onclick="semesterSubmit('<%= semesterBoard[i]._id%>')" value="<%= semesterBoard[i]._id%>">
                         <td>New</td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
-                        <td><%= board[i].HH_mm%></td>
-                        <td><%= board[i].view_num%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].userName%></td>
+                        <td><%= semesterBoard[i].time%></td>
+                        <td><%= semesterBoard[i].view_num%></td>
                     </tr>
 
 
@@ -100,7 +100,7 @@
             </table>
             <br>
             <div style="text-align: center">
-            <button type="button" onclick="PageToGeneralBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Help Forum</h3></button>
+            <button type="button" onclick="PageToHelpBoard()" class="btn" style="border: none; color: black; font-style: oblique;"><h3>Help Forum</h3></button>
             </div>
             <br>
             <table class="table table-hover" style="table-layout: fixed">
@@ -115,16 +115,16 @@
                 </thead>
                 <tbody>
 
-                <% if (board !== null){%>
-                <%for(var i = board.length-1; i >= board.length-3; i--){ %>
+                <% if (helpBoard !== null){%>
+                <%for(var i = helpBoard.length-1; i >= helpBoard.length-3; i--){ %>
                     <% if(i<0)
                         break;%>
-                    <tr id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <tr id='helpBoard' onclick="helpSubmit('<%= helpBoard[i]._id%>')" value="<%= helpBoard[i]._id%>">
                         <td>New</td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].userName%></td>
-                        <td><%= board[i].HH_mm%></td>
-                        <td><%= board[i].view_num%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= helpBoard[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= helpBoard[i].userName%></td>
+                        <td><%= helpBoard[i].time%></td>
+                        <td><%= helpBoard[i].view_num%></td>
                     </tr>
 
                 <% if(i<=0)
@@ -182,12 +182,36 @@
     function PageToGeneralBoard(){
         $.ajax({
             type:"GET",
-            url: "/home/generalBoard" ,
+            url: "/home/generalBoard/1" ,
             data: {
             }
         }).done(function(result) {
             if(result){
-                location.href="/home/generalBoard"
+                location.href="/home/generalBoard/1"
+            }
+        });
+    }
+    function PageToSemesterBoard(){
+        $.ajax({
+            type:"GET",
+            url: "/home/semesterBoard/1" ,
+            data: {
+            }
+        }).done(function(result) {
+            if(result){
+                location.href="/home/semesterBoard/1"
+            }
+        });
+    }
+    function PageToHelpBoard(){
+        $.ajax({
+            type:"GET",
+            url: "/home/helpBoard/1" ,
+            data: {
+            }
+        }).done(function(result) {
+            if(result){
+                location.href="/home/helpBoard/1"
             }
         });
     }
@@ -195,16 +219,42 @@
         console.log(e.currentTarget.value);
         submit(e.currentTarget.value);
     })
-    function submit(id) {
+    function generalSubmit(id) {
         $.ajax({
             type:"GET",
-            url: "/home/board" ,
+            url: "/home/generalBoard" ,
             data: {
                 id:id
             }
         }).done(function(result) {
             if(result=='1'){
-                location.href="/home/setboard"
+                location.href="/home/generalSetboard"
+            }
+        });
+    }
+    function semesterSubmit(id) {
+        $.ajax({
+            type:"GET",
+            url: "/home/semesterBoard" ,
+            data: {
+                id:id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/semesterSetboard"
+            }
+        });
+    }
+    function helpSubmit(id) {
+        $.ajax({
+            type:"GET",
+            url: "/home/helpBoard" ,
+            data: {
+                id:id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                location.href="/home/helpSetboard"
             }
         });
     }

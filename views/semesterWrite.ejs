@@ -29,47 +29,32 @@
 </nav>
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
-    <div class="card">
-        <% if (board !== null){
-        %>
-        <h5>작성자 : <%=board.userName%> </h5>
-        <h5>시간 : <%=board.HH_mm%> </h5>
-        <h5>제목 : <%=board.title%> </h5>
-        <h5>내용 : <%=board.contents%> </h5>
-        <%}%>
-    </div>
-    <hr>
-
-    <div>
-        <form action="/home/comment/write" method="post">
-            <form role="form">
-                <div class="form-group">
-                    <label for="comments">Comments:</label>
-                    <textarea class="form-control" rows="4" name="contents" id="contents" placeholder="Enter Comments"></textarea>
-                </div>
-                <div class="center-block" style="text-align: right">
-                    <input type="text" name="id" value="<%=board._id%>" hidden>
-                    <input type="submit" value="Submit">
-                    <input type="reset" style="margin-right: 3%" value="Reset">
-                </div>
+    <div class="card-header"><h2>Write</h2></div>
+    <div class="card-body">
+        <div class="container">
+            <form action="/home/board/semesterwrite" method="post">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="subject">Title</label>
+                        <input type="text" class="form-control" name ="title" id="title" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Contents:</label>
+                        <textarea class="form-control" rows="10" name="contents" id="contents" placeholder="Enter Contents"></textarea>
+                    </div>
+                    <!--                        파일 첨부 폼, 파일 첨부 기능 추가시 포함.-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label for="File">File input</label>-->
+                    <!--                            <input type="file" id="File">-->
+                    <!--                        </div>-->
+                    <div class="center-block" style="text-align: right">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                        <input type="button" value="Back" style="margin-right: 3%" onclick="history.back(1)">
+                    </div>
+                </form>
             </form>
-        </form>
-    </div>
-    <br>
-    <div>
-        <% if (board.comments !== null) {
-            var comment = board.comments;%>
-        <label>Comments[<%= comment.length%>]</label>
-        <%for(var i = board.comments.length -1 ; i >= 0; i--) {
-            if(i<0)
-                break; %>
-        <div class="card">
-            <h5><%=comment[i].userName%></h5>
-            <h6><%=comment[i].contents%></h6>
-            <h6 style="color: grey; font-weight: lighter"><%=comment[i].HH_mm%></h6>
         </div>
-        <%}}%>
-        <hr>
     </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">

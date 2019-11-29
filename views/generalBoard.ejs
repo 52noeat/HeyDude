@@ -22,42 +22,59 @@
 </head>
 <body class="body-size">
 <nav class="navbar navbar-dark bg-primary bar">
-    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
     <div>
         <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
     </div>
 </nav>
 <div class="content-scroll">
-        <br>
-        <div class="text-center"><h3 style="font-style: oblique"> General Forum</h3>
-        <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="/home/write">Write</a>
-        </div><br><br>
-                    <div class="column">
-                        <% if (board !== null){
-                        for(var i = board.length-1; i >= 0; i--) { %>
-                            <%if(i<0)
-                                break;%>
-                            <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>"><p></p>
-                                        <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
-                                        <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
-                                        <pre style="color: grey; font-weight: lighter;"><%= board[i].HH_mm%> | <%= board[i].userName%> | 조회 <%= board[i].view_num%> | 댓글 <%= board[i].comments.length%></pre>
-                            </div>
-                        <hr class="hr1">
-                        <%  }} %>
-                    </div>
-
-        <hr/>
-        <div class="page">
-            <ul class="pagination justify-content-center">
-                <% if (board !== null){%>
-                <%for(var j=0; j < board.length / page_num; j++) { %>
-                    <li class="page-item"><a class="page-link" href="generalBoard/<%= j+1%>"><%= j+1%></a></li>
-                <%  }%>
-                <%} %>
-            </ul>
+    <!--요안에만 채우시면됩니다.-->
+    <div class="card">
+        <% if (board !== null){
+        %>
+        <div style="justify-content: right;">
+            <div style="margin-left: 1%">
+                <h5>제목 : <%=board.title%> </h5>
+                <h5>내용 : <%=board.contents%> </h5>
+                <h6 style="color: grey; font-weight: lighter;">작성자 : <%=board.userName%> </h6>
+                <h6 style="color: grey; font-weight: lighter;">시간 : <%=board.time%> </h6>
+            </div>
         </div>
+        <%}%>
+    </div>
+    <hr>
 
-        <!--요안에만 채우시면됩니다.-->
+    <div>
+        <form action="/home/generalComment/write" method="post">
+            <form role="form">
+                <div class="form-group">
+                    <label for="comments">Comments:</label>
+                    <textarea class="form-control" rows="4" name="contents" id="contents" placeholder="Enter Comments"></textarea>
+                </div>
+                <div class="center-block" style="text-align: right">
+                    <input type="text" name="id" value="<%=board._id%>" hidden>
+                    <input type="submit" value="Submit">
+                    <input type="reset" style="margin-right: 3%" value="Reset">
+                </div>
+            </form>
+        </form>
+    </div>
+    <br>
+    <div>
+        <% if (board.comments !== null) {
+            var comment = board.comments;%>
+        <label>Comments[<%= comment.length%>]</label>
+        <%for(var i = board.comments.length -1 ; i >= 0; i--) {
+            if(i<0)
+                break; %>
+        <div class="card">
+            <h5><%=comment[i].userName%></h5>
+            <h6><%=comment[i].contents%></h6>
+            <h6 style="color: grey; font-weight: lighter"><%=comment[i].time%></h6>
+        </div>
+        <%}}%>
+        <hr>
+    </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills">
@@ -82,7 +99,6 @@
 </body>
 </html>
 <script>
-
     function PageToHome() {
         location.href="/home"
     }
@@ -100,36 +116,26 @@
             }
         });
     }
-    $(document).on("click", "#board1", function(e){
-        console.log(e.currentTarget.value);
-        submit(e.currentTarget.value);
-    })
-    function submit(id) {
-        $.ajax({
-            type:"GET",
-            url: "/home/board" ,
-            data: {
-                id:id
-            }
-        }).done(function(result) {
-            if(result=='1'){
-                location.href="/home/setboard"
-            }
-        });
+    function PageToSignIn() {
+        location.replace("/signin")
+    }
+    function PageToSignUp() {
+        location.replace("/signup")
     }
 </script>
 
 <style>
-    .cardList1 {
-        width: 100%;
-        min-height: 100px;
-        border-radius: 3px;
-        background-color: white;
-        position: relative;
-        overflow: hidden;
-        padding: 10px;
+    input{
+        font-size: large;
+        border-radius: 5px;
+        margin-right: 5px;
+        border: 1px solid #7abaff;
+        background-color: skyblue;
+        color:white;
+        padding: 5px;
     }
-    .hr1{
-        margin: 0px;
+    input:hover{
+        color: #80bdff;
+        background-color: rgba(0,0,0,0);
     }
 </style>

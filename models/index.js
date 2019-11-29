@@ -2,15 +2,23 @@ const Chat = require('./chat');
 const FriendList = require('./friendlist');
 const Profile = require('./profile');
 const User = require('./user');
-const Board = require('./board');
-const Comment = require('./comment')
+const generalBoard = require('./generalBoard');
+const generalComment = require('./generalComment');
+const semesterBoard = require('./semesterBoard');
+const semesterComment = require('./semesterComment');
+const helpBoard = require('./helpBoard');
+const helpComment = require('./helpComment');
 
 module.exports = {
     User,
     Profile,
     FriendList,
     Chat,
-    Board,
-    Comment
+    generalBoard,
+    generalComment,
+    semesterBoard,
+    semesterComment,
+    helpBoard,
+    helpComment
 }
 

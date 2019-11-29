@@ -3,103 +3,255 @@ const session = require('express-session');
 const router = express.Router();
 const moment = require('moment');
 // Load User model
-const {User, Profile, FriendList, Request, Chat,Board,Comment}=require('../models/index');
+const {User, Profile, FriendList, Request, Chat, generalBoard, generalComment, semesterBoard, semesterComment, helpBoard, helpComment}=require('../models/index');
 
-let this_board;
-let id;
-let HH_mm;
+let id1, id2, id3;
 let page_num = 10;
-router.get('/',(req,res)=>{
+let t2;
+let generalboard;
+let semesterboard;
+let board1, board2, board3;
+
+/*HOME 그리기*/
+router.get('/', async (req,res)=>{
     let sess = req.session;
     let user_name = req.session.userName;
-        Board.find({}, function (err, board) {
+        await generalBoard.find({}, function (err, board) {
             if(board) {
-                res.render('../views/home.ejs', {title: 'Home', board: board});
-                console.log("render complete")
+                generalboard = board;
+                console.log("complete1")
+            }
+        });
+        await semesterBoard.find({}, function (err, board) {
+            if(board) {
+                semesterboard = board;
+                console.log("complete2")
+            }
+        });
+        await helpBoard.find({}, function (err, board) {
+            if(board) {
+                res.render('../views/home.ejs', {title: 'Home', generalBoard: generalboard ,semesterBoard: semesterboard , helpBoard: board});
+                console.log("complete3")
+                console.log('-----------------')
             }
         });
 });
-router.get('/generalBoard', function(req, res){
-    Board.find({}, function (err, board){
-        if(board){
-            res.render('../views/generalBoard.ejs', {title: 'General Forum', board: board, page_num: page_num});
-        }
-    });
-});
+
+/*게시판 페이지 그리기*/
 router.get('/generalBoard/:page', function(req, res){
     let page = req.params.page;
-    Board.find({}, function (err, board){
+    generalBoard.find({}, function (err, board){
         if(board){
             res.render('../views/generalBoardPage.ejs', {title: 'General Forum', board: board, page_num: page_num, page: page});
         }
     });
 });
-/* Write board page */
-router.get('/write', function(req, res, next) {
-    res.render('../views/write.ejs');
+router.get('/semesterBoard/:page', function(req, res){
+    let page = req.params.page;
+    semesterBoard.find({}, function (err, board){
+        if(board){
+            res.render('../views/semesterBoardPage.ejs', {title: 'Semester Forum', board: board, page_num: page_num, page: page});
+        }
+    });
 });
-/* board insert mongo */
-router.post('/board/write', function (req, res) {
-    var board = new Board();
+router.get('/helpBoard/:page', function(req, res){
+    let page = req.params.page;
+    helpBoard.find({}, function (err, board){
+        if(board){
+            res.render('../views/helpBoardPage.ejs', {title: 'Help Forum', board: board, page_num: page_num, page: page});
+        }
+    });
+});
+
+/*게시판별 글쓰기 페이지 그리기*/
+router.get('/generalwrite', function(req, res, next) {
+    res.render('../views/generalWrite.ejs');
+});
+router.get('/semesterwrite', function(req, res, next) {
+    res.render('../views/semesterWrite.ejs');
+});
+router.get('/helpwrite', function(req, res, next) {
+    res.render('../views/helpWrite.ejs');
+});
+
+/*글쓴 정보 각 DB 테이블에 저장*/
+router.post('/board/generalwrite', function (req, res) {
+    var board = new generalBoard();
     board.title = req.body.title;
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
-    board.HH_mm = moment().format("HH:mm");
+    board.time = moment().format("HH:mm");
     board.save(function (err) {
         if(err){
             console.log(err);
             alert("Login please");
             res.redirect('/home');
         }
-        res.redirect('/home/generalBoard');
+        res.redirect('/home/generalBoard/1');
     });
 });
-/* board find by id */
-router.get('/board', (req, res)=> {
-    console.log("아이디")
-    console.log(req.query.id)
-    Board.findOne({_id: req.query.id})
+router.post('/board/semesterwrite', function (req, res) {
+    var board = new semesterBoard();
+    board.title = req.body.title;
+    board.contents = req.body.contents;
+    board.board_date = Date.now();
+    board.userName = req.session.userName;
+    board.time = moment().format("HH:mm");
+    board.save(function (err) {
+        if(err){
+            console.log(err);
+            alert("Login please");
+            res.redirect('/home');
+        }
+        res.redirect('/home/semesterBoard/1');
+    });
+});
+router.post('/board/helpwrite', function (req, res) {
+    var board = new helpBoard();
+    board.title = req.body.title;
+    board.contents = req.body.contents;
+    board.board_date = Date.now();
+    board.userName = req.session.userName;
+    board.time = moment().format("HH:mm");
+    board.save(function (err) {
+        if(err){
+            console.log(err);
+            alert("Login please");
+            res.redirect('/home');
+        }
+        res.redirect('/home/helpBoard/1');
+    });
+});
+
+/* id로 맞는 게시글 찾고 글 세부내용 render */
+router.get('/generalBoard', (req, res)=> {
+    generalBoard.findOne({_id: req.query.id})
         .then(board=>{
             if(board) {
-                this_board = board;
+                board1 = board;
                 res.send('1')
             }else{
                 res.send('2')
             }
         })
 });
-router.get('/setboard', (req, res)=> {
-    this_board.view_num += 1;
-    this_board.save(function (err) {
+router.get('/semesterBoard', (req, res)=> {
+    semesterBoard.findOne({_id: req.query.id})
+        .then(board=>{
+            if(board) {
+                board2 = board;
+                res.send('1')
+            }else{
+                res.send('2')
+            }
+        })
+});
+router.get('/helpBoard', (req, res)=> {
+    helpBoard.findOne({_id: req.query.id})
+        .then(board=>{
+            if(board) {
+                board3 = board;
+                res.send('1')
+            }else{
+                res.send('2')
+            }
+        })
+});
+router.get('/generalSetboard', (req, res)=> {
+    board1.view_num += 1;
+    board1.save(function (err) {
         if(err){
             console.log(err);
             res.redirect('/home');
         }
     });
-    res.render('../views/board.ejs',{title:"title",board :this_board});
+    res.render('../views/generalBoard.ejs',{title:"title",board :board1});
 });
-/* comment insert mongo*/
-router.post('/comment/write', function (req, res){
-    var comment = new Comment();
+router.get('/semesterSetboard', (req, res)=> {
+    board2.view_num += 1;
+    board2.save(function (err) {
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }
+    });
+    res.render('../views/semesterBoard.ejs',{title:"title",board :board2});
+});
+router.get('/helpSetboard', (req, res)=> {
+    board3.view_num += 1;
+    board3.save(function (err) {
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }
+    });
+    res.render('../views/helpBoard.ejs',{title:"title",board :board3});
+});
+
+/*댓글 DB에 저장*/
+router.post('/generalComment/write', function (req, res){
+    var comment = new generalComment();
     comment.contents = req.body.contents;
     comment.userName = req.session.userName;
     comment.comment_date = Date.now();
-    comment.HH_mm = moment().format("HH:mm");
+    comment.time = moment().format("HH:mm");
 
-    Board.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
+    generalBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
         if(err){
             console.log(err);
             res.redirect('/home');
         }
-        id = req.body.id;
-            res.redirect('/home/setboard/comment');
+        id1 = req.body.id;
+            res.redirect('/home/generalSetboard/comment');
     });
 });
-/* board find by id */
-router.get('/setboard/comment', function (req, res) {
-    Board.findOne({_id: id}, function (err, board) {
-            res.render('../views/board.ejs', {title: 'Board', board: board});
+router.post('/semesterComment/write', function (req, res){
+    var comment = new semesterComment();
+    comment.contents = req.body.contents;
+    comment.userName = req.session.userName;
+    comment.comment_date = Date.now();
+    comment.time = moment().format("HH:mm");
+
+    semesterBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }
+        id2 = req.body.id;
+        res.redirect('/home/semesterSetboard/comment');
+    });
+});
+router.post('/helpComment/write', function (req, res){
+    var comment = new helpComment();
+    comment.contents = req.body.contents;
+    comment.userName = req.session.userName;
+    comment.comment_date = Date.now();
+    comment.time = moment().format("HH:mm");
+
+    helpBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }
+        id3 = req.body.id;
+        res.redirect('/home/helpSetboard/comment');
+    });
+});
+/* id를 이용해 댓글추가된 페이지 다시 렌더링 */
+router.get('/generalSetboard/comment', function (req, res) {
+    generalBoard.findOne({_id: id1}, function (err, board) {
+            res.render('../views/generalBoard.ejs', {title: 'Board', board: board});
+    })
+});
+router.get('/semesterSetboard/comment', function (req, res) {
+    semesterBoard.findOne({_id: id2}, function (err, board) {
+        res.render('../views/semesterBoard.ejs', {title: 'Board', board: board});
+    })
+});
+router.get('/helpSetboard/comment', function (req, res) {
+    helpBoard.findOne({_id: id3}, function (err, board) {
+        res.render('../views/helpBoard.ejs', {title: 'Board', board: board});
     })
 });
 
@@ -125,15 +277,6 @@ router.post('/request',(req,res)=>{
             res.send(result);
         })
         .catch(err=>{console.log(err)})
-})
-
-router.get('/page/:page', function(req, res){
-    Board.find({}, function (err, board) {
-        if(board) {
-            console.log(board);
-            res.render('../views/generalBoardPage.ejs', {title: 'General Forum',board: board, page: 1, page_num: 10});
-        }
-    });
 })
 
 module.exports = router;

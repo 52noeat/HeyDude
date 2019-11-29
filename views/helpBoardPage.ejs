@@ -29,23 +29,23 @@
 </nav>
 <div class="content-scroll">
     <br>
-    <div class="text-center"><h3 style="font-style: oblique"> General Forum</h3>
-        <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="/home/generalwrite">Write</a>
+    <div class="text-center"><h3 style="font-style: oblique"> Help Forum</h3>
+        <a class="btn btn-info fa-pull-right" style="color: white; background-color: #80bdff; justify-content: center" href="/home/helpwrite">Write</a>
     </div><br><br>
     <div class="column">
-            <% if (board !== null){%>
-            <%for(var i = board.length -((page-1) * page_num) -1; i >= board.length - ((page-1) * page_num) -page_num; i--) { %>
-                <% if(i < 0){
-                    break;
-                }else{ %>
-                    <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>"><p></p>
-                        <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
-                        <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
-                        <pre style="color: grey; font-weight: lighter;"><%= board[i].time%> | <%= board[i].userName%> | views <%= board[i].view_num%> | comments <%= board[i].comments.length%></pre>
-                    </div>
-                    <hr class="hr1">
-            <% } }%>
-            <%} %>
+        <% if (board !== null){%>
+        <%for(var i = board.length -((page-1) * page_num) -1; i >= board.length - ((page-1) * page_num) -page_num; i--) { %>
+            <% if(i < 0){
+                break;
+            }else{ %>
+                <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>"><p></p>
+                    <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
+                    <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
+                    <pre style="color: grey; font-weight: lighter;"><%= board[i].time%> | <%= board[i].userName%> | views <%= board[i].view_num%> | comments <%= board[i].comments.length%></pre>
+                </div>
+                <hr class="hr1">
+        <% } }%>
+        <%} %>
         <hr/>
         <div class="page">
             <ul class="pagination justify-content-center">
@@ -57,7 +57,7 @@
             </ul>
         </div>
     </div>
-        <!--요안에만 채우시면됩니다.-->
+    <!--요안에만 채우시면됩니다.-->
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
     <ul class="nav nav-pills">
@@ -107,13 +107,13 @@
     function submit(id) {
         $.ajax({
             type:"GET",
-            url: "/home/generalBoard" ,
+            url: "/home/helpBoard" ,
             data: {
                 id:id
             }
         }).done(function(result) {
             if(result=='1'){
-                location.href="/home/generalSetboard"
+                location.href="/home/helpSetboard"
             }
         });
     }

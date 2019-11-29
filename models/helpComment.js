@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var commentSchema = new Schema({
+var helpCommentSchema = new Schema({
     contents: String,
     userName: String,
-    MM_DD: String,
-    HH_mm: String,
+    time: String,
     comment_date: {type: Date, default: Date.now()}
 });
 
-module.exports = mongoose.model('comment', commentSchema);
+module.exports = mongoose.model('helpComment', helpCommentSchema);
