@@ -1,4 +1,5 @@
 const Chat = require('./chat');
+const ChatRoom = require('./chatroom');
 const FriendList = require('./friendlist');
 const Profile = require('./profile');
 const User = require('./user');
@@ -13,6 +14,7 @@ module.exports = {
     User,
     Profile,
     FriendList,
+    ChatRoom,
     Chat,
     generalBoard,
     generalComment,

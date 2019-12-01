@@ -15,7 +15,7 @@ var logger = require('morgan');
 mongoose.Promise = global.Promise;
 
 // CONNECT TO MONGODB SERVER
-mongoose.connect('mongodb://localhost:27017/heydude', {
+mongoose.connect('mongodb://15.164.7.246:27017/heydude', {
   authSource: "admin",
   useNewUrlParser:true,
   useUnifiedTopology:true

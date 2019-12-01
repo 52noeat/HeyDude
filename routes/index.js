@@ -32,14 +32,6 @@ router.get('/profileSet', (req, res) => {
         res.render('../views/setProfile.ejs');
     // }
 });
-router.get('/userList', (req, res) => {
-    let sess = req.session
-    // if(!sess.userID){
-    //     res.render('../views/signin.ejs');
-    // }else{
-        res.render('../views/userList.ejs');
-    // }
-});
 router.get('/userAdd', (req, res) => {
     let sess = req.session
     // if(!sess.userID){
@@ -70,6 +62,15 @@ router.get('/setProfile', (req, res) => {
     //     res.render('../views/signin.ejs');
     // }else{
     res.render('../views/setProfile.ejs');
+    // }
+});
+
+router.get('/chat', (req, res) => {
+    let sess = req.session
+    // if(!sess.userID){
+    //     res.render('../views/signin.ejs');
+    // }else{
+    res.render('../views/chat.ejs');
     // }
 });
 
