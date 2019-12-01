@@ -1,4 +1,5 @@
 const app = require('../app');
+const moment = require("moment");
 const {Chat}=require('../models/index');
 
 const server = app.listen(3000, function () {
@@ -33,10 +34,20 @@ io.on('connect', (socket) => {
 
     socket.on('chat', (data) => {
         const { chatCode } = data
-        const newChat = new Chat(data);
+        console.log(data)
+        let date = moment().format();
+        date = date.substring(5,16);
+        date= date.substring(0,5)+" "+date.substring(6,11)+"  ";
+        const newChat = new Chat({
+            chatCode : data.chatCode,
+            userID : data.userID,
+            userName : data.userName,
+            message : data.message,
+            date: date
+        });
         newChat.save()
             .then(result => {
-                io.to(chatCode).emit('MESSAGE', result)
+                io.to(chatCode).emit('receive', result)
             })
             .catch(err => console.log(err))
     });

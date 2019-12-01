@@ -5,7 +5,7 @@ const ChatSchema = new mongoose.Schema({
     userID : {type: String, required: true},
     userName : {type: String, required: true},
     message : {type: String, required: true},
-    date: {type: Date, default: Date.now()}
+    date: {type: String, required: true}
 });
 
 const Chat = mongoose.model('chat', ChatSchema);
