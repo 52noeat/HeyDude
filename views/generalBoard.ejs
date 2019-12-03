@@ -121,8 +121,22 @@
             });
 
     }
-    function Modify(){
-
+    function Modify(id, userName){
+            $.ajax({
+                type:"GET",
+                url: "/home/generalUpdate" ,
+                data: {
+                    id:id,
+                    userName:userName
+                }
+            }).done(function(result) {
+                if(result=='2'){
+                    alert("No permision!");
+                }
+                else{
+                    location.href="/home/generalwrite";
+                }
+            });
     }
 
     function PageToHome() {

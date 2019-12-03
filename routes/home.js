@@ -294,7 +294,15 @@ router.get('/helpDelete', (req, res)=> {
             })
     }
 });
-
+/*id를 이용해 게시글 Update*/
+router.get('/generalUpdate', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("no permission");
+        res.send('2');
+    }else {
+        res.send('1');
+    }
+});
 
 router.get('/view',(req,res)=>{
     let friendID = req.body;
