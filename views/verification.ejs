@@ -59,7 +59,7 @@
 </html>
 <script>
     function PageToHome() {
-        location.href="/home"
+        location.href="/setProfile"
     }
     function SignOut() {
         $.ajax({
@@ -124,7 +124,7 @@
                 $("#verification_feedback").show();
                 $("#verification").addClass('is-invalid');
             }else{
-                location.replace("/home");
+                location.replace("/setProfile");
             }
         });
     }
