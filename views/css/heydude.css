@@ -167,18 +167,19 @@ tag {
     background-color: #fa3e3e;
     border-radius: 45%;
     color: white;
+    text-align: center;
 
-    padding: 0.01em 0.4em;
+    padding: 0.02em 0.5em;
 
     position: absolute;
     top: 0;
     right: 0;
 }
 /*프로필*/
-.myprofileinfo .userFace{
+.userFace{
     text-align: center;
 }
-.myprofileinfo .userFace img{
+.userFace img{
     border-radius: 50%;
     width: 15em;
     height: 15em;

@@ -6,6 +6,29 @@
 <!-- Plugin JavaScript -->
 <script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Custom scripts for this template -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDbzlQSjsx4Pg3zj7EFAU6I-t6TmP1XaW4",
+        authDomain: "hey-dude-da806.firebaseapp.com",
+        databaseURL: "https://hey-dude-da806.firebaseio.com",
+        projectId: "hey-dude-da806",
+        storageBucket: "hey-dude-da806.appspot.com",
+        messagingSenderId: "364253299049",
+        appId: "1:364253299049:web:da6cb2975e332c5221bdf8",
+        measurementId: "G-E3K1WF6VP5"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
 <head>
     <meta charset="utf-8">
     <!-- 화면 꽉채우기 -->
@@ -36,6 +59,12 @@
             <hr>
         </div>
         <br>
+        <div class='userFace'>
+            <img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+        </div>
+        <div  style="text-align: center">
+            <input id="file" type="file"/>
+        </div>
         <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
             <div style="font-weight: bold; font-size: large;">
                 <label>Age (kor)</label>
