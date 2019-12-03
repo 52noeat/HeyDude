@@ -30,30 +30,15 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <div class="container" >
-        <div class="page-header" style="position: relative; overflow: hidden;">
-            <br>
-            <h2 align="center">My Profile</h2>
-            <hr>
-        </div>
-        <div class='cardList'>
+        <div class='card'>
             <div class='profileCard'>
-                <table class="firstLine">
-                <%if(profile.active){%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex;" >
-                        <input type="checkbox" class="custom-control-input" checked id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval">active</label>
-                    </td>
-                <%}else{%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex" >
-                        <input type="checkbox" class="custom-control-input"  id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval" name="inactive">inactive</label>
-                    </td>
-                <%}%>
-                <td style="text-align: right">
-                    <button type='button' id="edit" class='btn btn-info'>Edit</button>
+                <table class="firstLine" style="margin-top: 3%;">
+                <td>
+                    <button type='button' id="plus" class="btn btn-info nav-link mdi mdi-account-plus"></button>
                 </td>
+                <td style="direction: rtl">
+                    <button type='button' id="block" class="btn btn-info nav-link mdi mdi-account-off"></button>                </td>
                 </table>
-                <hr>
                 <div class='myprofileinfo' >
                     <div class='userFace'>
                         <img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
@@ -167,18 +152,15 @@
         });
     }
 
-    $('#active').on("click", function()
-    {
-        if($('#active').is(':checked')==true){
-            var msg = "active";
-            $("#activeval").html(msg);
-        }else{
-            var msg = "inactive"
-            $("#activeval").html(msg);
-        }
-    })
-
-    $('#edit').on("click", function () {
-        location.href="edit"
+    $('#plus').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/send",
+            data: {
+                friendID : '<%=profile.wish%>'
+            }
+        }).done(result=>{
+            location.reload()
+        })
     })
 </script>

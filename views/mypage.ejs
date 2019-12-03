@@ -23,9 +23,7 @@
 <body class="body-size">
     <nav class="navbar navbar-dark bg-primary bar">
         <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white;">Hey Dude</button>
-        <div>
-            <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
-        </div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-info my-2 my-sm-0" style="color: white">Sign Out</button>
     </nav>
     <div class="content-scroll" >
         <article class="container" >
@@ -35,7 +33,6 @@
                 <hr>
             </div>
             <div class="list-group" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/setProfile" role="tab">Set Profile</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="/profile/myProfile" role="tab">My Profile</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">User Info</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
@@ -48,7 +45,7 @@
                 <a class="nav-link mdi mdi-home" href="/home"></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mdi mdi-account-group" href="/userList"></a>
+                <a class="nav-link mdi mdi-account-group" href="/profile/community"></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
@@ -82,4 +79,11 @@
             }
         });
     }
+
 </script>
+
+<style>
+    .nav-pills {
+        font-size: larger;
+    }
+</style>

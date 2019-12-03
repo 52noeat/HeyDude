@@ -40,7 +40,7 @@
             <a class="nav-link mdi mdi-home" href="/home"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-group" href="/userList"></a>
+            <a class="nav-link mdi mdi-account-group" href="/profile/community"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/userAdd"></a>
@@ -63,14 +63,20 @@
         location.href="/"
     }
     function SignOut() {
-        location.href="/logout"
+        $.ajax({
+            type:"GET",
+            url: "/user/signout" ,
+            data: {
+            }
+        }).done(function(result) {
+            if (result) {
+                location.replace('/signin');
+            } else {
+                location.reload();
+            }
+        });
     }
-    function PageToSignIn() {
-        location.href="/signin"
-    }
-    function PageToSignUp() {
-        location.href="/signup"
-    }
+
     function setTable() {
         let str =""
         // for(){
