@@ -28,54 +28,56 @@
     </div>
 </nav>
 <div class="content-scroll">
-    <!--요안에만 채우시면됩니다.-->
-    <table>
-        <%
-        if(profile=="") {%>
-        <tr>
-            <td>
-                <div class="column" >
-                    <div class='cardList'>
-                        <h3>There is no registered users.</h3>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <%}else{
-            for(i in profile){%>
+    <div class="column">
+        <table id="table">
+            <%
+            if(request=="") {%>
                 <tr>
                     <td>
                         <div class="column" >
                             <div class='cardList'>
-                                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
-                                    <div class='profileinfo'>
-                                        <h1><%=profile[i].userName%>
-                                            <%if(profile[i].tendency=="play"){%>
-                                                <div class='tendency' style="margin-left: 3%;">
-                                                    <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FFB6B9;'>play</button>
-                                                </div>
-                                            <%}else if(profile[i].tendency=="culture"){%>
-                                                <div class='tendency' style="margin-left: 3%;">
-                                                    <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FAE3D9;'>culture</button>
-                                                </div>
-                                            <%}else if(profile[i].tendency=="study"){%>
-                                                <div class='tendency' style="margin-left: 3%;">
-                                                    <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
-                                                </div>
-                                            <%}%>
-                                        </h1>
-                                        <h3><%=profile[i].age%>, <%=profile[i].nationality%>, <%=profile[i].sex%></h3>
-                                        <p class='bio'><%=profile[i].introduce%></p>
-                                        <button class='button' style='background-color: #7abaff' onclick="detail('<%=profile[i].userID%>')">Detail</button>
-                                    </div>
-                                </div>
+                                <h3>There is no registered users.</h3>
                             </div>
                         </div>
                     </td>
                 </tr>
+            <%}else{
+                    for(i in request){%>
+            <tr>
+                <td>
+                    <div class="column" >
+                        <div class='cardList'>
+                            <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+                                <div class='profileinfo'>
+                                    <h1><%=request[i].userName%>
+                                        <%if(request[i].tendency=="play"){%>
+                                            <div class='tendency' style="margin-left: 3%;">
+                                                <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FFB6B9;'>play</button>
+                                            </div>
+                                        <%}else if(request[i].tendency=="culture"){%>
+                                            <div class='tendency' style="margin-left: 3%;">
+                                                <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #FAE3D9;'>culture</button>
+                                            </div>
+                                        <%}else if(request[i].tendency=="study"){%>
+                                            <div class='tendency' style="margin-left: 3%;">
+                                                <button type='button' class='btn' style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
+                                            </div>
+                                        <%}%>
+                                    </h1>
+                                    <h3><%=request[i].age%>, <%=request[i].nationality%>, <%=request[i].sex%></h3>
+                                    <button class='button' style='background-color: #7abaff' onclick="detail('<%=request[i].userID%>')">Detail</button>
+                                    <button class='button' style='background-color: #64E291'>Accept</button>
+                                    <button class='button' style='background-color: #EB7070'>Decline</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <%}
-        }%>
-    </table>
+            }%>
+        </table>
+    </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center;">
     <ul class="nav nav-pills">
@@ -83,10 +85,10 @@
             <a class="nav-link mdi mdi-home" href="/home"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-group active" href="/profile/community"></a>
+            <a class="nav-link mdi mdi-account-group" href="/profile/community"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <a class="nav-link mdi mdi-account-plus active" href="/request/view"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chatList"></a>
@@ -100,6 +102,7 @@
 </body>
 </html>
 <script>
+    setTable()
     function PageToHome() {
         location.href="/home"
     }
@@ -126,14 +129,12 @@
             }
         }).done(function(result) {
             if (result) {
-                location.href='/profile/view';
+                location.href='/profile/view/request';
             } else {
                 location.reload();
             }
         });
     }
+
 </script>
 
-<style>
-
-</style>

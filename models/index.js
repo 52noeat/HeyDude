@@ -9,11 +9,13 @@ const semesterBoard = require('./semesterBoard');
 const semesterComment = require('./semesterComment');
 const helpBoard = require('./helpBoard');
 const helpComment = require('./helpComment');
+const Request = require('./request');
 
 module.exports = {
     User,
     Profile,
     FriendList,
+    Request,
     ChatRoom,
     Chat,
     generalBoard,

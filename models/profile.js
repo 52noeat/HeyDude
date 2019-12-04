@@ -14,7 +14,10 @@ const ProfileSchema = new mongoose.Schema({
     hate: {type: String, default: ""},
     wish: {type: String, default: ""},
     introduce: {type: String, default: ""},
-    active: {type: Boolean, default: true}
+    active: {type: Boolean, default: true},
+    friend: [{type: String}],
+    plus: [{type : String}],
+    block: [{type : String}]
 });
 
 const Profile = mongoose.model('profile', ProfileSchema);

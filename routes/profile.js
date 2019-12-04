@@ -83,10 +83,28 @@ router.post('/detail', (req,res)=>{
 });
 
 router.get('/view', (req,res)=>{
+    let user_ID = req.session.userID;
+    let status = 0 ;
     Profile.findOne({userID:this_friendID}).then(profile=>{
         if(profile){
-            console.log(profile)
-            res.render('../views/profile.ejs', {profile : profile});
+            if(profile.friend[i]==user_ID)
+                status = 1;
+            if(profile.plus[i]==user_ID)
+                status = 2;
+            console.log(status)
+            res.render('../views/profile.ejs', {profile : profile, status : status});
+        }else{
+            res.render('../views/profile.ejs', {profile : ""});
+        }
+    })
+})
+
+router.get('/view/request', (req,res)=>{
+    let user_ID = req.session.userID;
+    let status = 3 ;
+    Profile.findOne({userID:this_friendID}).then(profile=>{
+        if(profile){
+            res.render('../views/profile.ejs', {profile : profile, status : status});
         }else{
             res.render('../views/profile.ejs', {profile : ""});
         }
@@ -116,6 +134,12 @@ router.get('/community',(req,res)=>{
             for(i in profile){
                 if(profile[i].userID==user_ID){
                     profile.splice(i,1)
+                }
+                for(j in profile.friend){
+                    if(profile.friend[j]==user_ID)
+                        profile.splice(j,1)
+                    if(profile.block[j]==user_ID)
+                        profile.splice(j,1)
                 }
             }
             res.render('../views/community.ejs', {profile: profile});
