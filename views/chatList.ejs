@@ -46,8 +46,8 @@
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-comment active" href="/chatList"></a>
-            <span class="button__badge">23</span>
+            <a class="nav-link mdi mdi-comment active" href="/chat/chatRoom"></a>
+            <!--<span class="button__badge">23</span>-->
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -79,11 +79,6 @@
 
     function setTable() {
         let str =""
-        // for(){
-        //        str += "<tr><td>"
-        //    여기서 동적으로 입력
-        //        str += "</td></tr>"
-        // }
         str += "<tr><td>"
         str +=
             "            <div class='cardList'>" +
@@ -124,8 +119,16 @@
         str += "</td></tr>"
         $('#table').html(str)
     }
+    $('#disconnect').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/discconet",
+            data: {
+
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    })
 </script>
-
-<style>
-
-</style>

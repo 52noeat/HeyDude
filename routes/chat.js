@@ -22,4 +22,13 @@ router.get('/enter',(req, res)=>{
     });
 })
 
+router.get('chatRoom',(req, res)=>{
+    let user_ID = req.session.userID;
+    let user_Name = req.session.userName;
+    ChatRoom.find({userID : user_ID})
+        .then(chatRoom=>{
+            console.log(chatRoom)
+        })
+})
+
 module.exports = router;

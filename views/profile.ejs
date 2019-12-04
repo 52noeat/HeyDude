@@ -51,7 +51,14 @@
                     <td style="direction: rtl">
                         <button type='button' id="decline" style="background-color: #EB7070; border-color: #EB7070" class="btn btn-info nav-link">Decline</button>
                     </td>
-                    <%}%>
+                        <%}else if(status==1){%>
+                            <td>
+                                <button type='button' style="background-color: #64E291; border-color: #64E291; display: none" class="btn btn-info nav-link">Accept</button>
+                            </td>
+                            <td style="direction: rtl">
+                                <button type='button' id="disconnect" style="background-color: #EB7070; border-color: #EB7070" class="btn btn-info nav-link">Disconnect</button>
+                            </td>
+                        <%}%>
                 </table>
                 <div class='myprofileinfo' >
                     <div class='userFace'>
@@ -138,7 +145,7 @@
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-comment" href="/chatList"></a>
+            <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -226,4 +233,5 @@
             location.reload()
         })
     })
+
 </script>
