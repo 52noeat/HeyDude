@@ -36,7 +36,7 @@
                     <td>
                         <div class="column" >
                             <div class='cardList'>
-                                <h3>There is no registered users.</h3>
+                                <h3>There is no request.</h3>
                             </div>
                         </div>
                     </td>
@@ -66,8 +66,8 @@
                                     </h1>
                                     <h3><%=request[i].age%>, <%=request[i].nationality%>, <%=request[i].sex%></h3>
                                     <button class='button' style='background-color: #7abaff' onclick="detail('<%=request[i].userID%>')">Detail</button>
-                                    <button class='button' style='background-color: #64E291'>Accept</button>
-                                    <button class='button' style='background-color: #EB7070'>Decline</button>
+                                    <button class='button' style='background-color: #64E291' onclick="accept('<%=request[i].userID%>','<%=request[i].userName%>')">Accept</button>
+                                    <button class='button' style='background-color: #EB7070' onclick="decline('<%=request[i].userID%>')">Decline</button>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +134,31 @@
                 location.reload();
             }
         });
+    }
+    function accept(friendID,friendName) {
+        $.ajax({
+            type:"POST",
+            url: "/request/accept",
+            data: {
+                friendID : friendID,
+                friendName : friendName
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    }
+    function decline(friendID) {
+        $.ajax({
+            type:"POST",
+            url: "/request/decline",
+            data: {
+                friendID : friendID
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
     }
 
 </script>

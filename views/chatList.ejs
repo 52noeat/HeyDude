@@ -30,8 +30,39 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <div class="column">
-        <table id="table">
-        </table>
+        <%
+        if(chatRoom=="") {%>
+            <div class="column" >
+                <div class='cardList'>
+                    <h3>There is no chatRoom.</h3>
+                </div>
+            </div>
+        <%}else{
+            for(i in chatRoom){%>
+            <div class='cardList'>
+                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+                    <table>
+                        <tr>
+                            <td class='profileinfo'>
+                                <h1><%=chatRoom[i].userName[0]%></h1>
+                                <p class='bio'>How are you? </p>
+                            </td>
+                            <td class='chatInfo'>
+                                <span class='alarmNum'>2</span>
+                                <span class='chatTime'>AM 11:50</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class='button' style='background-color: #64E291' onclick="enter('<%=chatRoom[i].chatCode%>','<%=chatRoom[i].userName[0]%>')">Enter</button>
+                                <button class='button' style='background-color: #7abaff' onclick="detail('<%=chatRoom[i].userID[0]%>')">Detail</button>
+                                <button class='button' style='background-color: #EB7070' onclick="disconnect('<%=chatRoom[i].chatCode%>')">Disconnect</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        <%}}%>
     </div>
 </div>
 <nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center;">
@@ -76,59 +107,48 @@
             }
         });
     }
-
-    function setTable() {
-        let str =""
-        str += "<tr><td>"
-        str +=
-            "            <div class='cardList'>" +
-            "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
-            "                    <table>"+
-            "                    <td class='profileinfo'>" +
-            "                        <h1>Tima</h1>" +
-            "                        <h3>21, Turkey, Male</h3>" +
-            "                        <p class='bio'>How are you? </p>" +
-            "                    </td>" +
-            "                    <td class='chatInfo'>" +
-            "                        <span class='alarmNum'>2</span>" +
-            "                        " +
-            "                        <span class='chatTime'>AM 11:50</span>" +
-            "                    </td>" +
-            "                    </table>"+
-            "                </div>" +
-            "            </div>"
-        str += "</td></tr>"
-        str += "<tr><td>"
-        str +=
-            "            <div class='cardList'>" +
-            "                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>" +
-            "                    <table>"+
-            "                    <td class='profileinfo'>" +
-            "                        <h1>Park Jihun</h1>" +
-            "                        <h3>23, South Korea, Male</h3>" +
-            "                        <p class='bio'>안녕? </p>" +
-            "                    </td>" +
-            "                    <td class='chatInfo'>" +
-            "                        <span class='alarmNum'>12</span>" +
-            "                        " +
-            "                        <span class='chatTime'>AM 10:28</span>" +
-            "                    </td>" +
-            "                    </table>"+
-            "                </div>" +
-            "            </div>"
-        str += "</td></tr>"
-        $('#table').html(str)
+    function detail(friendID) {
+        $.ajax({
+            type:"POST",
+            url: "/profile/detail" ,
+            data: {
+                friendID : friendID
+            }
+        }).done(function(result) {
+            if (result) {
+                location.href='/profile/view/request';
+            } else {
+                location.reload();
+            }
+        });
     }
-    $('#disconnect').on("click", function () {
+    function enter(chatCode, friendName) {
+        $.ajax({
+            type:"POST",
+            url: "/chat/roomSet" ,
+            data: {
+                chatCode : chatCode,
+                friendName : friendName
+            }
+        }).done(function(result) {
+            if (result) {
+                location.href='/chat/enter';
+            } else {
+                alert("retry");
+                location.reload();
+            }
+        });
+    }
+    function disconnect(chatCode) {
         $.ajax({
             type:"POST",
             url: "/request/discconet",
             data: {
-
+                chatCode : chatCode
             }
         }).done(result=>{
             alert(result)
             location.reload()
         })
-    })
+    }
 </script>

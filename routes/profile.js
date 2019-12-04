@@ -74,7 +74,6 @@ router.post('/detail', (req,res)=>{
     this_friendID = friendID;
     Profile.findOne({userID:friendID}).then(profile=>{
         if(profile){
-            console.log(profile)
             res.send(true);
         }else{
             res.send(false)
@@ -91,7 +90,6 @@ router.get('/view', (req,res)=>{
                 status = 1;
             if(profile.plus[i]==user_ID)
                 status = 2;
-            console.log(status)
             res.render('../views/profile.ejs', {profile : profile, status : status});
         }else{
             res.render('../views/profile.ejs', {profile : ""});
