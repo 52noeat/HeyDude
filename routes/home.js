@@ -297,12 +297,28 @@ router.get('/helpDelete', (req, res)=> {
 /*id를 이용해 게시글 Update*/
 router.get('/generalUpdate', (req, res)=> {
     if(req.query.userName !== req.session.userName){
-        console.log("no permission");
+        console.log("if문 no permission");
         res.send('2');
-    }else {
-        res.send('1');
+    }
+    else {
+        generalBoard.findOne({_id: req.body.id}, function (err, board) {
+            console.log(req);
+            console.log(board);
+            res.render('../views/generalUpdatePage.ejs', {board: board});
+        });
     }
 });
+
+router.post('/generalUpdateSave', (req, res) => {
+    generalBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
+        if(err){
+            console.log(err);
+            res.redirect('/home');
+        }
+        id1 = req.body.id;
+        res.redirect('/home/generalSetboard/comment');
+    });
+})
 
 router.get('/view',(req,res)=>{
     let friendID = req.body;
