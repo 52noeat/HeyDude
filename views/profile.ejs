@@ -30,30 +30,36 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <div class="container" >
-        <div class="page-header" style="position: relative; overflow: hidden;">
-            <br>
-            <h2 align="center">My Profile</h2>
-            <hr>
-        </div>
-        <div class='cardList'>
+        <div class='card'>
             <div class='profileCard'>
-                <table class="firstLine">
-                <%if(profile.active){%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex;" >
-                        <input type="checkbox" class="custom-control-input" checked id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval">active</label>
+                <table class="firstLine" style="margin-top: 3%;">
+                    <%if(status==0){%>
+                    <td>
+                        <button type='button' id="plus" class="btn btn-info nav-link mdi mdi-account-plus"></button>
                     </td>
-                <%}else{%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex" >
-                        <input type="checkbox" class="custom-control-input"  id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval" name="inactive">inactive</label>
+                    <td style="direction: rtl">
+                        <button type='button' id="block" style="background-color: #bd2130; border-color: #bd2130" class="btn btn-info nav-link mdi mdi-account-off"></button>
                     </td>
-                <%}%>
-                <td style="text-align: right">
-                    <button type='button' id="edit" class='btn btn-info'>Edit</button>
-                </td>
+                    <%}else if(status==2){%>
+                    <td>
+                        <button type='button' id="minus" style="background-color: #bd2130; border-color: #bd2130" class="btn btn-info nav-link mdi mdi-account-minus"></button>
+                    </td>
+                    <%}else if(status==3){%>
+                    <td>
+                        <button type='button' id="accept" style="background-color: #64E291; border-color: #64E291" class="btn btn-info nav-link">Accept</button>
+                    </td>
+                    <td style="direction: rtl">
+                        <button type='button' id="decline" style="background-color: #EB7070; border-color: #EB7070" class="btn btn-info nav-link">Decline</button>
+                    </td>
+                        <%}else if(status==1){%>
+                            <td>
+                                <button type='button' style="background-color: #64E291; border-color: #64E291; display: none" class="btn btn-info nav-link">Accept</button>
+                            </td>
+                            <td style="direction: rtl">
+                                <button type='button' id="disconnect" style="background-color: #EB7070; border-color: #EB7070" class="btn btn-info nav-link">Disconnect</button>
+                            </td>
+                        <%}%>
                 </table>
-                <hr>
                 <div class='myprofileinfo' >
                     <div class='userFace'>
                         <img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
@@ -77,18 +83,18 @@
                             <%=profile.userName%>
                         </h1>
                         <h3><table>
-                            <tr><th>Age</th>
-                                <td><%=profile.age%></td></tr>
-                            <tr><th>Gender</th>
-                                <td><%=profile.sex%></td></tr>
-                            <tr><th>Nationality</th>
-                                <td><%=profile.nationality%></td></tr>
-                            <tr><th>Major</th>
-                                <td><%=profile.major%></td></tr>
+                                <tr><th>Age</th>
+                                    <td><%=profile.age%></td></tr>
+                                <tr><th>Gender</th>
+                                    <td><%=profile.sex%></td></tr>
+                                <tr><th>Nationality</th>
+                                    <td><%=profile.nationality%></td></tr>
+                                <tr><th>Major</th>
+                                    <td><%=profile.major%></td></tr>
                             </table></h3>
                     </div>
                 </div>
-                    <div class="specific">
+                <div class="specific">
                     <br>
                     <div style="font-weight: bold;">
                         <label>language</label>
@@ -140,7 +146,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
-            <span class="button__badge">2</span>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -167,19 +172,66 @@
             }
         });
     }
-
-    $('#active').on("click", function()
-    {
-        if($('#active').is(':checked')==true){
-            var msg = "active";
-            $("#activeval").html(msg);
-        }else{
-            var msg = "inactive"
-            $("#activeval").html(msg);
-        }
+    $('#plus').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/send",
+            data: {
+                friendID : '<%=profile.userID%>'
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    })
+    $('#minus').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/minus",
+            data: {
+                friendID : '<%=profile.userID%>'
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    })
+    $('#block').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/block",
+            data: {
+                friendID : '<%=profile.userID%>'
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    })
+    $('#accept').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/accept",
+            data: {
+                friendID : '<%=profile.userID%>',
+                friendName : '<%=profile.userName%>'
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
+    })
+    $('#decline').on("click", function () {
+        $.ajax({
+            type:"POST",
+            url: "/request/decline",
+            data: {
+                friendID : '<%=profile.userID%>'
+            }
+        }).done(result=>{
+            alert(result)
+            location.reload()
+        })
     })
 
-    $('#edit').on("click", function () {
-        location.href="edit"
-    })
 </script>
