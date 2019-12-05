@@ -167,21 +167,39 @@ tag {
     background-color: #fa3e3e;
     border-radius: 45%;
     color: white;
+    text-align: center;
 
-    padding: 0.01em 0.4em;
+    padding: 0.02em 0.5em;
 
     position: absolute;
     top: 0;
     right: 0;
 }
-/*프로필*/
-.myprofileinfo .userFace{
+/*프로필 사진*/
+.userFace{
     text-align: center;
 }
-.myprofileinfo .userFace img{
+.userFace img{
     border-radius: 50%;
     width: 15em;
     height: 15em;
+}
+/*프로필 사진 수정 버튼*/
+.editFace{
+    position: relative;
+}
+.fileButtonIcon{
+    font-size: 1.3em;
+    background-color: #80bdff;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+
+    padding: 0.05em 0.5em;
+
+    position: absolute;
+    top: -5em;
+    right: 0;
 }
 .myprofileinfo .tendency{
 }

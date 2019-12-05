@@ -7,7 +7,6 @@ router.get('/view',(req,res)=>{
     let userID = req.session.userID;
     Request.find({friendID: userID})
         .then(request=>{
-            console.log(request)
             res.render("../views/request.ejs",{request : request})
         })
 })

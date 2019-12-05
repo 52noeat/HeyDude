@@ -38,20 +38,20 @@
         <div class='cardList'>
             <div class='profileCard'>
                 <table class="firstLine">
-                <%if(profile.active){%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex;" >
-                        <input type="checkbox" class="custom-control-input" checked id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval">active</label>
+                    <%if(profile.active){%>
+                        <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex;" >
+                            <input type="checkbox" class="custom-control-input" checked id="active" name="active">
+                            <label class="custom-control-label" for="active" id="activeval">active</label>
+                        </td>
+                    <%}else{%>
+                        <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex" >
+                            <input type="checkbox" class="custom-control-input"  id="active" name="active">
+                            <label class="custom-control-label" for="active" id="activeval" name="inactive">inactive</label>
+                        </td>
+                    <%}%>
+                    <td style="text-align: right">
+                        <button type='button' id="edit" class='btn btn-info'>Edit</button>
                     </td>
-                <%}else{%>
-                    <td class="custom-control custom-switch" style="margin-left: 3%; margin-right: 3%; margin-top: 2px; display: flex" >
-                        <input type="checkbox" class="custom-control-input"  id="active" name="active">
-                        <label class="custom-control-label" for="active" id="activeval" name="inactive">inactive</label>
-                    </td>
-                <%}%>
-                <td style="text-align: right">
-                    <button type='button' id="edit" class='btn btn-info'>Edit</button>
-                </td>
                 </table>
                 <hr>
                 <div class='myprofileinfo' >
@@ -77,18 +77,18 @@
                             <%=profile.userName%>
                         </h1>
                         <h3><table>
-                            <tr><th>Age</th>
-                                <td><%=profile.age%></td></tr>
-                            <tr><th>Gender</th>
-                                <td><%=profile.sex%></td></tr>
-                            <tr><th>Nationality</th>
-                                <td><%=profile.nationality%></td></tr>
-                            <tr><th>Major</th>
-                                <td><%=profile.major%></td></tr>
+                                <tr><th>Age</th>
+                                    <td><%=profile.age%></td></tr>
+                                <tr><th>Gender</th>
+                                    <td><%=profile.sex%></td></tr>
+                                <tr><th>Nationality</th>
+                                    <td><%=profile.nationality%></td></tr>
+                                <tr><th>Major</th>
+                                    <td><%=profile.major%></td></tr>
                             </table></h3>
                     </div>
                 </div>
-                    <div class="specific">
+                <div class="specific">
                     <br>
                     <div style="font-weight: bold;">
                         <label>language</label>
@@ -167,7 +167,6 @@
             }
         });
     }
-
     $('#active').on("click", function()
     {
         if($('#active').is(':checked')==true){
@@ -178,7 +177,6 @@
             $("#activeval").html(msg);
         }
     })
-
     $('#edit').on("click", function () {
         location.href="edit"
     })

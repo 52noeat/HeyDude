@@ -19,20 +19,16 @@ router.get('/', async (req,res)=>{
         await generalBoard.find({}, function (err, board) {
             if(board) {
                 generalboard = board;
-                console.log("complete1")
             }
         });
         await semesterBoard.find({}, function (err, board) {
             if(board) {
                 semesterboard = board;
-                console.log("complete2")
             }
         });
         await helpBoard.find({}, function (err, board) {
             if(board) {
                 res.render('../views/home.ejs', {title: 'Home', generalBoard: generalboard ,semesterBoard: semesterboard , helpBoard: board});
-                console.log("complete3")
-                console.log('-----------------')
             }
         });
 });
@@ -275,7 +271,6 @@ router.get('/helpSetboard/comment', function (req, res) {
 /*id를 이용해 게시글 Delete*/
 router.get('/generalDelete', (req, res)=> {
     if(req.query.userName !== req.session.userName){
-        console.log("no permission");
         res.send('2');
     }else {
         generalBoard.deleteOne({_id: req.query.id})
@@ -288,7 +283,6 @@ router.get('/generalDelete', (req, res)=> {
 });
 router.get('/semesterDelete', (req, res)=> {
     if(req.query.userName !== req.session.userName){
-        console.log("no permission");
         res.send('2');
     }else {
         semesterBoard.deleteOne({_id: req.query.id})
@@ -301,7 +295,6 @@ router.get('/semesterDelete', (req, res)=> {
 });
 router.get('/helpDelete', (req, res)=> {
     if(req.query.userName !== req.session.userName){
-        console.log("no permission");
         res.send('2');
     }else {
         helpBoard.deleteOne({_id: req.query.id})
