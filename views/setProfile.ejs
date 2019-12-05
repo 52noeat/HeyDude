@@ -542,7 +542,6 @@
 </body>
 </html>
 <script>
-    let userID = '<%=profile.userID%>'
     function PageToHome() {
         location.href="/home"
     }
@@ -567,6 +566,7 @@
             return false;
         }
     }
+    let userID = '<%= user %>'
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
@@ -608,7 +608,6 @@
                 });
             });
         storageRef.getDownloadURL().then(function(url) {
-            alert('4');
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
@@ -617,7 +616,6 @@
             };
             xhr.open('GET', url);
             xhr.send();
-            alert('5');
             // Or inserted into an <img> element:
             var img = document.getElementById('myimage');
             img.src = url;

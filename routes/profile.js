@@ -123,7 +123,7 @@ router.get('/myProfile', (req, res) => {
             console.log(profile)
             res.render('../views/myProfile.ejs',{profile : profile});
         }else{
-            res.render('../views/setProfile.ejs');
+            res.render('../views/setProfile.ejs',{user : userID});
         }
     })
     // }
@@ -298,7 +298,7 @@ router.get('/edit', (req, res) => {
         if(profile){
             res.render('../views/editProfile.ejs',{profile : profile});
         }else{
-            res.render('../views/setProfile.ejs');
+            res.render('../views/setProfile.ejs',{user : userID});
         }
     })
     // }
