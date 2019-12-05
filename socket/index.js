@@ -36,20 +36,30 @@ io.on('connect', (socket) => {
         const { chatCode } = data
         console.log(data)
         let date = moment().format();
+        let read;
         date = date.substring(5,16);
         date= date.substring(0,5)+" "+date.substring(6,11)+"  ";
-        const newChat = new Chat({
-            chatCode : data.chatCode,
-            userID : data.userID,
-            userName : data.userName,
-            message : data.message,
-            date: date
+        io.to(chatCode).clients((err, clients) => {
+            console.log(chatCode+'방 채팅 인원:'+clients.length);
+            if(clients.length==1){
+                read=false;
+            }else{
+                read=true;
+            }
+            const newChat = new Chat({
+                chatCode : data.chatCode,
+                userID : data.userID,
+                userName : data.userName,
+                message : data.message,
+                date: date,
+                read : read
+            });
+            newChat.save()
+                .then(result => {
+                    io.to(chatCode).emit('receive', result)
+                })
+                .catch(err => console.log(err))
         });
-        newChat.save()
-            .then(result => {
-                io.to(chatCode).emit('receive', result)
-            })
-            .catch(err => console.log(err))
     });
 
     // socket.on('delete', (data)=>{
