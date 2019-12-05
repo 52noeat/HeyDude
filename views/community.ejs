@@ -30,6 +30,19 @@
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
     <table>
+        <tr style="text-align: center;">
+            <td style="display: inline-flex;">
+                <div class='tendency' style="margin-left: 3%;">
+                    <button type='button' class='btn' id="play" style= 'height: fit-content; color:white; background-color: #FFB6B9;'>play</button>
+                </div>
+                <div class='tendency' style="margin-left: 3%;">
+                    <button type='button' class='btn' id="culture"  style= 'height: fit-content; color:white; background-color: #FAE3D9;'>culture</button>
+                </div>
+                <div class='tendency' style="margin-left: 3%;">
+                    <button type='button' class='btn' id="study" style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
+                </div>
+            </td>
+        </tr>
         <%
         if(profile=="") {%>
         <tr>
@@ -132,6 +145,16 @@
             }
         });
     }
+
+    $("#play").click(()=>{
+        location.href="/profile/play"
+    })
+    $("#culture").click(()=>{
+        location.href="/profile/culture"
+    })
+    $("#study").click(()=>{
+        location.href="/profile/study"
+    })
 </script>
 
 <style>

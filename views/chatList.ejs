@@ -45,11 +45,13 @@
                         <tr>
                             <td class='profileinfo'>
                                 <h1><%=chatRoom[i].userName[0]%></h1>
-                                <p class='bio'>How are you? </p>
+                                <p class='bio'><%=message[i]%></p>
                             </td>
                             <td class='chatInfo'>
-                                <span class='alarmNum'>2</span>
-                                <span class='chatTime'>AM 11:50</span>
+                                <%if(read[i]>0){%>
+                                <span class='alarmNum'><%=read[i]%></span>
+                                <%}%>
+                                <span class='chatTime'><%=date[i]%></span>
                             </td>
                         </tr>
                         <tr>
@@ -116,7 +118,7 @@
             }
         }).done(function(result) {
             if (result) {
-                location.href='/profile/view/request';
+                location.href='/profile/view';
             } else {
                 location.reload();
             }
