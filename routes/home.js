@@ -445,6 +445,58 @@ router.post('/helpUpdateSave', (req, res) => {
         });
     });
 })
+//comment delete
+router.get('/generalCommentDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        res.send('2');
+    }else {
+        console.log("id는")
+        console.log(req.query.id)
+        generalBoard.findOneAndUpdate({_id: req.query.boardid}, {$pull: {comments:{_id: req.query.id}}}, function (err, board) {
+            if (err) {
+                console.log(err);
+                res.redirect('/home');
+            }
+            id1 = board._id;
+            res.send('1');
+        });
+    }
+});
+router.get('/semesterCommentDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        res.send('2');
+    }else {
+        console.log("id는")
+        console.log(req.query.id)
+        semesterBoard.findOneAndUpdate({_id: req.query.boardid}, {$pull: {comments:{_id: req.query.id}}}, function (err, board) {
+            if (err) {
+                console.log(err);
+                res.redirect('/home');
+            }
+            id2 = board._id;
+            res.send('1');
+        });
+    }
+});
+router.get('/helpCommentDelete', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        res.send('2');
+    }else {
+        console.log("id는")
+        console.log(req.query.id)
+        helpBoard.findOneAndUpdate({_id: req.query.boardid}, {$pull: {comments:{_id: req.query.id}}}, function (err, board) {
+            if (err) {
+                console.log(err);
+                res.redirect('/home');
+            }
+            id3 = board._id;
+            res.send('1');
+        });
+    }
+});
+
+
+
 
 router.get('/view',(req,res)=>{
     let friendID = req.body;
