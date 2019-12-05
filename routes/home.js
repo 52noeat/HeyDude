@@ -12,6 +12,8 @@ let generalboard;
 let semesterboard;
 let board1, board2, board3;
 let sortboard;
+let auth1, auth2, auth3;
+
 /*HOME 그리기*/
 router.get('/', async (req,res)=>{
     let sess = req.session;
@@ -170,33 +172,48 @@ router.get('/helpBoard', (req, res)=> {
 });
 router.get('/generalSetboard', (req, res)=> {
     board1.view_num += 1;
+    if(board1.userName == req.session.userName){
+        auth1 = 1;
+    }
     board1.save(function (err) {
         if(err){
             console.log(err);
             res.redirect('/home');
         }
     });
-    res.render('../views/generalBoard.ejs',{title:"title",board :board1});
+    res.render('../views/generalBoard.ejs',{title:"title",board :board1, auth:auth1});
+    console.log(auth1);
+    auth1 = 0;
 });
 router.get('/semesterSetboard', (req, res)=> {
     board2.view_num += 1;
+    if(board2.userName == req.session.userName){
+        auth2 = 1;
+    }
     board2.save(function (err) {
         if(err){
             console.log(err);
             res.redirect('/home');
         }
     });
-    res.render('../views/semesterBoard.ejs',{title:"title",board :board2});
+    res.render('../views/semesterBoard.ejs',{title:"title",board :board2, auth:auth2});
+    console.log(auth2);
+    auth2 = 0;
 });
 router.get('/helpSetboard', (req, res)=> {
     board3.view_num += 1;
+    if(board3.userName == req.session.userName){
+        auth3 = 1;
+    }
     board3.save(function (err) {
         if(err){
             console.log(err);
             res.redirect('/home');
         }
     });
-    res.render('../views/helpBoard.ejs',{title:"title",board :board3});
+    res.render('../views/helpBoard.ejs',{title:"title",board :board3, auth:auth3});
+    console.log(auth3);
+    auth3 = 0;
 });
 
 /*댓글 DB에 저장*/

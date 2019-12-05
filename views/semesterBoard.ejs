@@ -38,11 +38,13 @@
                 <h5>내용 : <%=board.contents%> </h5>
                 <h6 style="color: grey; font-weight: lighter;">작성자 : <%=board.userName%> </h6>
                 <h6 style="color: grey; font-weight: lighter;">시간 : <%=board.time%> </h6>
+                <% if(auth == 1){%>
                 <div style="text-align: right">
                     <button class="btn_modify" onclick="Modify('<%= board._id%>', '<%= board.userName%>')">Modify</button>
                     <button class="btn_modify" onclick="Delete('<%= board._id%>', '<%= board.userName%>')" style="margin-right: 2%">Delete</button>
                 </div>
                 <p/>
+                <%}%>
             </div>
         </div>
         <%}%>
