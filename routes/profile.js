@@ -130,6 +130,7 @@ router.get('/myProfile', (req, res) => {
 });
 
 router.get('/community',(req,res)=>{
+<<<<<<< Updated upstream
     let user_ID = req.session.userID;
     let community=[]
     Profile.find().then(profile=> {
@@ -285,6 +286,12 @@ router.get('/culture',(req,res)=>{
             res.render('../views/community.ejs', {profile: community});
         }else {
             res.render('../views/community.ejs', {profile: ""});
+=======
+    let user_name = req.session.userName;
+    Profile.find().then(profile=> {
+        if(profile) {
+            res.render('../views/home.ejs', {profile: profile});
+>>>>>>> Stashed changes
         }
     });
 });
