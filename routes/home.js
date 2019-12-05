@@ -13,6 +13,7 @@ let semesterboard;
 let board1, board2, board3;
 let sortboard;
 let auth1, auth2, auth3;
+let generalUpdateid, semesterUpdateid, helpUpdateid;
 
 /*HOME 그리기*/
 router.get('/', async (req,res)=>{
@@ -268,17 +269,32 @@ router.post('/helpComment/write', function (req, res){
 /* id를 이용해 댓글추가된 페이지 다시 렌더링 */
 router.get('/generalSetboard/comment', function (req, res) {
     generalBoard.findOne({_id: id1}, function (err, board) {
-            res.render('../views/generalBoard.ejs', {title: 'Board', board: board});
+        if (req.session.userName == board.userName){
+            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 1});
+        }
+        else{
+            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 0});
+        }
     })
 });
 router.get('/semesterSetboard/comment', function (req, res) {
     semesterBoard.findOne({_id: id2}, function (err, board) {
-        res.render('../views/semesterBoard.ejs', {title: 'Board', board: board});
+        if (req.session.userName == board.userName){
+            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 1});
+        }
+        else{
+            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 0});
+        }
     })
 });
 router.get('/helpSetboard/comment', function (req, res) {
     helpBoard.findOne({_id: id3}, function (err, board) {
-        res.render('../views/helpBoard.ejs', {title: 'Board', board: board});
+        if (req.session.userName == board.userName){
+            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 1});
+        }
+        else{
+            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 0});
+        }
     })
 });
 /*id를 이용해 게시글 Delete*/
@@ -325,20 +341,108 @@ router.get('/generalUpdate', (req, res)=> {
         res.send('2');
     }
     else {
-        generalBoard.findOne({_id: req.body.id}, function (err, board) {
-            res.render('../views/generalUpdatePage.ejs', {board: board});
-        });
+        generalUpdateid = req.query.id;
+        res.send('1');
     }
 });
+router.get('/generalUpdateWrite', (req, res)=> {
 
+        generalBoard.findOne({_id: generalUpdateid}, function (err, board) {
+            console.log(board);
+            res.render('../views/generalUpdateWrite.ejs', {board: board});
+        });
+});
 router.post('/generalUpdateSave', (req, res) => {
-    generalBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
-        if(err){
-            console.log(err);
-            res.redirect('/home');
-        }
-        id1 = req.body.id;
-        res.redirect('/home/generalSetboard/comment');
+    auth1 = 1;
+    generalBoard.findOne({_id : generalUpdateid}, function (err, result) {
+        result.title = req.body.title;
+        result.contents = req.body.contents;
+        result.board_date = Date.now();
+        result.userName = req.session.userName;
+        result.time = moment().format("HH:mm");
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+                alert("Login please");
+                res.redirect('/home');
+            }
+            res.render('../views/generalBoard.ejs', {board :result, auth:auth1});
+            auth1 = 0;
+        });
+    });
+})
+//semester board update
+router.get('/semesterUpdate', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("if문 no permission");
+        res.send('2');
+    }
+    else {
+        semesterUpdateid = req.query.id;
+        res.send('1');
+    }
+});
+router.get('/semesterUpdateWrite', (req, res)=> {
+
+    semesterBoard.findOne({_id: semesterUpdateid}, function (err, board) {
+        console.log(board);
+        res.render('../views/semesterUpdateWrite.ejs', {board: board});
+    });
+});
+router.post('/semesterUpdateSave', (req, res) => {
+    auth2 = 1;
+    semesterBoard.findOne({_id : semesterUpdateid}, function (err, result) {
+        result.title = req.body.title;
+        result.contents = req.body.contents;
+        result.board_date = Date.now();
+        result.userName = req.session.userName;
+        result.time = moment().format("HH:mm");
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+                alert("Login please");
+                res.redirect('/home');
+            }
+            res.render('../views/semesterBoard.ejs', {board :result, auth:auth2});
+            auth2 = 0;
+        });
+    });
+})
+//helpboard update
+router.get('/helpUpdate', (req, res)=> {
+    if(req.query.userName !== req.session.userName){
+        console.log("if문 no permission");
+        res.send('2');
+    }
+    else {
+        helpUpdateid = req.query.id;
+        res.send('1');
+    }
+});
+router.get('/helpUpdateWrite', (req, res)=> {
+
+    helpBoard.findOne({_id: helpUpdateid}, function (err, board) {
+        console.log(board);
+        res.render('../views/helpUpdateWrite.ejs', {board: board});
+    });
+});
+router.post('/helpUpdateSave', (req, res) => {
+    auth3 = 1;
+    helpBoard.findOne({_id : helpUpdateid}, function (err, result) {
+        result.title = req.body.title;
+        result.contents = req.body.contents;
+        result.board_date = Date.now();
+        result.userName = req.session.userName;
+        result.time = moment().format("HH:mm");
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+                alert("Login please");
+                res.redirect('/home');
+            }
+            res.render('../views/helpBoard.ejs', {board :result, auth:auth3});
+            auth3 = 0;
+        });
     });
 })
 

@@ -32,7 +32,7 @@
     <div class="card-header"><h2>Write(Update)</h2></div>
     <div class="card-body">
         <div class="container">
-            <form action="/home/updateSave" method="post">
+            <form action="/home/generalUpdateSave" method="post">
                 <form role="form">
                     <div class="form-group">
                         <label for="subject">Title</label>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Contents:</label>
-                        <textarea class="form-control" rows="10" name="contents" id="contents" value="<%= board.content%>" placeholder="Enter Contents"></textarea>
+                        <textarea class="form-control" rows="10" name="contents" id="contents" value="<%= board.contents%>" placeholder="Enter Contents"><%= board.contents%></textarea>
                     </div>
                     <!--                        파일 첨부 폼, 파일 첨부 기능 추가시 포함.-->
                     <!--                        <div class="form-group">-->

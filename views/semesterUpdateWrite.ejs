@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bootstrap core JavaScript -->
+<script src="/views/vendor/jquery/jquery.min.js"></script>
+<script src="/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<head>
+    <meta charset="utf-8">
+    <!-- 화면 꽉채우기 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>HEY DUDE</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="/views/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/views/css/heydude.css" rel="stylesheet">
+</head>
+<body class="body-size">
+<nav class="navbar navbar-dark bg-primary bar">
+    <button type="button" onclick="PageToHome()" class="btn" style="border: none; color: white; font-size: larger">Hey Dude</button>
+    <div>
+        <button type="button" onclick="SignOut()" class="btn btn-outline-success my-2 my-sm-0" style="border: none; color: white">Sign Out</button>
+    </div>
+</nav>
+<div class="content-scroll">
+    <!--요안에만 채우시면됩니다.-->
+    <div class="card-header"><h2>Write(Update)</h2></div>
+    <div class="card-body">
+        <div class="container">
+            <form action="/home/semesterUpdateSave" method="post">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="subject">Title</label>
+                        <input type="text" class="form-control" name ="title" id="title" value="<%= board.title%>" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Contents:</label>
+                        <textarea class="form-control" rows="10" name="contents" id="contents" value="<%= board.contents%>" placeholder="Enter Contents"><%= board.contents%></textarea>
+                    </div>
+                    <!--                        파일 첨부 폼, 파일 첨부 기능 추가시 포함.-->
+                    <!--                        <div class="form-group">-->
+                    <!--                            <label for="File">File input</label>-->
+                    <!--                            <input type="file" id="File">-->
+                    <!--                        </div>-->
+                    <div class="center-block" style="text-align: right">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                        <input type="button" value="Back" style="margin-right: 3%" onclick="history.back(1)">
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-light bar" style="background-color: #e3f2fd; justify-content: center">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-home active" href="/home"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-group" href="/profile/community"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link mdi mdi-account" href="/mypage"></a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>
+<script>
+    function PageToHome() {
+        location.href="/home"
+    }
+    function SignOut() {
+        $.ajax({
+            type:"GET",
+            url: "/user/signout" ,
+            data: {
+            }
+        }).done(function(result) {
+            if (result) {
+                location.replace('/signin');
+            } else {
+                location.reload();
+            }
+        });
+    }
+    function PageToSignIn() {
+        location.replace("/signin")
+    }
+    function PageToSignUp() {
+        location.replace("/signup")
+    }
+</script>
+
+<style>
+    input{
+        font-size: large;
+        border-radius: 5px;
+        margin-right: 5px;
+        border: 1px solid #7abaff;
+        background-color: skyblue;
+        color:white;
+        padding: 5px;
+    }
+    input:hover{
+        color: #80bdff;
+        background-color: rgba(0,0,0,0);
+    }
+</style>

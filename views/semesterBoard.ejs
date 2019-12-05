@@ -34,14 +34,14 @@
         %>
         <div style="justify-content: right;">
             <div style="margin-left: 1%">
-                <h5>제목 : <%=board.title%> </h5>
-                <h5>내용 : <%=board.contents%> </h5>
-                <h6 style="color: grey; font-weight: lighter;">작성자 : <%=board.userName%> </h6>
-                <h6 style="color: grey; font-weight: lighter;">시간 : <%=board.time%> </h6>
+                <h5>Title : <%=board.title%> </h5>
+                <h5>Contents : <%=board.contents%> </h5>
+                <h6 style="color: grey; font-weight: lighter;">author : <%=board.userName%> </h6>
+                <h6 style="color: grey; font-weight: lighter;">time : <%=board.time%> </h6>
                 <% if(auth == 1){%>
                 <div style="text-align: right">
-                    <button class="btn_modify" onclick="Modify('<%= board._id%>', '<%= board.userName%>')">Modify</button>
-                    <button class="btn_modify" onclick="Delete('<%= board._id%>', '<%= board.userName%>')" style="margin-right: 2%">Delete</button>
+                    <button class="btn_modify" onclick="Modify('<%= board._id%>', '<%= board.userName%>')" style="background-color: #28a745">Modify</button>
+                    <button class="btn_modify" onclick="Delete('<%= board._id%>', '<%= board.userName%>')" style="margin-right: 2%; background-color: #fa3e3e">Delete</button>
                 </div>
                 <p/>
                 <%}%>
@@ -124,6 +124,25 @@
         });
 
     }
+
+    function Modify(id, userName){
+        $.ajax({
+            type:"GET",
+            url: "/home/semesterUpdate" ,
+            data: {
+                id:id,
+                userName:userName
+            }
+        }).done(function(result) {
+            if(result=='2'){
+                alert("No permision!");
+            }
+            else{
+                location.href="/home/semesterUpdateWrite";
+            }
+        });
+    }
+
     function PageToHome() {
         location.href="/home"
     }
