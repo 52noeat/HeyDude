@@ -253,37 +253,37 @@ router.get('/culture',(req,res)=>{
     let user_ID = req.session.userID;
     let community=[]
     Profile.find().then(profile=> {
-        if(profile.length>1) {
+        if (profile.length > 1) {
             let state;
-            for(i in profile){
-                state=0;
-                if(profile[i].userID==user_ID){
-                    state=1;
+            for (i in profile) {
+                state = 0;
+                if (profile[i].userID == user_ID) {
+                    state = 1;
                 }
-                for(j in profile[i].friend) {
+                for (j in profile[i].friend) {
                     if (profile[i].friend[j] == user_ID) {
-                        state=1;
+                        state = 1;
                         break;
                     }
                 }
-                for(j in profile[i].block){
-                    if(profile[i].block[j]==user_ID) {
-                        state=1
+                for (j in profile[i].block) {
+                    if (profile[i].block[j] == user_ID) {
+                        state = 1
                         break;
                     }
                 }
-                for(j in profile[i].plus){
-                    if(profile[i].plus[j]==user_ID) {
-                        state=1
+                for (j in profile[i].plus) {
+                    if (profile[i].plus[j] == user_ID) {
+                        state = 1
                         break;
                     }
                 }
-                if(state===0&&profile[i].tendency=="culture"){
+                if (state === 0 && profile[i].tendency == "culture") {
                     community.push(profile[i])
                 }
             }
             res.render('../views/community.ejs', {profile: community});
-        }else {
+        } else {
             res.render('../views/community.ejs', {profile: ""});
         }
     });
