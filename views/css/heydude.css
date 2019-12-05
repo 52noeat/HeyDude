@@ -189,17 +189,10 @@ tag {
     position: relative;
 }
 .fileButtonIcon{
-    font-size: 1.3em;
-    background-color: #80bdff;
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-
-    padding: 0.05em 0.5em;
 
     position: absolute;
-    top: -5em;
-    right: 0;
+    top: -7em;
+    right: -0.5em;
 }
 .myprofileinfo .tendency{
 }

@@ -38,11 +38,15 @@
         <br>
         <div class="userFace">
             <span class="editFace">
-                <img id="myimage" src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg">
-                <button type='button' id="plus" class="btn btn-info mdi mdi-image-edit-outline"></button>
+                <label for="fileButton">
+                    <img id="myimage" src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg">
+                </label>
+                <label class="fileButtonIcon" for="fileButton">
+                    <button type='button' id="plus" for="fileButton" class="btn btn-info mdi mdi-image-edit-outline" > Edit</button>
+                </label>
             </span>
         </div>
-        <div id="showfile">
+        <div>
             <input type="file" id="fileButton" style="display: none;">
         </div>
         <br>
@@ -567,7 +571,6 @@
         }
     }
     let userID = '<%= user %>'
-
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
@@ -636,6 +639,11 @@
                     break;
             }
         });
+    });
+
+    $("#plus").click(function(e){
+        e.preventDefault();
+        $('#fileButton').click();
     });
 
     $("#submit").click(function () {
