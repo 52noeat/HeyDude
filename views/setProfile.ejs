@@ -542,7 +542,6 @@
 </body>
 </html>
 <script>
-    let userID = '<%=profile.userID%>'
     function PageToHome() {
         location.href="/home"
     }
@@ -567,6 +566,7 @@
             return false;
         }
     }
+    let userID = '<%=profile.userID%>'
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
