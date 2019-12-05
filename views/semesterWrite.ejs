@@ -34,10 +34,24 @@
         <div class="container">
             <form action="/home/board/semesterwrite" method="post">
                 <form role="form">
+                        <div class="form-group">
+                            <label for="semester">Semester</label>
+                            <br>
+                            <select class="btn btn-secondary dropdown-toggle" type="button" id="semester" style="background-color: white; color: black;"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="semester">
+                                <option value="">--Select Semester--</option>
+                                <option value="2019-2">2019-2</option>
+                                <option value="2019-1">2019-1</option>
+                                <option value="2018-2">2018-2</option>
+                                <option value="2018-1">2018-1</option>
+                            </select>
+                        </div>
+
                     <div class="form-group">
                         <label for="subject">Title</label>
                         <input type="text" class="form-control" name ="title" id="title" placeholder="Enter title">
                     </div>
+
                     <div class="form-group">
                         <label for="content">Contents:</label>
                         <textarea class="form-control" rows="10" name="contents" id="contents" placeholder="Enter Contents"></textarea>

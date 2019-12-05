@@ -11,7 +11,7 @@ let t2;
 let generalboard;
 let semesterboard;
 let board1, board2, board3;
-
+let sortboard;
 /*HOME 그리기*/
 router.get('/', async (req,res)=>{
     let sess = req.session;
@@ -53,6 +53,20 @@ router.get('/semesterBoard/:page', function(req, res){
             res.render('../views/semesterBoardPage.ejs', {title: 'Semester Forum', board: board, page_num: page_num, page: page});
         }
     });
+});
+router.get('/semesterBoardSort', (req, res)=> {
+    console.log("Sort 들어옴");
+    semesterBoard.find({semester: req.query.semester})
+        .then(board=>{
+            if(board) {
+                sortboard = board;
+                console.log(sortboard)
+                res.send('1');
+            }
+        })
+});
+router.get('/semesterBoardSortedPage', function(req, res){
+    res.render('../views/semesterBoardPage.ejs', {title: 'General Forum', board: sortboard, page_num: page_num, page: 1})
 });
 router.get('/helpBoard/:page', function(req, res){
     let page = req.params.page;
@@ -97,6 +111,10 @@ router.post('/board/semesterwrite', function (req, res) {
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
+    board.semester = req.body.semester;
+    console.log("학기는?");
+    console.log(req.body.semester);
+    console.log(board.semester)
     board.time = moment().format("HH:mm");
     board.save(function (err) {
         if(err){

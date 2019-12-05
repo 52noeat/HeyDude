@@ -16,7 +16,8 @@ var semesterBoardSchema = new Schema({
     userName: {type: String},
     time: String,
     view_num: {type: Number, default:0},
-    comments: [semesterCommentSchema]
+    comments: [semesterCommentSchema],
+    semester: String
 });
 
 module.exports = mongoose.model('semesterBoard', semesterBoardSchema);

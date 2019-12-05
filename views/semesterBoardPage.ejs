@@ -30,16 +30,26 @@
 <div class="content-scroll">
     <br>
     <div class="text-center"><h3 style="font-style: oblique"> Semester Forum</h3>
+        <div class="form-group fa-pull-left" style="padding-left: 3%">
+            <select class="form-control" id="semester" style="background-color: white; color: black;" name="semester">
+                <option value="">--Select Semester--</option>
+                <option value="2019-2">2019-2</option>
+                <option value="2019-1">2019-1</option>
+                <option value="2018-2">2018-2</option>
+                <option value="2018-1">2018-1</option>
+            </select>
+        </div>
         <a class="btn btn-info fa-pull-right" style="margin-right: 3%; color: white; background-color: #80bdff; justify-content: center" href="/home/semesterwrite">Write</a>
     </div><br><br>
     <div class="column">
+
         <% if (board !== null){%>
         <%for(var i = board.length -((page-1) * page_num) -1; i >= board.length - ((page-1) * page_num) -page_num; i--) { %>
             <% if(i < 0){
                 break;
             }else{ %>
                 <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>"><p></p>
-                    <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
+                    <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= board[i].semester%>]<%= board[i].title%></h5><p></p>
                     <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
                     <pre style="color: grey; font-weight: lighter;"><%= board[i].time%> | <%= board[i].userName%> | views <%= board[i].view_num%> | comments <%= board[i].comments.length%></pre>
                 </div>
@@ -99,6 +109,24 @@
                 location.reload();
             }
         });
+    }
+    $("#semester").change(function(){
+        console.log('Selected value: ' + $(this).val());
+        SortSemester($(this).val());
+    });
+    function SortSemester(semester){
+        console.log("클릭됨");
+        $.ajax({
+            type:"GET",
+            url: "/home/semesterBoardSort" ,
+            data: {
+                semester: semester
+            }
+        }).done(function (result) {
+                if(result == '1'){
+                    location.href = '/home/semesterBoardSortedPage'
+                }
+            });
     }
     // $(document).on("click", "#board1", function(e){
     //     console.log(e.currentTarget.value);
