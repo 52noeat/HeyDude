@@ -87,7 +87,7 @@
                         break;%>
                     <tr id='semesterBoard' onclick="semesterSubmit('<%= semesterBoard[i]._id%>')" value="<%= semesterBoard[i]._id%>">
                         <td>New</td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= semesterBoard[i].semester%>]<%= semesterBoard[i].title%></td>
                         <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].userName%></td>
                         <td><%= semesterBoard[i].time%></td>
                         <td><%= semesterBoard[i].view_num%></td>

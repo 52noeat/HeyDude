@@ -51,18 +51,17 @@ router.get('/semesterBoard/:page', function(req, res){
     });
 });
 router.get('/semesterBoardSort', (req, res)=> {
-    console.log("Sort 들어옴");
     semesterBoard.find({semester: req.query.semester})
         .then(board=>{
             if(board) {
                 sortboard = board;
-                console.log(sortboard)
                 res.send('1');
             }
         })
 });
-router.get('/semesterBoardSortedPage', function(req, res){
-    res.render('../views/semesterBoardPage.ejs', {title: 'General Forum', board: sortboard, page_num: page_num, page: 1})
+router.get('/semesterBoardSortedPage/:page', function(req, res){
+    let page = req.params.page;
+    res.render('../views/semesterSortedBoardPage.ejs', {title: 'Semester Forum', board: sortboard, page_num: page_num, page: page})
 });
 router.get('/helpBoard/:page', function(req, res){
     let page = req.params.page;
@@ -108,9 +107,6 @@ router.post('/board/semesterwrite', function (req, res) {
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.semester = req.body.semester;
-    console.log("학기는?");
-    console.log(req.body.semester);
-    console.log(board.semester)
     board.time = moment().format("HH:mm");
     board.save(function (err) {
         if(err){
@@ -313,8 +309,6 @@ router.get('/generalUpdate', (req, res)=> {
     }
     else {
         generalBoard.findOne({_id: req.body.id}, function (err, board) {
-            console.log(req);
-            console.log(board);
             res.render('../views/generalUpdatePage.ejs', {board: board});
         });
     }

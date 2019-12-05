@@ -61,7 +61,7 @@
             <ul class="pagination justify-content-center">
                 <% if (board !== null){%>
                 <%for(var j=0; j < board.length / page_num; j++) { %>
-                    <li class="page-item"><a class="page-link" href="/home/semesterBoard/<%= j+1%>"><%= j+1%></a></li>
+                    <li class="page-item"><a class="page-link" href="/home/semesterBoardSortedPage/<%= j+1%>"><%= j+1%></a></li>
                 <%  } %>
                 <%}%>
             </ul>
@@ -123,10 +123,10 @@
                 semester: semester
             }
         }).done(function (result) {
-                if(result == '1'){
-                    location.href = '/home/semesterBoardSortedPage/1'
-                }
-            });
+            if(result == '1'){
+                location.href = '/home/semesterBoardSortedPage/1'
+            }
+        });
     }
     // $(document).on("click", "#board1", function(e){
     //     console.log(e.currentTarget.value);
