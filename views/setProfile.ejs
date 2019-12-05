@@ -32,7 +32,7 @@
     <article class="container" >
         <div class="page-header" style="position: relative; overflow: hidden;">
             <br>
-            <h2 align="center">Profile</h2>
+            <h2 align="center">Set Profile</h2>
             <hr>
         </div>
         <br>
@@ -449,15 +449,15 @@
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" name="tendency" id="play" value="play" checked>
-                <label class="custom-control-label" for="play">Play</label>
+                <label class="custom-control-label" for="play" style="font-size: large">Play</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" name="tendency" id="culture" value="culture">
-                <label class="custom-control-label" for="culture">Culture</label>
+                <label class="custom-control-label" for="culture" style="font-size: large">Culture</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
                 <input type="radio" class="custom-control-input" name="tendency" id="study" value="study">
-                <label class="custom-control-label" for="study">Study</label>
+                <label class="custom-control-label" for="study" style="font-size: large">Study</label>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Interest</label>
@@ -640,7 +640,6 @@
     });
 
     $("#submit").click(function () {
-        alert("!!");
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -666,12 +665,11 @@
                 introduce : $('#introduce').val()
             }
         }).done(function(result) {
-            alert(result)
-            // if (result) {
-            //     location.href = '/home';
-            // } else {
-            //     showErrorMsg($('#submit_feedback'), "Please try again.");
-            // }
+            if (result) {
+                location.href = '/profile/myProfile';
+            } else {
+                showErrorMsg($('#submit_feedback'), "Please try again.");
+            }
         });
     })
 
