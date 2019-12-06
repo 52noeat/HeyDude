@@ -5,6 +5,7 @@ var semesterCommentSchema = new Schema({
     contents: String,
     userName: String,
     time: String,
+    date: String,
     comment_date: {type: Date, default: Date.now()}
 });
 

@@ -95,6 +95,7 @@ router.post('/board/generalwrite', function (req, res) {
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.time = moment().format("HH:mm");
+    board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
@@ -112,6 +113,7 @@ router.post('/board/semesterwrite', function (req, res) {
     board.userName = req.session.userName;
     board.semester = req.body.semester;
     board.time = moment().format("HH:mm");
+    board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
@@ -128,6 +130,7 @@ router.post('/board/helpwrite', function (req, res) {
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.time = moment().format("HH:mm");
+    board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
@@ -227,6 +230,7 @@ router.post('/generalComment/write', function (req, res){
     comment.contents = req.body.contents;
     comment.userName = req.session.userName;
     comment.comment_date = Date.now();
+    comment.date = moment().format("MM-DD");
     comment.time = moment().format("HH:mm");
 
     generalBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
@@ -244,6 +248,7 @@ router.post('/semesterComment/write', function (req, res){
     comment.userName = req.session.userName;
     comment.comment_date = Date.now();
     comment.time = moment().format("HH:mm");
+    comment.date = moment().format("MM-DD");
 
     semesterBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
         if(err){
@@ -260,6 +265,7 @@ router.post('/helpComment/write', function (req, res){
     comment.userName = req.session.userName;
     comment.comment_date = Date.now();
     comment.time = moment().format("HH:mm");
+    comment.date = moment().format("MM-DD");
 
     helpBoard.findOneAndUpdate({_id : req.body.id}, { $push: { comments : comment}}, function (err, board) {
         if(err){
@@ -370,6 +376,7 @@ router.post('/generalUpdateSave', (req, res) => {
         result.board_date = Date.now();
         result.userName = req.session.userName;
         result.time = moment().format("HH:mm");
+        result.date = momnet().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
@@ -408,6 +415,7 @@ router.post('/semesterUpdateSave', (req, res) => {
         result.board_date = Date.now();
         result.userName = req.session.userName;
         result.time = moment().format("HH:mm");
+        result.date = momnet().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
@@ -446,6 +454,7 @@ router.post('/helpUpdateSave', (req, res) => {
         result.board_date = Date.now();
         result.userName = req.session.userName;
         result.time = moment().format("HH:mm");
+        result.date = momnet().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
