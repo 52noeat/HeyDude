@@ -40,7 +40,13 @@
         <div class="userFace">
             <span class="editFace">
                 <label for="fileButton">
-                    <img id="myimage" src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg">
+                    <%if(!profile){if(profile.sex=='male'){%>
+                    <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                        <%}else{%>
+                    <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
+                    <%}}else{%>
+                        <img id="myimage" src="<%=profile.url%>">
+                    <%}%>
                 </label>
                 <label class="fileButtonIcon" for="fileButton">
                     <button type='button' id="plus" class="btn btn-info mdi mdi-image-edit-outline"> Edit</button>
@@ -581,6 +587,8 @@
             };
             xhr.open('GET', url);
             xhr.send();
+
+            URL = url;
             // Or inserted into an <img> element:
             var img = document.getElementById('myimage');
             img.src = url;
@@ -603,15 +611,15 @@
     }
     // Get userID
     let userID = '<%=profile.userID%>'
-
+    let URL=''
     // loadFace
     loadImg();
-
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
         // Get file
         var file = e.target.files[0];
+
         // Create a storage ref
         var storageRef = firebase.storage().ref(userID+'.jpg');
         // Upload file
@@ -656,7 +664,7 @@
     });
 
     $("#submit").click(function () {
-        alert(result);
+        alert("!!");
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -679,7 +687,8 @@
                 interest : $('#interest').val(),
                 hate : $('#hate').val(),
                 wish : $('#wish').val(),
-                introduce : $('#introduce').val()
+                introduce : $('#introduce').val(),
+                url : URL
             }
         }).done(function(result) {
             alert(result);

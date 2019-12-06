@@ -17,7 +17,7 @@ let this_friendID;
 router.post('/set', (req, res) => {
     const {
         age, nationality, major, tendency, language, level,
-        interest, hate, wish, introduce } = req.body;
+        interest, hate, wish, introduce, url } = req.body;
     let userID = req.session.userID;
     let userName = req.session.userName;
     let sex = req.session.sex;
@@ -36,7 +36,8 @@ router.post('/set', (req, res) => {
         interest: interest,
         hate: hate,
         wish: wish,
-        introduce: introduce
+        introduce: introduce,
+        url : url
     });
     Profile.findOne({userID:userID}).then(profile=>{
         if(profile){

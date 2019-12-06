@@ -50,6 +50,7 @@
             <input type="file" id="fileButton" style="display: none;">
         </div>
         <br>
+        <br>
         <div class="form" style="width: 100%; margin: auto; max-width: 430px;">
             <div style="font-weight: bold; font-size: large;">
                 <label>Age (kor)</label>
@@ -571,8 +572,11 @@
         }
     }
     let userID = '<%= user %>'
+    let URL="";
     // Upload Storage
+
     var fileButton = document.getElementById('fileButton');
+    var uploader = document.getElementById('uploader');
     fileButton.addEventListener('change', function(e){
         // Get file
         var file = e.target.files[0];
@@ -586,6 +590,7 @@
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log('Upload is ' + progress + '% done');
+                //uploader.value = progress;
                 switch (snapshot.state) {
                     case firebase.storage.TaskState.PAUSED: // or 'paused'
                         console.log('Upload is paused');
@@ -623,6 +628,7 @@
             // Or inserted into an <img> element:
             var img = document.getElementById('myimage');
             img.src = url;
+            URL = url;
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at
@@ -647,6 +653,7 @@
     });
 
     $("#submit").click(function () {
+        alert("!!");
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -669,9 +676,11 @@
                 interest : $('#interest').val(),
                 hate : $('#hate').val(),
                 wish : $('#wish').val(),
-                introduce : $('#introduce').val()
+                introduce : $('#introduce').val(),
+                url : URL
             }
         }).done(function(result) {
+            alert(result);
             if (result) {
                 location.href = '/profile/myProfile';
             } else {

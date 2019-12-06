@@ -17,7 +17,8 @@ const ProfileSchema = new mongoose.Schema({
     active: {type: Boolean, default: true},
     friend: [{type: String}],
     plus: [{type : String}],
-    block: [{type : String}]
+    block: [{type : String}],
+    url: [{type : String, default: ""}]
 });
 
 const Profile = mongoose.model('profile', ProfileSchema);
