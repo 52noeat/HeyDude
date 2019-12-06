@@ -5,6 +5,7 @@ var helpCommentSchema = new Schema({
     contents: String,
     userName: String,
     time: String,
+    date: String,
     comment_date: {type: Date, default: Date.now()}
 });
 
@@ -15,6 +16,7 @@ var helpBoardSchema = new Schema({
     board_date: {type: Date, default: Date.now()},
     userName: {type: String},
     time: String,
+    date: String,
     view_num: {type: Number, default:0},
     comments: [helpCommentSchema]
 });
