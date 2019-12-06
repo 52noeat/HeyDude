@@ -180,9 +180,10 @@ tag {
     text-align: center;
 }
 .userFace img{
-    border-radius: 50%;
+    border-radius: 100%;
     width: 15em;
     height: 15em;
+    object-fit: cover;
 }
 /*프로필 사진 수정 버튼*/
 .editFace{

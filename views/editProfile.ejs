@@ -656,7 +656,7 @@
     });
 
     $("#submit").click(function () {
-        alert("!!");
+        alert(result);
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -682,12 +682,13 @@
                 introduce : $('#introduce').val()
             }
         }).done(function(result) {
-            alert(result)
-            // if (result) {
-            //     location.href = '/home';
-            // } else {
-            //     showErrorMsg($('#submit_feedback'), "Please try again.");
-            // }
+            alert(result);
+            if (result) {
+                location.href = '/profile/myProfile'
+                //location.href = '/home';
+            } else {
+                 showErrorMsg($('#submit_feedback'), "Please try again.");
+            }
         });
     })
 
