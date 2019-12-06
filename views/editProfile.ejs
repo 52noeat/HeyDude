@@ -576,39 +576,6 @@
             return false;
         }
     }
-    function loadImg(){
-        var storageRef = firebase.storage().ref(userID+'.jpg');
-        storageRef.getDownloadURL().then(function(url) {
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-                var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
-
-            URL = url;
-            // Or inserted into an <img> element:
-            var img = document.getElementById('myimage');
-            img.src = url;
-        }).catch(function(error) {
-            // Handle any errors
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-                case 'storage/object-not-found':
-                    // File doesn't exist
-                    break;
-                case 'storage/canceled':
-                    // User canceled the upload
-                    break;
-                case 'storage/unknown':
-                    // Unknown error occurred, inspect the server response
-                    break;
-            }
-        });
-    }
     // Get userID
     let userID = '<%=profile.userID%>'
     let URL=''
@@ -654,7 +621,36 @@
                     console.log('File available at', downloadURL);
                 });
             });
-        loadImg();
+        storageRef.getDownloadURL().then(function(url) {
+            // This can be downloaded directly:
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+                var blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            // Or inserted into an <img> element:
+            var img = document.getElementById('myimage');
+            img.src = url;
+            URL = url;
+            alert("Success!");
+        }).catch(function(error) {
+            // Handle any errors
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    // File doesn't exist
+                    break;
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect the server response
+                    break;
+            }
+        });
     });
 
     $("#plus").click(function(e){
@@ -692,8 +688,8 @@
         }).done(function(result) {
             alert(result);
             if (result) {
-                location.href = '/profile/myProfile'
                 //location.href = '/home';
+                location.href = '/profile/myProfile'
             } else {
                  showErrorMsg($('#submit_feedback'), "Please try again.");
             }
