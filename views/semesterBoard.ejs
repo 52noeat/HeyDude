@@ -75,7 +75,11 @@
             if(i<0)
                 break; %>
         <div class="card">
-            <h5><%=comment[i].userName%><i type="button" value="<%=comment[i]._id%>" onclick="CommentDelete('<%= board._id%>', '<%= comment[i]._id%>', '<%= comment[i].userName%>')" class="fas fa-times fa-pull-right" style="color: red; background-color: white"></i></h5>
+            <h5><%=comment[i].userName%>
+                <% if(comment[i].userName == sessionName){%>
+                <i type="button" value="<%=comment[i]._id%>" onclick="CommentDelete('<%= board._id%>', '<%= comment[i]._id%>', '<%= comment[i].userName%>')" class="fas fa-times fa-pull-right" style="color: red; background-color: white"></i>
+            <%}%>
+            </h5>
             <h6><%=comment[i].contents%></h6>
             <h6 style="color: grey; font-weight: lighter"><%=comment[i].time%></h6>
         </div>
