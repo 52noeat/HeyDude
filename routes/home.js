@@ -3,57 +3,104 @@ const session = require('express-session');
 const router = express.Router();
 const moment = require('moment');
 // Load User model
-const {User, Profile, FriendList, Request, Chat, generalBoard, generalComment, semesterBoard, semesterComment, helpBoard, helpComment}=require('../models/index');
+const {User, Profile, FriendList, Request, Chat, ChatRoom, generalBoard, generalComment, semesterBoard, semesterComment, helpBoard, helpComment}=require('../models/index');
 
 let id1, id2, id3;
 let page_num = 10;
 let t2;
 let generalboard;
 let semesterboard;
+let helpboard;
 let board1, board2, board3;
 let sortboard;
 let auth1, auth2, auth3;
 let generalUpdateid, semesterUpdateid, helpUpdateid;
 let sessionName1, sessionName2, sessionName3;
+let request=0;
+let message=0;
+let user_ID = "";
+
+function send_check(){
+    let count=0;
+     Request.find({friendID :user_ID}, function (err, requestList) {
+        if(requestList) {
+            request = requestList.length;
+        }
+    });
+    ChatRoom.find({userID : user_ID})
+        .then(chatRoom=>{
+            if(chatRoom){
+                for(i in chatRoom){
+                    Chat.find({chatCode: chatRoom[i].chatCode})
+                        .then(chat=>{
+                            if(chat.length>0){
+                                for(j in chat) {
+                                    if (chat[j].read == false&&chat[j].userID != user_ID){
+                                        count++;
+                                    }
+                                }
+                                if(i==chatRoom.length-1){
+                                    if(count!=message)
+                                        message=count
+                                    return;
+                                }
+                            }
+                            else{
+                                return;
+                            }
+                        })
+                }
+            }
+            else{
+                return
+            }
+        })
+}
 
 /*HOME 그리기*/
 router.get('/', async (req,res)=>{
-    let sess = req.session;
-    let user_name = req.session.userName;
-        await generalBoard.find({}, function (err, board) {
-            if(board) {
-                generalboard = board;
-            }
-        });
-        await semesterBoard.find({}, function (err, board) {
-            if(board) {
-                semesterboard = board;
-            }
-        });
-        await helpBoard.find({}, function (err, board) {
-            if(board) {
-                res.render('../views/home.ejs', {title: 'Home', generalBoard: generalboard ,semesterBoard: semesterboard , helpBoard: board});
-            }
-        });
+    user_ID = req.session.userID;
+    user_Name = req.session.userName;
+    send_check()
+    await generalBoard.find({}, function (err, board) {
+        if(board) {
+            generalboard = board;
+        }
+    });
+    await semesterBoard.find({}, function (err, board) {
+        if(board) {
+            semesterboard = board;
+        }
+    });
+    await helpBoard.find({}, function (err, board) {
+        if(board) {
+            helpboard = board;
+            res.render('../views/home.ejs', {title: 'Home', generalBoard: generalboard ,semesterBoard: semesterboard , helpBoard: helpboard, messagecount: message, requestcount : request});
+        }
+    });
 });
 
 /*게시판 페이지 그리기*/
 router.get('/generalBoard/:page', function(req, res){
+    send_check()
     let page = req.params.page;
     generalBoard.find({}, function (err, board){
         if(board){
-            res.render('../views/generalBoardPage.ejs', {title: 'General Forum', board: board, page_num: page_num, page: page});
+            res.render('../views/generalBoardPage.ejs', {title: 'General Forum', board: board, page_num: page_num, page: page, messagecount: message, requestcount : request});
         }
     });
 });
+
 router.get('/semesterBoard/:page', function(req, res){
+    send_check()
     let page = req.params.page;
     semesterBoard.find({}, function (err, board){
         if(board){
-            res.render('../views/semesterBoardPage.ejs', {title: 'Semester Forum', board: board, page_num: page_num, page: page});
+            res.render('../views/semesterBoardPage.ejs', {title: 'Semester Forum', board: board, page_num: page_num, page: page, messagecount: message, requestcount : request});
         }
     });
 });
+
 router.get('/semesterBoardSort', (req, res)=> {
     semesterBoard.find({semester: req.query.semester})
         .then(board=>{
@@ -63,28 +110,37 @@ router.get('/semesterBoardSort', (req, res)=> {
             }
         })
 });
+
 router.get('/semesterBoardSortedPage/:page', function(req, res){
+    send_check()
     let page = req.params.page;
-    res.render('../views/semesterSortedBoardPage.ejs', {title: 'Semester Forum', board: sortboard, page_num: page_num, page: page})
+    res.render('../views/semesterSortedBoardPage.ejs', {title: 'Semester Forum', board: sortboard, page_num: page_num, page: page, messagecount: message, requestcount : request})
 });
+
 router.get('/helpBoard/:page', function(req, res){
+    send_check()
     let page = req.params.page;
     helpBoard.find({}, function (err, board){
         if(board){
-            res.render('../views/helpBoardPage.ejs', {title: 'Help Forum', board: board, page_num: page_num, page: page});
+            res.render('../views/helpBoardPage.ejs', {title: 'Help Forum', board: board, page_num: page_num, page: page, messagecount: message, requestcount : request});
         }
     });
 });
 
 /*게시판별 글쓰기 페이지 그리기*/
 router.get('/generalwrite', function(req, res, next) {
-    res.render('../views/generalWrite.ejs');
+    send_check()
+    res.render('../views/generalWrite.ejs',{messagecount: message, requestcount : request});
 });
+
 router.get('/semesterwrite', function(req, res, next) {
-    res.render('../views/semesterWrite.ejs');
+    send_check()
+    res.render('../views/semesterWrite.ejs',{messagecount: message, requestcount : request});
 });
+
 router.get('/helpwrite', function(req, res, next) {
-    res.render('../views/helpWrite.ejs');
+    send_check()
+    res.render('../views/helpWrite.ejs',{messagecount: message, requestcount : request});
 });
 
 /*글쓴 정보 각 DB 테이블에 저장*/
@@ -99,12 +155,12 @@ router.post('/board/generalwrite', function (req, res) {
     board.save(function (err) {
         if(err){
             console.log(err);
-            alert("Login please");
             res.redirect('/home');
         }
         res.redirect('/home/generalBoard/1');
     });
 });
+
 router.post('/board/semesterwrite', function (req, res) {
     var board = new semesterBoard();
     board.title = req.body.title;
@@ -117,12 +173,12 @@ router.post('/board/semesterwrite', function (req, res) {
     board.save(function (err) {
         if(err){
             console.log(err);
-            alert("Login please");
             res.redirect('/home');
         }
         res.redirect('/home/semesterBoard/1');
     });
 });
+
 router.post('/board/helpwrite', function (req, res) {
     var board = new helpBoard();
     board.title = req.body.title;
@@ -134,7 +190,6 @@ router.post('/board/helpwrite', function (req, res) {
     board.save(function (err) {
         if(err){
             console.log(err);
-            alert("Login please");
             res.redirect('/home');
         }
         res.redirect('/home/helpBoard/1');
@@ -153,6 +208,7 @@ router.get('/generalBoard', (req, res)=> {
             }
         })
 });
+
 router.get('/semesterBoard', (req, res)=> {
     semesterBoard.findOne({_id: req.query.id})
         .then(board=>{
@@ -164,6 +220,7 @@ router.get('/semesterBoard', (req, res)=> {
             }
         })
 });
+
 router.get('/helpBoard', (req, res)=> {
     helpBoard.findOne({_id: req.query.id})
         .then(board=>{
@@ -175,7 +232,9 @@ router.get('/helpBoard', (req, res)=> {
             }
         })
 });
+
 router.get('/generalSetboard', (req, res)=> {
+    send_check()
     board1.view_num += 1;
     if(board1.userName == req.session.userName){
         auth1 = 1;
@@ -187,11 +246,12 @@ router.get('/generalSetboard', (req, res)=> {
         }
     });
     sessionName1 = req.session.userName;
-    res.render('../views/generalBoard.ejs',{title:"title",board :board1, auth:auth1, sessionName:sessionName1});
-    console.log(auth1);
+    res.render('../views/generalBoard.ejs',{title:"title",board :board1, auth:auth1, sessionName:sessionName1, messagecount: message, requestcount : request});
     auth1 = 0;
 });
+
 router.get('/semesterSetboard', (req, res)=> {
+    send_check()
     board2.view_num += 1;
     if(board2.userName == req.session.userName){
         auth2 = 1;
@@ -203,11 +263,11 @@ router.get('/semesterSetboard', (req, res)=> {
         }
     });
     sessionName2 = req.session.userName;
-    res.render('../views/semesterBoard.ejs',{title:"title",board :board2, auth:auth2, sessionName:sessionName2});
-    console.log(auth2);
+    res.render('../views/semesterBoard.ejs',{title:"title",board :board2, auth:auth2, sessionName:sessionName2, messagecount: message, requestcount : request});
     auth2 = 0;
 });
 router.get('/helpSetboard', (req, res)=> {
+    send_check()
     board3.view_num += 1;
     if(board3.userName == req.session.userName){
         auth3 = 1;
@@ -219,8 +279,7 @@ router.get('/helpSetboard', (req, res)=> {
         }
     });
     sessionName3 = req.session.userName;
-    res.render('../views/helpBoard.ejs',{title:"title",board :board3, auth:auth3, sessionName:sessionName3});
-    console.log(auth3);
+    res.render('../views/helpBoard.ejs',{title:"title",board :board3, auth:auth3, sessionName:sessionName3, messagecount: message, requestcount : request});
     auth3 = 0;
 });
 
@@ -278,38 +337,41 @@ router.post('/helpComment/write', function (req, res){
 });
 /* id를 이용해 댓글추가된 페이지 다시 렌더링 */
 router.get('/generalSetboard/comment', function (req, res) {
+    send_check()
     generalBoard.findOne({_id: id1}, function (err, board) {
         if (req.session.userName == board.userName){
             sessionName1 = req.session.userName;
-            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName1});
+            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName1, messagecount: message, requestcount : request});
         }
         else{
             sessionName1 = req.session.userName;
-            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName1});
+            res.render('../views/generalBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName1, messagecount: message, requestcount : request});
         }
     })
 });
 router.get('/semesterSetboard/comment', function (req, res) {
+    send_check()
     semesterBoard.findOne({_id: id2}, function (err, board) {
         if (req.session.userName == board.userName){
             sessionName2 = req.session.userName;
-            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName2});
+            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName2, messagecount: message, requestcount : request});
         }
         else{
             sessionName2 = req.session.userName;
-            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName2});
+            res.render('../views/semesterBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName2, messagecount: message, requestcount : request});
         }
     })
 });
 router.get('/helpSetboard/comment', function (req, res) {
+    send_check()
     helpBoard.findOne({_id: id3}, function (err, board) {
         if (req.session.userName == board.userName){
             sessionName3 = req.session.userName;
-            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName3});
+            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 1, sessionName:sessionName3, messagecount: message, requestcount : request});
         }
         else{
             sessionName3 = req.session.userName;
-            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName3});
+            res.render('../views/helpBoard.ejs', {title: 'Board', board: board, auth: 0, sessionName:sessionName3, messagecount: message, requestcount : request});
         }
     })
 });
@@ -362,14 +424,15 @@ router.get('/generalUpdate', (req, res)=> {
     }
 });
 router.get('/generalUpdateWrite', (req, res)=> {
-
-        generalBoard.findOne({_id: generalUpdateid}, function (err, board) {
-            console.log(board);
-            res.render('../views/generalUpdateWrite.ejs', {board: board});
-        });
+    send_check()
+    generalBoard.findOne({_id: generalUpdateid}, function (err, board) {
+        console.log(board);
+        res.render('../views/generalUpdateWrite.ejs', {board: board, messagecount: message, requestcount : request});
+    });
 });
 router.post('/generalUpdateSave', (req, res) => {
     auth1 = 1;
+    send_check()
     generalBoard.findOne({_id : generalUpdateid}, function (err, result) {
         result.title = req.body.title;
         result.contents = req.body.contents;
@@ -384,7 +447,7 @@ router.post('/generalUpdateSave', (req, res) => {
                 res.redirect('/home');
             }
             sessionName1 = req.session.userName;
-            res.render('../views/generalBoard.ejs', {board :result, auth:auth1, sessionName:sessionName1});
+            res.render('../views/generalBoard.ejs', {board :result, auth:auth1, sessionName:sessionName1, messagecount: message, requestcount : request});
             auth1 = 0;
         });
     });
@@ -401,14 +464,15 @@ router.get('/semesterUpdate', (req, res)=> {
     }
 });
 router.get('/semesterUpdateWrite', (req, res)=> {
-
+    send_check()
     semesterBoard.findOne({_id: semesterUpdateid}, function (err, board) {
         console.log(board);
-        res.render('../views/semesterUpdateWrite.ejs', {board: board});
+        res.render('../views/semesterUpdateWrite.ejs', {board: board, messagecount: message, requestcount : request});
     });
 });
 router.post('/semesterUpdateSave', (req, res) => {
     auth2 = 1;
+    send_check()
     semesterBoard.findOne({_id : semesterUpdateid}, function (err, result) {
         result.title = req.body.title;
         result.contents = req.body.contents;
@@ -423,11 +487,12 @@ router.post('/semesterUpdateSave', (req, res) => {
                 res.redirect('/home');
             }
             sessionName2 = req.session.userName;
-            res.render('../views/semesterBoard.ejs', {board :result, auth:auth2, sessionName:sessionName2});
+            res.render('../views/semesterBoard.ejs', {board :result, auth:auth2, sessionName:sessionName2, messagecount: message, requestcount : request});
             auth2 = 0;
         });
     });
 })
+
 //helpboard update
 router.get('/helpUpdate', (req, res)=> {
     if(req.query.userName !== req.session.userName){
@@ -440,13 +505,14 @@ router.get('/helpUpdate', (req, res)=> {
     }
 });
 router.get('/helpUpdateWrite', (req, res)=> {
-
+    send_check()
     helpBoard.findOne({_id: helpUpdateid}, function (err, board) {
         console.log(board);
-        res.render('../views/helpUpdateWrite.ejs', {board: board});
+        res.render('../views/helpUpdateWrite.ejs', {board: board, messagecount: message, requestcount : request});
     });
 });
 router.post('/helpUpdateSave', (req, res) => {
+    send_check()
     auth3 = 1;
     helpBoard.findOne({_id : helpUpdateid}, function (err, result) {
         result.title = req.body.title;
@@ -462,7 +528,7 @@ router.post('/helpUpdateSave', (req, res) => {
                 res.redirect('/home');
             }
             sessionName3 = req.session.userName;
-            res.render('../views/helpBoard.ejs', {board :result, auth:auth3, sessionName:sessionName3});
+            res.render('../views/helpBoard.ejs', {board :result, auth:auth3, sessionName:sessionName3, messagecount: message, requestcount : request});
             auth3 = 0;
         });
     });
@@ -516,9 +582,6 @@ router.get('/helpCommentDelete', (req, res)=> {
         });
     }
 });
-
-
-
 
 router.get('/view',(req,res)=>{
     let friendID = req.body;

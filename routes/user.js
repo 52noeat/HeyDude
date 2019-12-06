@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
 // Load User model
-const {User, Profile, FriendList, Request, Chat}=require('../models/index');
+const {User, Profile, FriendList, Request, Chat, ChatRoom}=require('../models/index');
 
 // Duplicate User
 router.post('/duplicate', (req, res) => {

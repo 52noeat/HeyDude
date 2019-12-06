@@ -2,12 +2,52 @@ const express = require('express');
 const router = express.Router();
 // Load User model
 const {User, Profile, FriendList, Request, Chat, ChatRoom}=require('../models/index');
+let requestcount=0;
+let messagecount=0;
+let user_ID = "";
 
+function send_check(){
+    let count=0;
+    Request.find({friendID :user_ID}, function (err, requestList) {
+        if(requestList) {
+            requestcount = requestList.length;
+        }
+    });
+    ChatRoom.find({userID : user_ID})
+        .then(chatRoom=>{
+            if(chatRoom){
+                for(i in chatRoom){
+                    Chat.find({chatCode: chatRoom[i].chatCode})
+                        .then(chat=>{
+                            if(chat.length>0){
+                                for(j in chat) {
+                                    if (chat[j].read == false&&chat[j].userID != user_ID){
+                                        count++;
+                                    }
+                                }
+                                if(i==chatRoom.length-1){
+                                    if(count!=messagecount)
+                                        messagecount=count;
+                                    return;
+                                }
+                            }
+                            else{
+                                return;
+                            }
+                        })
+                }
+            }
+            else{
+                return
+            }
+        })
+}
 router.get('/view',(req,res)=>{
-    let userID = req.session.userID;
-    Request.find({friendID: userID})
+    user_ID = req.session.userID;
+    send_check()
+    Request.find({friendID: user_ID})
         .then(request=>{
-            res.render("../views/request.ejs",{request : request})
+            res.render("../views/request.ejs",{request : request, messagecount: messagecount, requestcount : requestcount})
         })
 })
 
@@ -115,7 +155,7 @@ router.post('/accept',(req,res)=>{
         .catch(err=>console.log(err))
 })
 
-router.delete('/decline',(req,res)=>{
+router.post('/decline',(req,res)=>{
     let {friendID} = req.body;
     const userID = req.session.userID
     Request.findOne({userID : friendID, friendID : userID })
