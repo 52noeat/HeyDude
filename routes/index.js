@@ -2,6 +2,47 @@ const express = require('express');
 const session = require('express-session');
 const router = express.Router();
 
+const {Request, Chat, ChatRoom}=require('../models/index');
+let requestcount=0;
+let messagecount=0;
+let user_ID = "";
+
+function send_check(){
+    let count=0;
+    Request.find({friendID :user_ID}, function (err, requestList) {
+        if(requestList) {
+            requestcount = requestList.length;
+        }
+    });
+    ChatRoom.find({userID : user_ID})
+        .then(chatRoom=>{
+            if(chatRoom){
+                for(i in chatRoom){
+                    Chat.find({chatCode: chatRoom[i].chatCode})
+                        .then(chat=>{
+                            if(chat.length>0){
+                                for(j in chat) {
+                                    if (chat[j].read == false&&chat[j].userID != user_ID){
+                                        count++;
+                                    }
+                                }
+                                if(i==chatRoom.length-1){
+                                    if(count!=messagecount)
+                                        messagecount=count
+                                    return;
+                                }
+                            }
+                            else{
+                                return;
+                            }
+                        })
+                }
+            }
+            else{
+                return
+            }
+        })
+}
 
 // Main Page
 router.get('/', (req, res) => {
@@ -24,47 +65,52 @@ router.get('/verification',(req,res)=>{
     // }
 });
 
-router.get('/profileSet', (req, res) => {
-    let sess = req.session
+router.get('/profileSet', async (req, res) => {
+    user_ID = req.session.userID
+    await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-        res.render('../views/setProfile.ejs');
+        res.render('../views/setProfile.ejs',{messagecount: messagecount, requestcount : requestcount});
     // }
 });
 
-router.get('/chatList', (req, res) => {
-    let sess = req.session
+router.get('/chatList', async (req, res) => {
+    user_ID = req.session.userID
+    await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-        res.render('../views/chatList.ejs');
+        res.render('../views/chatList.ejs',{messagecount: messagecount, requestcount : requestcount});
     // }
 });
 
-router.get('/mypage', (req, res) => {
-    let sess = req.session
+router.get('/mypage', async (req, res) => {
+    user_ID = req.session.userID
+    await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-        res.render('../views/mypage.ejs');
+        res.render('../views/mypage.ejs',{messagecount: messagecount, requestcount : requestcount});
     // }
 });
-router.get('/setProfile', (req, res) => {
-    let sess = req.session
+router.get('/setProfile', async (req, res) => {
+    user_ID = req.session.userID
+    await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    res.render('../views/setProfile.ejs');
+    res.render('../views/setProfile.ejs',{messagecount: messagecount, requestcount : requestcount});
     // }
 });
 
-router.get('/chat', (req, res) => {
-    let sess = req.session
+router.get('/chat', async (req, res) => {
+    user_ID = req.session.userID
+    await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    res.render('../views/chat.ejs');
+    res.render('../views/chat.ejs',{messagecount: messagecount, requestcount : requestcount});
     // }
 });
 

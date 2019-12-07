@@ -40,7 +40,7 @@
         <div class="userFace">
             <span class="editFace">
                 <label for="fileButton">
-                    <%if(!profile){if(profile.sex=='male'){%>
+                    <%if(profile.url==""){if(profile.sex=='male'){%>
                     <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
                         <%}else{%>
                     <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
@@ -62,14 +62,14 @@
                 <label>Age (kor)</label>
             </div>
             <div class="form-group" style="display: flex; max-width: 340px;" >
-                <input type="number" class="form-control" style= "width: 90%" id="age" name="age" onkeypress="return lengthCheckofExp(this)" maxlength="3">
+                <input type="number" class="form-control" style= "width: 90%" id="age" name="age" value="<%=profile.age%>" onkeypress="return lengthCheckofExp(this)" maxlength="3">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Major</label>
             </div>
             <div class="form-group">
                 <label class="sr-only" for="major">Major</label>
-                <input type='text' class='form-control' id='major' name='major' maxlength="30">
+                <input type='text' class='form-control' id='major' name='major' value="<%=profile.major%>" maxlength="30">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Nationality</label>
@@ -77,7 +77,7 @@
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="nationality" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="nationality">
-                    <option value="">---- Select Nationality ----</option>
+                    <option value="<%=profile.nationality%>"><%=profile.nationality%></option>
                     <option value="south korean">South Korean</option>
                     <option value="american">American</option>
                     <option value="argentinean">Argentinean</option>
@@ -169,7 +169,7 @@
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language1" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language1">
-                    <option value="">---- language ----</option>
+                    <option value="<%=profile.language[0]%>"><%=profile.language[0]%></option>
                     <option value="Korean">Korean</option>
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -254,7 +254,7 @@
                 </select>
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="level1" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="level1">
-                    <option value="">---- level ----</option>
+                    <option value="<%=profile.level[0]%>"><%=profile.level[0]%></option>
                     <option value="Beginner">Beginner</option>
                     <option value="Advanced">Advanced</option>
                     <option value="Native">Native</option>
@@ -263,7 +263,7 @@
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language2" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language2">
-                    <option value="">---- language ----</option>
+                    <option value="<%=profile.language[1]%>"><%=profile.language[1]%></option>
                     <option value="Korean">Korean</option>
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -348,7 +348,7 @@
                 </select>
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="level2" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="level2">
-                    <option value="">---- level ----</option>
+                    <option value="<%=profile.level[1]%>"><%=profile.level[1]%></option>
                     <option value="Beginner">Beginner</option>
                     <option value="Advanced">Advanced</option>
                     <option value="Native">Native</option>
@@ -357,7 +357,7 @@
             <div class="form-group">
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="language3" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="language3">
-                    <option value="">---- language ----</option>
+                    <option value="<%=profile.language[2]%>"><%=profile.language[2]%></option>
                     <option value="Korean">Korean</option>
                     <option value="English">English</option>
                     <option value="French">French</option>
@@ -442,7 +442,7 @@
                 </select>
                 <select class="btn btn-secondary dropdown-toggle" type="button" id="level3" style="background-color: white; color: black"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="level3">
-                    <option value="">---- level ----</option>
+                    <option value="<%=profile.level[2]%>"><%=profile.level[2]%></option>
                     <option value="Beginner">Beginner</option>
                     <option value="Advanced">Advanced</option>
                     <option value="Native">Native</option>
@@ -453,13 +453,13 @@
             </div>
             <div class="form-group">
                 <label class="sr-only" for="religion">Religion</label>
-                <input type='text' class='form-control' id='religion' name='religion' maxlength="20" placeholder="ex) none, christianity">
+                <input type='text' class='form-control' id='religion' value="<%=profile.religion%>" name='religion' maxlength="20" placeholder="ex) none, christianity">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>The best purpose of meeting foreign friends</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" name="tendency" id="play" value="play" checked>
+                <input type="radio" class="custom-control-input" name="tendency" id="play" value="play">
                 <label class="custom-control-label" for="play">Play</label>
             </div>
             <div class="form-group custom-control custom-radio custom-control-inline">
@@ -475,27 +475,27 @@
             </div>
             <div class="form-group">
                 <label class="sr-only" for="interest">Interest</label>
-                <input type='text' class='form-control' id='interest' name='interest' placeholder="ex) movie, korea history, food">
+                <input type='text' class='form-control' id='interest' value="<%=profile.interest%>" name='interest' placeholder="ex) movie, korea history, food">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Hate</label>
             </div>
             <div class="form-group">
                 <label class="sr-only" for="hate">Hate</label>
-                <input type='text' class='form-control' id='hate' name='hate' placeholder="ex) smoking, fighter, pervert">
+                <input type='text' class='form-control' id='hate' name='hate' value="<%=profile.hate%>" placeholder="ex) smoking, fighter, pervert">
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>What to do with</label>
             </div>
             <div class="input-group">
-                <textarea class="form-control" id='wish' name='wish' aria-label="With textarea" placeholder=
+                <textarea class="form-control" id='wish' name='wish' value="<%=profile.wish%>" aria-label="With textarea" placeholder=
                 "ex) I want to talk in a cafe."></textarea>
             </div>
             <div style="font-weight: bold; font-size: large;">
                 <label>Introduce</label>
             </div>
             <div class="input-group">
-                <textarea class="form-control" id='introduce' name='introduce' aria-label="With textarea"></textarea>
+                <textarea class="form-control" id='introduce' name='introduce' value="<%=profile.introduce%>" aria-label="With textarea"></textarea>
             </div>
             <div class="form-group">
                 <span id="submit_feedback" disabled></span>
@@ -516,9 +516,15 @@
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <%if(requestcount>0){%>
+            <span class="button__badge"><%=requestcount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+            <%if(messagecount>0){%>
+            <span class="button__badge"><%=messagecount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -576,44 +582,10 @@
             return false;
         }
     }
-    function loadImg(){
-        var storageRef = firebase.storage().ref(userID+'.jpg');
-        storageRef.getDownloadURL().then(function(url) {
-            // This can be downloaded directly:
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = function(event) {
-                var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
-
-            URL = url;
-            // Or inserted into an <img> element:
-            var img = document.getElementById('myimage');
-            img.src = url;
-        }).catch(function(error) {
-            // Handle any errors
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-                case 'storage/object-not-found':
-                    // File doesn't exist
-                    break;
-                case 'storage/canceled':
-                    // User canceled the upload
-                    break;
-                case 'storage/unknown':
-                    // Unknown error occurred, inspect the server response
-                    break;
-            }
-        });
-    }
     // Get userID
     let userID = '<%=profile.userID%>'
     let URL=''
-    // loadFace
-    loadImg();
+
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
@@ -655,7 +627,35 @@
                     console.log('File available at', downloadURL);
                 });
             });
-        loadImg();
+        storageRef.getDownloadURL().then(function(url) {
+            // This can be downloaded directly:
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function(event) {
+                var blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            // Or inserted into an <img> element:
+            var img = document.getElementById('myimage');
+            img.src = url;
+            URL = url;
+        }).catch(function(error) {
+            // Handle any errors
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    // File doesn't exist
+                    break;
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect the server response
+                    break;
+            }
+        });
     });
 
     $("#plus").click(function(e){
@@ -664,7 +664,6 @@
     });
 
     $("#submit").click(function () {
-        alert("!!");
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -691,10 +690,9 @@
                 url : URL
             }
         }).done(function(result) {
-            alert(result);
             if (result) {
-                location.href = '/profile/myProfile'
                 //location.href = '/home';
+                location.href = '/profile/myProfile'
             } else {
                  showErrorMsg($('#submit_feedback'), "Please try again.");
             }

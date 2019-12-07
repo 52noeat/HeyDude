@@ -39,7 +39,7 @@
         <div class="userFace">
             <span class="editFace">
                 <label for="fileButton">
-                    <img id="myimage" src="https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg">
+                    <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
                 </label>
                 <label class="fileButtonIcon" for="fileButton">
                     <button type='button' id="plus" for="fileButton" class="btn btn-info mdi mdi-image-edit-outline" > Edit</button>
@@ -510,9 +510,15 @@
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <%if(requestcount>0){%>
+            <span class="button__badge"><%=requestcount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+            <%if(messagecount>0){%>
+            <span class="button__badge"><%=messagecount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -576,7 +582,6 @@
     // Upload Storage
 
     var fileButton = document.getElementById('fileButton');
-    var uploader = document.getElementById('uploader');
     fileButton.addEventListener('change', function(e){
         // Get file
         var file = e.target.files[0];
@@ -629,6 +634,7 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
+
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at
@@ -653,7 +659,6 @@
     });
 
     $("#submit").click(function () {
-        alert("!!");
         let language = Array();
         let level = Array()
         language[0]= $('#language1').val()
@@ -680,7 +685,6 @@
                 url : URL
             }
         }).done(function(result) {
-            alert(result);
             if (result) {
                 location.href = '/profile/myProfile';
             } else {

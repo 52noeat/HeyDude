@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const session = require('express-session');
-const {User, Profile, FriendList, Request, Chat}=require('../models/index');
+const {User, Profile, FriendList, Request, Chat, ChatRoom}=require('../models/index');
 
 
 let this_nationality;
@@ -13,16 +13,55 @@ let this_hate;
 let this_wish;
 let this_introduce;
 let this_friendID;
+let requestcount=0;
+let messagecount=0;
+let user_ID = "";
+
+function send_check(){
+    count=0;
+    Request.find({friendID :user_ID}, function (err, requestList) {
+        if(requestList) {
+            requestcount = requestList.length;
+        }
+    });
+    ChatRoom.find({userID : user_ID})
+        .then(chatRoom=>{
+            if(chatRoom){
+                for(i in chatRoom){
+                    Chat.find({chatCode: chatRoom[i].chatCode})
+                        .then(chat=>{
+                            if(chat.length>0){
+                                for(j in chat) {
+                                    if (chat[j].read == false&&chat[j].userID != user_ID){
+                                        count++;
+                                    }
+                                }
+                                if(i==chatRoom.length-1){
+                                    if(count!=messagecount)
+                                        messagecount=count;
+                                    return;
+                                }
+                            }
+                            else{
+                                return;
+                            }
+                        })
+                }
+            }
+            else{
+                return
+            }
+        })
+}
 
 router.post('/set', (req, res) => {
     const {
         age, nationality, major, tendency, language, level,
-        interest, hate, wish, introduce, url } = req.body;
+        religion, interest, hate, wish, introduce, url } = req.body;
     let userID = req.session.userID;
     let userName = req.session.userName;
     let sex = req.session.sex;
-    console.log(req.session)
-    console.log(req.body)
+    console.log(url);
     const newProfile = new Profile({
         userID: userID,
         userName: userName,
@@ -30,6 +69,7 @@ router.post('/set', (req, res) => {
         sex: sex,
         major: major,
         nationality: nationality,
+        religion: religion,
         tendency: tendency,
         language: language,
         level: level,
@@ -44,13 +84,15 @@ router.post('/set', (req, res) => {
             Profile.findOneAndUpdate({
                 age: age,
                 nationality: nationality,
+                religion: religion,
                 tendency: tendency,
                 language: language,
                 level: level,
                 interest: interest,
                 hate: hate,
                 wish: wish,
-                introduce: introduce
+                introduce: introduce,
+                url: url
             })
                 .then(()=>{
                     console.log(userID + '회원 정보가 수정되었습니다.');
@@ -83,7 +125,8 @@ router.post('/detail', (req,res)=>{
 });
 
 router.get('/view', (req,res)=>{
-    let user_ID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     let status = 0 ;
     Profile.findOne({userID:this_friendID}).then(profile=>{
         if(profile){
@@ -95,45 +138,47 @@ router.get('/view', (req,res)=>{
                 if (profile.plus[i] == user_ID)
                     status = 2;
             }
-            res.render('../views/profile.ejs', {profile : profile, status : status});
+            res.render('../views/profile.ejs', {profile : profile, status : status, messagecount: messagecount, requestcount : requestcount});
         }else{
-            res.render('../views/profile.ejs', {profile : ""});
+            res.render('../views/profile.ejs', {profile : "", messagecount: messagecount, requestcount : requestcount});
         }
     })
 })
 
 router.get('/view/request', (req,res)=>{
-    let user_ID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     let status = 3 ;
     Profile.findOne({userID:this_friendID}).then(profile=>{
         if(profile){
-            res.render('../views/profile.ejs', {profile : profile, status : status});
+            res.render('../views/profile.ejs', {profile : profile, status : status, messagecount: messagecount, requestcount : requestcount});
         }else{
-            res.render('../views/profile.ejs', {profile : ""});
+            res.render('../views/profile.ejs', {profile : "", messagecount: messagecount, requestcount : requestcount});
         }
     })
 })
 
 router.get('/myProfile', (req, res) => {
-    let userID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    Profile.findOne({userID:userID}).then(profile=>{
+    Profile.findOne({userID:user_ID}).then(profile=>{
         if(profile){
-            console.log(profile)
-            res.render('../views/myProfile.ejs',{profile : profile});
+            res.render('../views/myProfile.ejs',{profile : profile, messagecount: messagecount, requestcount : requestcount});
         }else{
-            res.render('../views/setProfile.ejs',{user : userID});
+            res.render('../views/setProfile.ejs',{user : user_ID, messagecount: messagecount, requestcount : requestcount});
         }
     })
     // }
 });
 
-router.get('/community',(req,res)=>{
-    let user_ID = req.session.userID;
+router.get('/community',async (req,res)=>{
+    user_ID = req.session.userID;
+    await send_check()
     let community=[]
-    Profile.find().then(profile=> {
+    await Profile.find().then(profile=> {
         if(profile.length>1) {
             let state;
             for(i in profile){
@@ -163,15 +208,16 @@ router.get('/community',(req,res)=>{
                     community.push(profile[i])
                 }
             }
-            res.render('../views/community.ejs', {profile: community});
+            res.render('../views/community.ejs', {profile: community, messagecount: messagecount, requestcount : requestcount});
         }else {
-            res.render('../views/community.ejs', {profile: ""});
+            res.render('../views/community.ejs', {profile: "", messagecount: messagecount, requestcount : requestcount});
         }
     });
 });
 
 router.get('/play',(req,res)=>{
-    let user_ID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     let community=[]
     Profile.find().then(profile=> {
         if(profile.length>1) {
@@ -203,15 +249,16 @@ router.get('/play',(req,res)=>{
                     community.push(profile[i])
                 }
             }
-            res.render('../views/community.ejs', {profile: community});
+            res.render('../views/community.ejs', {profile: community, messagecount: messagecount, requestcount : requestcount});
         }else {
-            res.render('../views/community.ejs', {profile: ""});
+            res.render('../views/community.ejs', {profile: "", messagecount: messagecount, requestcount : requestcount});
         }
     });
 });
 
 router.get('/study',(req,res)=>{
-    let user_ID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     let community=[]
     Profile.find().then(profile=> {
         if(profile.length>1) {
@@ -243,15 +290,16 @@ router.get('/study',(req,res)=>{
                     community.push(profile[i])
                 }
             }
-            res.render('../views/community.ejs', {profile: community});
+            res.render('../views/community.ejs', {profile: community, messagecount: messagecount, requestcount : requestcount});
         }else {
-            res.render('../views/community.ejs', {profile: ""});
+            res.render('../views/community.ejs', {profile: "", messagecount: messagecount, requestcount : requestcount});
         }
     });
 });
 
 router.get('/culture',(req,res)=>{
-    let user_ID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     let community=[]
     Profile.find().then(profile=> {
         if (profile.length > 1) {
@@ -283,23 +331,24 @@ router.get('/culture',(req,res)=>{
                     community.push(profile[i])
                 }
             }
-            res.render('../views/community.ejs', {profile: community});
+            res.render('../views/community.ejs', {profile: community, messagecount: messagecount, requestcount : requestcount});
         } else {
-            res.render('../views/community.ejs', {profile: ""});
+            res.render('../views/community.ejs', {profile: "", messagecount: messagecount, requestcount : requestcount});
         }
     });
 });
 
 router.get('/edit', (req, res) => {
-    let userID = req.session.userID;
+    user_ID = req.session.userID;
+    send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    Profile.findOne({userID:userID}).then(profile=>{
+    Profile.findOne({userID:user_ID}).then(profile=>{
         if(profile){
-            res.render('../views/editProfile.ejs',{profile : profile});
+            res.render('../views/editProfile.ejs',{profile : profile, messagecount: messagecount, requestcount : requestcount});
         }else{
-            res.render('../views/setProfile.ejs',{user : userID});
+            res.render('../views/setProfile.ejs',{user : user_ID, messagecount: messagecount, requestcount : requestcount});
         }
     })
     // }
