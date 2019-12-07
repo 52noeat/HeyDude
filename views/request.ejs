@@ -47,7 +47,12 @@
                 <td>
                     <div class="column" >
                         <div class='cardList'>
-                            <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+                            <div class='firstinfo'>
+                                <%if(request[i].url==''){%>
+                                    <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                                <%}else{%>
+                                <img id="myimage" src="<%=request[i].url%>">
+                                <%}%>
                                 <div class='profileinfo'>
                                     <h1><%=request[i].userName%>
                                         <%if(request[i].tendency=="play"){%>
@@ -66,7 +71,7 @@
                                     </h1>
                                     <h3><%=request[i].age%>, <%=request[i].nationality%>, <%=request[i].sex%></h3>
                                     <button class='button' style='background-color: #7abaff' onclick="detail('<%=request[i].userID%>')">Detail</button>
-                                    <button class='button' style='background-color: #64E291' onclick="accept('<%=request[i].userID%>','<%=request[i].userName%>')">Accept</button>
+                                    <button class='button' style='background-color: #64E291' onclick="accept('<%=request[i].userID%>','<%=request[i].userName%>',<%=request[i].url%>)">Accept</button>
                                     <button class='button' style='background-color: #EB7070' onclick="decline('<%=request[i].userID%>')">Decline</button>
                                 </div>
                             </div>
@@ -88,10 +93,16 @@
             <a class="nav-link mdi mdi-account-group" href="/profile/community"></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mdi mdi-account-plus active" href="/request/view"></a>
+            <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <%if(requestcount>0){%>
+            <span class="button__badge"><%=requestcount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+            <%if(messagecount>0){%>
+            <span class="button__badge"><%=messagecount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -135,16 +146,16 @@
             }
         });
     }
-    function accept(friendID,friendName) {
+    function accept(friendID,friendName,url) {
         $.ajax({
             type:"POST",
             url: "/request/accept",
             data: {
                 friendID : friendID,
-                friendName : friendName
+                friendName : friendName,
+                friendurl : url
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     }
@@ -156,7 +167,6 @@
                 friendID : friendID
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     }

@@ -79,9 +79,15 @@
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <%if(requestcount>0){%>
+            <span class="button__badge"><%=requestcount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+            <%if(messagecount>0){%>
+            <span class="button__badge"><%=messagecount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>

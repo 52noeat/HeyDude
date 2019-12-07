@@ -55,7 +55,13 @@
                 </table>
                 <div class='myprofileinfo' >
                     <div class='userFace'>
-                        <img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+                        <%if(profile.url==''){if(profile.sex=='male'){%>
+                            <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                        <%}else{%>
+                            <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
+                        <%}}else{%>
+                        <img id="myimage" src="<%=profile.url%>">
+                        <%}%>
                     </div>
                     <%if(profile.tendency=="play"){%>
                         <div class='tendency' style="margin-left: 3%;">
@@ -136,9 +142,15 @@
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+            <%if(requestcount>0){%>
+            <span class="button__badge"><%=requestcount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+            <%if(messagecount>0){%>
+            <span class="button__badge"><%=messagecount%></span>
+            <%}%>
         </li>
         <li class="nav-item">
             <a class="nav-link mdi mdi-account" href="/mypage"></a>
@@ -173,7 +185,6 @@
                 friendID : '<%=profile.userID%>'
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     })
@@ -185,7 +196,6 @@
                 friendID : '<%=profile.userID%>'
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     })
@@ -197,7 +207,6 @@
                 friendID : '<%=profile.userID%>'
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     })
@@ -207,10 +216,10 @@
             url: "/request/accept",
             data: {
                 friendID : '<%=profile.userID%>',
-                friendName : '<%=profile.userName%>'
+                friendName : '<%=profile.userName%>',
+                friendurl : '<%=profile.url%>'
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     })
@@ -222,7 +231,6 @@
                 friendID : '<%=profile.userID%>'
             }
         }).done(result=>{
-            alert(result)
             location.reload()
         })
     })

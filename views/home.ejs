@@ -29,7 +29,6 @@
     </nav>
     <div class="content-scroll">
         <div class="container">
-            <br>
             <div style="text-align: center">
                 <button type="button" onclick="PageToGeneralBoard()" class="btn"><h3>General Forum</h3></button>
             </div>
@@ -148,9 +147,15 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account-plus" href="/request/view"></a>
+                <%if(requestcount>0){%>
+                <span class="button__badge"><%=requestcount%></span>
+                <%}%>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-comment" href="/chat/chatRoom"></a>
+                <%if(messagecount>0){%>
+                <span class="button__badge"><%=messagecount%></span>
+                <%}%>
             </li>
             <li class="nav-item">
                 <a class="nav-link mdi mdi-account" href="/mypage"></a>
