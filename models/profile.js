@@ -7,6 +7,7 @@ const ProfileSchema = new mongoose.Schema({
     age: {type: String, required: true},
     major: {type: String, required: true},
     nationality: {type: String, required: true},
+    religion:{type: String, required: true},
     tendency: {type: String, required: true},
     language: [{type: String}],
     level: [{type: String}],
@@ -14,11 +15,11 @@ const ProfileSchema = new mongoose.Schema({
     hate: {type: String, default: ""},
     wish: {type: String, default: ""},
     introduce: {type: String, default: ""},
+    url: {type : String, default: ""},
     active: {type: Boolean, default: true},
     friend: [{type: String}],
     plus: [{type : String}],
-    block: [{type : String}],
-    url: [{type : String, default: ""}]
+    block: [{type : String}]
 });
 
 const Profile = mongoose.model('profile', ProfileSchema);

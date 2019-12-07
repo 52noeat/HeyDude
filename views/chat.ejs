@@ -47,7 +47,11 @@
                     <div class="card-header msg_head">
                         <div class="d-flex bd-highlight">
                             <div class="img_cont">
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+                                <%if(friendurl==''){%>
+                                    <img class="rounded-circle user_img" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                                <%}else{%>
+                                <img  class="rounded-circle user_img" src="<%=friendurl%>">
+                                <%}%>
                             </div>
                             <div class="user_info">
                                 <span>Chat with <%=friendName%></span>
@@ -170,8 +174,12 @@
         let str= "<div class='d-flex justify-content-start mb-4'>" +
             "<div class='img_cont_msg'>" +
             "<img src="+
-            "'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'"+
-            "class='rounded-circle user_img_msg'>" +
+            <%if(friendurl==''){%>
+                "'https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e'"+
+            <%}else{%>
+                 "'<%=friendurl%>'"+
+            <%}%>
+            " class='rounded-circle user_img_msg'>" +
             "</div>" +
             "<div class='msg_cotainer'>" +
             message +
@@ -183,7 +191,6 @@
     }
 
     function chat(message, date){
-
         let str= "<div class='d-flex justify-content-end mb-4'>" +
             "<div class='msg_cotainer_send'>" +
             message +
@@ -193,7 +200,11 @@
             "</div>" +
             "<div class='img_cont_msg'>" +
             "<img src="+
-            "'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'"+
+            <%if(url==''){%>
+                "'https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e'"+
+            <%}else{%>
+                "'<%=url%>'"+
+            <%}%>
             "class='rounded-circle user_img_msg'>" +
             "</div>" +
             "</div>"
@@ -239,7 +250,3 @@
 
     });
 </script>
-
-<style>
-
-</style>

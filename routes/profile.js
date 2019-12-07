@@ -57,12 +57,11 @@ function send_check(){
 router.post('/set', (req, res) => {
     const {
         age, nationality, major, tendency, language, level,
-        interest, hate, wish, introduce, url } = req.body;
+        religion, interest, hate, wish, introduce, url } = req.body;
     let userID = req.session.userID;
     let userName = req.session.userName;
     let sex = req.session.sex;
-    console.log(req.session)
-    console.log(req.body)
+    console.log(url);
     const newProfile = new Profile({
         userID: userID,
         userName: userName,
@@ -70,6 +69,7 @@ router.post('/set', (req, res) => {
         sex: sex,
         major: major,
         nationality: nationality,
+        religion: religion,
         tendency: tendency,
         language: language,
         level: level,
@@ -84,13 +84,15 @@ router.post('/set', (req, res) => {
             Profile.findOneAndUpdate({
                 age: age,
                 nationality: nationality,
+                religion: religion,
                 tendency: tendency,
                 language: language,
                 level: level,
                 interest: interest,
                 hate: hate,
                 wish: wish,
-                introduce: introduce
+                introduce: introduce,
+                url: url
             })
                 .then(()=>{
                     console.log(userID + '회원 정보가 수정되었습니다.');
@@ -164,7 +166,6 @@ router.get('/myProfile', (req, res) => {
     // }else{
     Profile.findOne({userID:user_ID}).then(profile=>{
         if(profile){
-            console.log(profile)
             res.render('../views/myProfile.ejs',{profile : profile, messagecount: messagecount, requestcount : requestcount});
         }else{
             res.render('../views/setProfile.ejs',{user : user_ID, messagecount: messagecount, requestcount : requestcount});

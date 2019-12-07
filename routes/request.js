@@ -64,7 +64,8 @@ router.post('/send',(req,res)=>{
                     sex : profile.sex,
                     age : profile.age,
                     nationality : profile.nationality,
-                    tendency : profile.tendency
+                    tendency : profile.tendency,
+                    url : profile.url
                 })
                 NewRequest.save()
                     .then(result=>{
@@ -115,44 +116,50 @@ router.post('/block',(req,res)=>{
 })
 
 router.post('/accept',(req,res)=>{
-    let {friendID,friendName} = req.body;
+    let {friendID,friendName,friendurl} = req.body;
     const userID = req.session.userID
     let chatCode = userID+friendID;
-    const NewChatRoom = new ChatRoom({
-        chatCode : chatCode,
-        userID : [ userID, friendID],
-        userName : [ req.session.userName, friendName]
-    })
-    NewChatRoom.save()
-        .then(result=>{
-            res.send(result)
-            Request.findOne({userID : friendID, friendID : userID })
-                .then(request=>{
-                    if(request){
-                        request.remove()
-                        Profile.updateOne(
-                            {userID : friendID},
-                            {
-                                $push:{friend : userID}
-                            })
-                            .then(result=>{
-                                Profile.updateOne(
-                                    {userID : userID},
-                                    {
-                                        $push : {friend : friendID},
-                                        $pull : {plus : friendID}
-                                    })
-                                    .then(result=>{
-                                        res.send(true)
-                                    })
-                            })
-                    }
+    Profile.findOne({userID:userID})
+        .then(profile=>{
+            if(profile){
+                const NewChatRoom = new ChatRoom({
+                    chatCode : chatCode,
+                    userID : [ userID, friendID],
+                    userName : [ req.session.userName, friendName],
+                    url : [profile.url, friendurl]
                 })
-                .catch(err=>{
-                    console.log(err);
-                })
+                NewChatRoom.save()
+                    .then(result=>{
+                        res.send(result)
+                        Request.findOne({userID : friendID, friendID : userID })
+                            .then(request=>{
+                                if(request){
+                                    request.remove()
+                                    Profile.updateOne(
+                                        {userID : friendID},
+                                        {
+                                            $push:{friend : userID}
+                                        })
+                                        .then(result=>{
+                                            Profile.updateOne(
+                                                {userID : userID},
+                                                {
+                                                    $push : {friend : friendID},
+                                                    $pull : {plus : friendID}
+                                                })
+                                                .then(result=>{
+                                                    res.send(true)
+                                                })
+                                        })
+                                }
+                            })
+                            .catch(err=>{
+                                console.log(err);
+                            })
+                    })
+                    .catch(err=>console.log(err))
+            }
         })
-        .catch(err=>console.log(err))
 })
 
 router.post('/decline',(req,res)=>{

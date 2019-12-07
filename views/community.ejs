@@ -60,7 +60,14 @@
                     <td>
                         <div class="column" >
                             <div class='cardList'>
-                                <div class='firstinfo'><img src='https://s3.amazonaws.com/uifaces/faces/twitter/mrvanz/128.jpg'/>
+                                <div class='firstinfo'>
+                                    <%if(profile[i].url==''){if(profile[i].sex=='male'){%>
+                                        <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                                    <%}else{%>
+                                        <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
+                                    <%}}else{%>
+                                    <img id="myimage" src="<%=profile[i].url%>">
+                                    <%}%>
                                     <div class='profileinfo'>
                                         <h1><%=profile[i].userName%>
                                             <%if(profile[i].tendency=="play"){%>
