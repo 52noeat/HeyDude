@@ -50,7 +50,8 @@ router.post('/set', (req, res) => {
                 interest: interest,
                 hate: hate,
                 wish: wish,
-                introduce: introduce
+                introduce: introduce,
+                url: url
             })
                 .then(()=>{
                     console.log(userID + '회원 정보가 수정되었습니다.');
