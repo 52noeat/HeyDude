@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var generalCommentSchema = new Schema({
     contents: String,
+    userid: String,
     userName: String,
     time: String,
     date: String,
@@ -15,8 +16,10 @@ var generalBoardSchema = new Schema({
     author: String,
     board_date: {type: Date, default: Date.now()},
     userName: {type: String},
+    userid: String,
     time: String,
     date: String,
+    url: [{type : String, default: ""}],
     view_num: {type: Number, default:0},
     comments: [generalCommentSchema]
 });

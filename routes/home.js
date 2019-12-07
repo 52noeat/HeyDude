@@ -78,6 +78,7 @@ router.get('/helpBoard/:page', function(req, res){
 
 /*게시판별 글쓰기 페이지 그리기*/
 router.get('/generalwrite', function(req, res, next) {
+    generalBoard.findOne({})
     res.render('../views/generalWrite.ejs');
 });
 router.get('/semesterwrite', function(req, res, next) {
@@ -94,12 +95,12 @@ router.post('/board/generalwrite', function (req, res) {
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
+    board.userid = req.session.userID;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
-            alert("Login please");
             res.redirect('/home');
         }
         res.redirect('/home/generalBoard/1');
@@ -111,6 +112,7 @@ router.post('/board/semesterwrite', function (req, res) {
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
+    board.userid = req.session.userID;
     board.semester = req.body.semester;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
@@ -129,6 +131,7 @@ router.post('/board/helpwrite', function (req, res) {
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
+    board.userid = req.session.userID;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
     board.save(function (err) {
@@ -229,6 +232,7 @@ router.post('/generalComment/write', function (req, res){
     var comment = new generalComment();
     comment.contents = req.body.contents;
     comment.userName = req.session.userName;
+    comment.userid = req.session.userID;
     comment.comment_date = Date.now();
     comment.date = moment().format("MM-DD");
     comment.time = moment().format("HH:mm");
@@ -246,6 +250,7 @@ router.post('/semesterComment/write', function (req, res){
     var comment = new semesterComment();
     comment.contents = req.body.contents;
     comment.userName = req.session.userName;
+    comment.userid = req.session.userID;
     comment.comment_date = Date.now();
     comment.time = moment().format("HH:mm");
     comment.date = moment().format("MM-DD");
@@ -263,6 +268,7 @@ router.post('/helpComment/write', function (req, res){
     var comment = new helpComment();
     comment.contents = req.body.contents;
     comment.userName = req.session.userName;
+    comment.userid = req.session.userID;
     comment.comment_date = Date.now();
     comment.time = moment().format("HH:mm");
     comment.date = moment().format("MM-DD");
@@ -375,6 +381,7 @@ router.post('/generalUpdateSave', (req, res) => {
         result.contents = req.body.contents;
         result.board_date = Date.now();
         result.userName = req.session.userName;
+        result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
         result.date = momnet().format("MM-DD");
         result.save(function (err) {
@@ -414,6 +421,7 @@ router.post('/semesterUpdateSave', (req, res) => {
         result.contents = req.body.contents;
         result.board_date = Date.now();
         result.userName = req.session.userName;
+        result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
         result.date = momnet().format("MM-DD");
         result.save(function (err) {
@@ -453,6 +461,7 @@ router.post('/helpUpdateSave', (req, res) => {
         result.contents = req.body.contents;
         result.board_date = Date.now();
         result.userName = req.session.userName;
+        result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
         result.date = momnet().format("MM-DD");
         result.save(function (err) {
