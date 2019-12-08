@@ -577,10 +577,9 @@
             return false;
         }
     }
-    let userID = '<%= user %>'
+    let userID = '<%= user%>'
     let URL="";
     // Upload Storage
-
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
         // Get file
@@ -634,7 +633,7 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
-
+            alert(URL);
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at
