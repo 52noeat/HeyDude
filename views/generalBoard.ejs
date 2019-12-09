@@ -35,9 +35,12 @@
         <div style="justify-content: right;">
             <div style="margin-left: 1%">
                 <h5>Title : <%=board.title%> </h5>
-                <h5>Contents : <%=board.contents%> </h5>
+                <h5>Contents : <% if(board.url !== ""){ %> <br> <img src ="<%=board.url%>" style="width: 200px; height: 200px"> <br> <%}%> <%=board.contents%> </h5>
+                <br>
                 <h6 style="color: grey; font-weight: lighter;">author : <%=board.userName%> </h6>
-                <h6 style="color: grey; font-weight: lighter;">time : <%=board.time%> </h6>
+                <h6 style="color: grey; font-weight: lighter;">time : <%=board.date%> <%=board.time%> </h6>
+                <br>
+                <i class="far fa-thumbs-up button" style="color: red; font-size: large; border: none; background-color: white; text-align: left" onclick="Like('<%= board._id%>')">Like <%= board.like%></i>
                 <% if(auth !== null && auth == 1){%>
                 <div style="text-align: right">
                     <button class="btn_modify" onclick="Modify('<%= board._id%>', '<%= board.userName%>')" style="background-color: #28a745">Modify</button>
@@ -80,7 +83,7 @@
             <%}%>
             </h5>
             <h6><%=comment[i].contents%></h6>
-            <h6 style="color: grey; font-weight: lighter"><%=comment[i].time%></h6>
+            <h6 style="color: grey; font-weight: lighter"><%=comment[i].date%> <%=comment[i].time%></h6>
         </div>
         <%}}%>
         <hr>
@@ -115,6 +118,21 @@
 </body>
 </html>
 <script>
+    function Like(id) {
+        $.ajax({
+            type: "POST",
+            url: "/home/generallike" ,
+            data: {
+                id: id
+            }
+        }).done(function(result) {
+            if(result=='1'){
+                alert("Like");
+                window.location.href = "/home/generalSetboard/like";
+            }
+        });
+    }
+
     function Delete(id, userName){
             $.ajax({
                 type:"GET",

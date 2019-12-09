@@ -29,7 +29,8 @@
 </nav>
 <div class="content-scroll">
     <br>
-    <div class="text-center"><h3 style="font-style: oblique"> Semester Forum</h3>
+
+    <div class="text-center"><h3 style="font-style: oblique"><i class="fas fa-user-graduate" style="color: #6c757d"></i> Semester Forum</h3>
         <div class="form-group fa-pull-left" style="padding-left: 3%">
             <select class="form-control" id="semester" style="background-color: white; color: black;" name="semester">
                 <option value="">--Select Semester--</option>
@@ -48,15 +49,35 @@
             <% if(i < 0){
                 break;
             }else{ %>
-                <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>"><p></p>
-                    <h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= board[i].semester%>]<%= board[i].title%></h5><p></p>
-                    <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
-                    <pre style="color: grey; font-weight: lighter;"><%= board[i].time%> | <%= board[i].userName%> | views <%= board[i].view_num%> | comments <%= board[i].comments.length%></pre>
+                <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
+                    <table class="table table-hover" style="table-layout: fixed; border: 1px solid lightgrey; border-radius: 10px">
+                        <thead style="border: none">
+                        <tr style="border: none">
+                            <% if(board[i].url == ""){ %>
+                                <th width="20%" style="border: none;"><img src="/views/image/noimage.png" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
+                                <th width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= board[i].semester%>] <%= board[i].title%></h5><p></p>
+                                    <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
+                                    <i class="far fa-thumbs-up" style="color: red"><%= board[i].like%></i>
+                                    &nbsp;
+                                    <i class="far fa-comment-dots" style="color: #007bff"><%= board[i].comments.length%></i></th>
+                                <th width="30%" style="border: none"><h6 style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></h6></th>
+                            <%}else{%>
+                            <th width="20%" style="border: none"><img src="<%=board[i].url%>" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
+                            <th width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= board[i].semester%>] <%= board[i].title%></h5><p></p>
+                                <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
+                                <i class="far fa-thumbs-up" style="color: red"><%= board[i].like%></i>
+                                &nbsp;
+                                <i class="far fa-comment-dots" style="color: #007bff"><%= board[i].comments.length%></i></th>
+                            <th width="30%" style="border: none"><h6 style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></h6></th>
+                            <%}%>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
-                <hr class="hr1">
         <% } }%>
         <%} %>
         <hr/>
+
         <div class="page">
             <ul class="pagination justify-content-center">
                 <% if (board !== null){%>

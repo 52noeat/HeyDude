@@ -144,25 +144,25 @@ router.get('/helpwrite', function(req, res, next) {
 });
 
 /*글쓴 정보 각 DB 테이블에 저장*/
-router.post('/board/generalwrite', function (req, res) {
+router.post('/boardGeneralwrite', function (req, res) {
     var board = new generalBoard();
     board.title = req.body.title;
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.userid = req.session.userID;
+    board.url = req.body.url;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
-            res.redirect('/home');
         }
-        res.redirect('/home/generalBoard/1');
+        res.send('1');
     });
 });
 
-router.post('/board/semesterwrite', function (req, res) {
+router.post('/boardSemesterwrite', function (req, res) {
     var board = new semesterBoard();
     board.title = req.body.title;
     board.contents = req.body.contents;
@@ -170,32 +170,32 @@ router.post('/board/semesterwrite', function (req, res) {
     board.userName = req.session.userName;
     board.userid = req.session.userID;
     board.semester = req.body.semester;
+    board.url = req.body.url;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
-            res.redirect('/home');
         }
-        res.redirect('/home/semesterBoard/1');
+        res.send('1');
     });
 });
 
-router.post('/board/helpwrite', function (req, res) {
+router.post('/boardHelpwrite', function (req, res) {
     var board = new helpBoard();
     board.title = req.body.title;
     board.contents = req.body.contents;
     board.board_date = Date.now();
     board.userName = req.session.userName;
     board.userid = req.session.userID;
+    board.url = req.body.url;
     board.time = moment().format("HH:mm");
     board.date = moment().format("MM-DD");
     board.save(function (err) {
         if(err){
             console.log(err);
-            res.redirect('/home');
         }
-        res.redirect('/home/helpBoard/1');
+        res.send('1');
     });
 });
 
@@ -245,7 +245,6 @@ router.get('/generalSetboard', (req, res)=> {
     board1.save(function (err) {
         if(err){
             console.log(err);
-            res.redirect('/home');
         }
     });
     sessionName1 = req.session.userName;
@@ -446,7 +445,7 @@ router.post('/generalUpdateSave', (req, res) => {
         result.userName = req.session.userName;
         result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
-        result.date = momnet().format("MM-DD");
+        result.date = moment().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
@@ -487,7 +486,7 @@ router.post('/semesterUpdateSave', (req, res) => {
         result.userName = req.session.userName;
         result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
-        result.date = momnet().format("MM-DD");
+        result.date = moment().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
@@ -529,7 +528,7 @@ router.post('/helpUpdateSave', (req, res) => {
         result.userName = req.session.userName;
         result.userid = req.session.userID;
         result.time = moment().format("HH:mm");
-        result.date = momnet().format("MM-DD");
+        result.date = moment().format("MM-DD");
         result.save(function (err) {
             if(err){
                 console.log(err);
@@ -613,5 +612,77 @@ router.post('/request',(req,res)=>{
         })
         .catch(err=>{console.log(err)})
 })
+//Like DB에 저장 후 다시 렌더
+router.post('/generallike', (req, res) => {
+    send_check()
+    generalBoard.findOne({_id : req.body.id}, function (err, result) {
+       result.like += 1;
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+            }
+            board1 = result;
+            res.send("1");
+        });
+    });
+})
+
+router.get('/generalSetboard/like', (req, res)=> {
+    send_check()
+    if(board1.userName == req.session.userName){
+        auth1 = 1;
+    }
+    sessionName1 = req.session.userName;
+    res.render('../views/generalBoard.ejs',{title:"title",board :board1, auth:auth1, sessionName:sessionName1, messagecount: message, requestcount : request});
+    auth1 = 0;
+});
+
+router.post('/helplike', (req, res) => {
+    send_check()
+    helpBoard.findOne({_id : req.body.id}, function (err, result) {
+        result.like += 1;
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+            }
+            board3 = result;
+            res.send("1");
+        });
+    });
+})
+
+router.get('/helpSetboard/like', (req, res)=> {
+    send_check()
+    if(board3.userName == req.session.userName){
+        auth3 = 1;
+    }
+    sessionName3 = req.session.userName;
+    res.render('../views/generalBoard.ejs',{title:"title",board :board3, auth:auth3, sessionName:sessionName3, messagecount: message, requestcount : request});
+    auth3 = 0;
+});
+router.post('/semesterlike', (req, res) => {
+    send_check()
+    semesterBoard.findOne({_id : req.body.id}, function (err, result) {
+        result.like += 1;
+        result.save(function (err) {
+            if(err){
+                console.log(err);
+            }
+            board2 = result;
+            res.send("1");
+        });
+    });
+})
+
+router.get('/semesterSetboard/like', (req, res)=> {
+    send_check()
+    if(board2.userName == req.session.userName){
+        auth2 = 1;
+    }
+    sessionName2 = req.session.userName;
+    res.render('../views/semesterBoard.ejs',{title:"title",board :board2, auth:auth2, sessionName:sessionName2, messagecount: message, requestcount : request});
+    auth2 = 0;
+});
+
 
 module.exports = router;

@@ -29,9 +29,27 @@
     </nav>
     <div class="content-scroll">
         <div class="container">
+            <br>
+            <div class="row justify-content-md-center" style="margin: 1px; padding: 5px;">
+                <a href="https://mportal.ajou.ac.kr/main.do"><i class="fas fa-university text-center" style="color: #a10f2a"><br>Ajou Home</i></a>
+                &nbsp;&nbsp;
+                <a href="http://www.ajou.ac.kr/main/ajou/notice.jsp"><i class="fas fa-bell text-center" style="color: #a1a11c"><br>Ajou Notice</i></a>
+                &nbsp;&nbsp;
+                <a href="http://www.ajou.ac.kr/main/ajou/calendar_dev.jsp"><i class="fas fa-calendar-alt text-center" style="color: #63a126"><br>Ajou Calender</i></a>
+                &nbsp;&nbsp;
+                <a href="https://library.ajou.ac.kr/index.ax"><i class="fas fa-book-open text-center" style="color: #2c7da1;"><br>Library</i></a>
+            </div>
+            <br>
 
+            <div class="row" style="margin: 1px; padding: 5px; border: 2px solid #9fcd24; border-radius: 10px">
+                <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden; margin: 1px">
+                    <i class="fas fa-bullhorn" style="color: #ff301f"></i>&nbsp;&nbsp; 2019-12-20 End of Class Party in Ajou
+                </h6>
+            </div>
+            <br>
+            <br>
             <div style="text-align: center">
-                <button type="button" onclick="PageToGeneralBoard()" class="btn"><h3>General Forum</h3></button>
+                <button type="button" onclick="PageToGeneralBoard()" class="btn"><h3><i class="fas fa-paper-plane" style="color: deepskyblue"></i>&nbsp; General Forum</h3></button>
             </div>
 
         <table class="table table-hover" style="table-layout: fixed; border: 2px solid lightgrey;">
@@ -65,42 +83,9 @@
             </tbody>
         </table>
 
-            <div style="text-align: center">
-            <button type="button" onclick="PageToSemesterBoard()" class="btn" style="border: none; color: black;"><h3>Semester Forum</h3></button>
-            </div>
-
-            <table class="table table-hover" style="table-layout: fixed; border: 2px solid lightgrey;">
-                <thead>
-                <tr>
-                    <th width="15%">Update</th>
-                    <th width="35%">Title</th>
-                    <th width="20%">Author</th>
-                    <th width="17%">Date</th>
-                    <th width="13%">View</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <% if (semesterBoard !== null){%>
-                <%for(var i = semesterBoard.length-1; i >= semesterBoard.length-2; i--){ %>
-                    <% if(i<0)
-                        break;%>
-                    <tr id='semesterBoard' onclick="semesterSubmit('<%= semesterBoard[i]._id%>')" value="<%= semesterBoard[i]._id%>">
-                        <td><span class="badge badge-pill badge-info">New</span></td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= semesterBoard[i].semester%>]<%= semesterBoard[i].title%></td>
-                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].userName%></td>
-                        <td><%= semesterBoard[i].date%></td>
-                        <td><%= semesterBoard[i].view_num%></td>
-                    </tr>
-
-
-               <% } }%>
-
-                </tbody>
-            </table>
 
             <div style="text-align: center">
-            <button type="button" onclick="PageToHelpBoard()" class="btn" style="border: none; color: black;"><h3>Help Forum</h3></button>
+            <button type="button" onclick="PageToHelpBoard()" class="btn" style="border: none; color: black;"><h3><i class="fas fa-fire-alt" style="color: red" ></i>&nbsp;Help Forum</h3></button>
             </div>
 
             <table class="table table-hover" style="table-layout: fixed; border: 2px solid lightgrey;">
@@ -130,6 +115,39 @@
                 <% if(i<=0)
                     break;
                 } }%>
+
+                </tbody>
+            </table>
+
+            <div style="text-align: center">
+                <button type="button" onclick="PageToSemesterBoard()" class="btn" style="border: none; color: black;"><h3><i class="fas fa-user-graduate" style="color: #6c757d"></i>&nbsp; Semester Forum</h3></button>
+            </div>
+            <table class="table table-hover" style="table-layout: fixed; border: 2px solid lightgrey;">
+                <thead>
+                <tr>
+                    <th width="15%">Update</th>
+                    <th width="35%">Title</th>
+                    <th width="20%">Author</th>
+                    <th width="17%">Date</th>
+                    <th width="13%">View</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% if (semesterBoard !== null){%>
+                <%for(var i = semesterBoard.length-1; i >= semesterBoard.length-2; i--){ %>
+                    <% if(i<0)
+                        break;%>
+                    <tr id='semesterBoard' onclick="semesterSubmit('<%= semesterBoard[i]._id%>')" value="<%= semesterBoard[i]._id%>">
+                        <td><span class="badge badge-pill badge-info">New</span></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden">[<%= semesterBoard[i].semester%>]<%= semesterBoard[i].title%></td>
+                        <td style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= semesterBoard[i].userName%></td>
+                        <td><%= semesterBoard[i].date%></td>
+                        <td><%= semesterBoard[i].view_num%></td>
+                    </tr>
+
+
+                <% } }%>
 
                 </tbody>
             </table>

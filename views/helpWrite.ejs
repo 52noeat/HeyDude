@@ -32,23 +32,23 @@
     <div class="card-header"><h2>Write</h2></div>
     <div class="card-body">
         <div class="container">
-            <form action="/home/board/helpwrite" method="post">
+            <form>
                 <form role="form">
                     <div class="form-group">
-                        <label for="subject">Title</label>
+                        <label for="subject">Title:</label>
                         <input type="text" class="form-control" name ="title" id="title" placeholder="Enter title">
                     </div>
                     <div class="form-group">
                         <label for="content">Contents:</label>
                         <textarea class="form-control" rows="10" name="contents" id="contents" placeholder="Enter Contents"></textarea>
                     </div>
-                    <!--                        파일 첨부 폼, 파일 첨부 기능 추가시 포함.-->
-                    <!--                        <div class="form-group">-->
-                    <!--                            <label for="File">File input</label>-->
-                    <!--                            <input type="file" id="File">-->
-                    <!--                        </div>-->
+                    <div class="form-group">
+                        <div><img id="myimage"></div>
+                        <label for="file">File upload:</label><br>
+                        <input type="file" id="file" style="color: #ff8d16; background-color: cornsilk; ">
+                    </div>
                     <div class="center-block" style="text-align: right">
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit" id="submit">
                         <input type="reset" value="Reset">
                         <input type="button" value="Back" style="margin-right: 3%" onclick="history.back(1)">
                     </div>
@@ -83,6 +83,31 @@
     </ul>
 </nav>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDbzlQSjsx4Pg3zj7EFAU6I-t6TmP1XaW4",
+        authDomain: "hey-dude-da806.firebaseapp.com",
+        databaseURL: "https://hey-dude-da806.firebaseio.com",
+        projectId: "hey-dude-da806",
+        storageBucket: "hey-dude-da806.appspot.com",
+        messagingSenderId: "364253299049",
+        appId: "1:364253299049:web:da6cb2975e332c5221bdf8",
+        measurementId: "G-E3K1WF6VP5"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+</script>
 </body>
 </html>
 <script>
@@ -109,6 +134,116 @@
     function PageToSignUp() {
         location.replace("/signup")
     }
+
+    let URL="";
+    // Upload Storage
+    var fileButton = document.getElementById('file');
+    fileButton.addEventListener('change', function(e){
+        // Get file
+        let userID = Date.now();
+        console.log('e.target files는' + e.target.files);
+        console.log('e.target files[0]는' + e.target.files[0]);
+        console.log('e.currenttarget files는' + e.currentTarget.files[0]);
+        var file = e.target.files[0];
+        var filelist = e.currentTarget.files;
+        // Create a storage ref
+        console.log(userID);
+        var storageRef = firebase.storage().ref(userID + 'test' + '.jpg');
+        var imageName = userID + 'test' + '.jpg'
+        // Upload file
+        console.log(file);
+        console.log('filelist는' + filelist);
+        var task = storageRef.put(file);
+        // Listen for state changes, errors, and completion of the upload.
+        task.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                //uploader.value = progress;
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+            }, function(error) {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            }, function() {
+                // Upload completed successfully, now we can get the download URL
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    console.log('File available at', downloadURL);
+                });
+            });
+        console.log("0번까지 됨")
+        setTimeout(function() {
+            storageRef.getDownloadURL().then(function(url) {
+                // This can be downloaded directly:
+                console.log(url)
+                console.log("1번까지 됨")
+                var xhr = new XMLHttpRequest();
+                console.log("1번까지 됨")
+                xhr.responseType = 'blob';
+                xhr.onload = function(event) {
+                    console.log("2번까지 됨")
+                    var blob = xhr.response;
+                };
+                console.log("3번까지 됨")
+                xhr.open('GET', url);
+                xhr.send();
+                console.log("4번까지 됨")
+                // Or inserted into an <img> element:
+                var img = document.getElementById('myimage');
+                img.src = url;
+                URL = url;
+                console.log(URL);
+            }).catch(function(error) {
+                console.log("왜 안됨?")
+                // Handle any errors
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/object-not-found':
+                        // File doesn't exist
+                        break;
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect the server response
+                        break;
+                }
+
+            });
+        }, 1000);
+    });
+
+    $("#submit").click(function () {
+        $.ajax({
+            type:"POST",
+            url: "/home/boardHelpwrite" ,
+            data: {
+                title : $('#title').val(),
+                contents : $('#contents').val(),
+                url : URL
+            }
+        }).done(function(result) {
+            if (result == '1') {
+                window.location.href = "/home/helpBoard/1";
+            }
+        });
+    })
 </script>
 
 <style>
