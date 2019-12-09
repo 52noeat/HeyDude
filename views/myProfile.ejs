@@ -61,7 +61,7 @@
                         <%}else{%>
                             <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
                         <%}}else{%>
-                        <img id="myimage" src="<%=profile.url%>">
+                            <img id="myimage" src="<%=profile.url%>">
                         <%}%>
                     </div>
                     <%if(profile.tendency=="play"){%>
@@ -183,9 +183,23 @@
         if($('#active').is(':checked')==true){
             var msg = "active";
             $("#activeval").html(msg);
+            $.ajax({
+                type:"POST",
+                url: "/profile/active" ,
+                data: {
+                    active : true
+                }
+            })
         }else{
             var msg = "inactive"
             $("#activeval").html(msg);
+            $.ajax({
+                type:"POST",
+                url: "/profile/active" ,
+                data: {
+                    active : false
+                }
+            })
         }
     })
     $('#edit').on("click", function () {

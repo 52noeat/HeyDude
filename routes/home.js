@@ -428,6 +428,7 @@ router.get('/generalUpdate', (req, res)=> {
         res.send('1');
     }
 });
+
 router.get('/generalUpdateWrite', (req, res)=> {
     send_check()
     generalBoard.findOne({_id: generalUpdateid}, function (err, board) {

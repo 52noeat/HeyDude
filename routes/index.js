@@ -100,7 +100,7 @@ router.get('/setProfile', async (req, res) => {
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    res.render('../views/setProfile.ejs',{messagecount: messagecount, requestcount : requestcount});
+    res.render('../views/setProfile.ejs',{user : user_ID, messagecount: messagecount, requestcount : requestcount});
     // }
 });
 

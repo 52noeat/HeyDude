@@ -577,10 +577,9 @@
             return false;
         }
     }
-    let userID = '<%= user %>'
+    let userID = '<%= user%>'
     let URL="";
     // Upload Storage
-
     var fileButton = document.getElementById('fileButton');
     fileButton.addEventListener('change', function(e){
         // Get file
@@ -621,6 +620,7 @@
                     console.log('File available at', downloadURL);
                 });
             });
+        var storageRef = firebase.storage().ref(userID+'.jpg');
         storageRef.getDownloadURL().then(function(url) {
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
@@ -634,7 +634,6 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
-
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at
