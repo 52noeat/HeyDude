@@ -584,7 +584,7 @@
     }
     // Get userID
     let userID = '<%=profile.userID%>'
-    let URL=''
+    let URL='<%=profile.url%>'
 
     // Upload Storage
     var fileButton = document.getElementById('fileButton');
@@ -641,6 +641,7 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
+            alert('Success!');
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at

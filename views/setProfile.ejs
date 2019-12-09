@@ -39,7 +39,11 @@
         <div class="userFace">
             <span class="editFace">
                 <label for="fileButton">
-                    <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                    <%if(sex=='male'){%>
+                        <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e">
+                    <%}else{%>
+                        <img id="myimage" src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/female.jpg?alt=media&token=0d5fa5b1-bb26-4e8b-a4dc-e5cceddfff32">
+                    <%}%>
                 </label>
                 <label class="fileButtonIcon" for="fileButton">
                     <button type='button' id="plus" for="fileButton" class="btn btn-info mdi mdi-image-edit-outline" > Edit</button>
@@ -634,6 +638,8 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
+            alert('Success!');
+            console.log(userID);
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at

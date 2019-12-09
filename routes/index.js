@@ -96,11 +96,12 @@ router.get('/mypage', async (req, res) => {
 });
 router.get('/setProfile', async (req, res) => {
     user_ID = req.session.userID
+    var sex = req.session.sex
     await send_check()
     // if(!sess.userID){
     //     res.render('../views/signin.ejs');
     // }else{
-    res.render('../views/setProfile.ejs',{user : user_ID, messagecount: messagecount, requestcount : requestcount});
+    res.render('../views/setProfile.ejs',{user : user_ID, sex : sex, messagecount: messagecount, requestcount : requestcount});
     // }
 });
 
