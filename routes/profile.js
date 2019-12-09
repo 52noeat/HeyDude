@@ -183,7 +183,7 @@ router.get('/community',async (req,res)=>{
             let state;
             for(i in profile){
                 state=0;
-                if(profile[i].userID==user_ID){
+                if(profile[i].userID==user_ID||profile[i].active==false){
                     state=1;
                 }
                 for(j in profile[i].friend) {
@@ -354,4 +354,15 @@ router.get('/edit', (req, res) => {
     // }
 });
 
+router.post('/edit', (req, res) => {
+    user_ID = req.session.userID;
+    let active = req.body.active
+    // if(!sess.userID){
+    //     res.render('../views/signin.ejs');
+    // }else{
+    Profile.updateOne({userID:user_ID},{active : active}).then(profile=>{
+        res.send(true);
+    })
+    // }
+});
 module.exports = router;

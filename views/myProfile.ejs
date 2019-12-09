@@ -183,9 +183,23 @@
         if($('#active').is(':checked')==true){
             var msg = "active";
             $("#activeval").html(msg);
+            $.ajax({
+                type:"POST",
+                url: "/profile/active" ,
+                data: {
+                    active : true
+                }
+            })
         }else{
             var msg = "inactive"
             $("#activeval").html(msg);
+            $.ajax({
+                type:"POST",
+                url: "/profile/active" ,
+                data: {
+                    active : false
+                }
+            })
         }
     })
     $('#edit').on("click", function () {
