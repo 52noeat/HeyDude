@@ -620,6 +620,7 @@
                     console.log('File available at', downloadURL);
                 });
             });
+        var storageRef = firebase.storage().ref(userID+'.jpg');
         storageRef.getDownloadURL().then(function(url) {
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
@@ -633,7 +634,6 @@
             var img = document.getElementById('myimage');
             img.src = url;
             URL = url;
-            alert(URL);
         }).catch(function(error) {
             // Handle any errors
             // A full list of error codes is available at

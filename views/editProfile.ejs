@@ -627,6 +627,7 @@
                     console.log('File available at', downloadURL);
                 });
             });
+        var storageRef = firebase.storage().ref(userID+'.jpg');
         storageRef.getDownloadURL().then(function(url) {
             // This can be downloaded directly:
             var xhr = new XMLHttpRequest();
