@@ -62,26 +62,11 @@ router.post('/set', (req, res) => {
     let userName = req.session.userName;
     let sex = req.session.sex;
     console.log(url);
-    const newProfile = new Profile({
-        userID: userID,
-        userName: userName,
-        age: age,
-        sex: sex,
-        major: major,
-        nationality: nationality,
-        religion: religion,
-        tendency: tendency,
-        language: language,
-        level: level,
-        interest: interest,
-        hate: hate,
-        wish: wish,
-        introduce: introduce,
-        url : url
-    });
+
     Profile.findOne({userID:userID}).then(profile=>{
         if(profile){
-            Profile.findOneAndUpdate({
+            Profile.findOneAndUpdate({userID:userID},
+                {
                 age: age,
                 nationality: nationality,
                 religion: religion,
@@ -100,6 +85,23 @@ router.post('/set', (req, res) => {
                 }).catch(err=>res.send(false));
         }
         else{
+            const newProfile = new Profile({
+                userID: userID,
+                userName: userName,
+                age: age,
+                sex: sex,
+                major: major,
+                nationality: nationality,
+                religion: religion,
+                tendency: tendency,
+                language: language,
+                level: level,
+                interest: interest,
+                hate: hate,
+                wish: wish,
+                introduce: introduce,
+                url : url
+            });
             newProfile
                 .save()
                 .then(profile => {
