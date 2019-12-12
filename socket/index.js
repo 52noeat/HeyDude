@@ -1,11 +1,14 @@
 const app = require('../app');
 const moment = require("moment");
 const {Chat}=require('../models/index');
-
-const server = app.listen(3000, function () {
-    console.log('Socket running on port 3000');
-});
-const io = require('socket.io')(server);
+//////서버용
+const IOserver = require('../app');
+const io = require('socket.io')(IOserver);
+//////
+// const server = app.listen(3000, function () {
+//     console.log('Socket running on port 3000');
+// });
+// const io = require('socket.io')(server);
 io.on('connect', (socket) => {
     socket.on('channelJoin', (data) => {
         console.log(data);
