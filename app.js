@@ -74,7 +74,7 @@ app.use('/chat', require('./routes/chat.js'));
 
 const PORT = process.env.PORT || 5000;
 /////// 서버용
-const IOserver = http.createServer(credentials, app);
+const IOserver = http.createServer(app);
 IOserver.listen(3000, function() {
     console.log('Socket running on port 3000');
 });
