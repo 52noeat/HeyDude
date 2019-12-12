@@ -7,6 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 const ejs = require('ejs');
+const https = require('http');
 var logger = require('morgan');
 
 // Passport Config
@@ -72,7 +73,7 @@ app.use('/chat', require('./routes/chat.js'));
 
 const PORT = process.env.PORT || 5000;
 /////// 서버용
-const IOserver = https.createServer(credentials, app);
+const IOserver = http.createServer(credentials, app);
 IOserver.listen(3000, function() {
     console.log('Socket running on port 3000');
 });
