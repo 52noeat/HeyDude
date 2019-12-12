@@ -124,9 +124,10 @@ tag {
     position: relative;
 }
 .firstinfo img {
-    border-radius: 50%;
+    border-radius: 100%;
     width: 5em;
     height: 5em;
+    object-fit: cover;
 }
 .firstinfo .profileinfo {
     padding: 0px 10px;

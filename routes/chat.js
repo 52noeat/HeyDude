@@ -105,6 +105,7 @@ router.get('/chatRoom', (req, res)=>{
                                 message.push(chat[end].message);
                                 date.push(chat[end].date);
                                 read.push(count);
+                                console.log(message)
                                 if(i==chatRoom.length-1){
                                     res.render('../views/chatList.ejs',{chatRoom : chatRoom, message: message, date: date, read : read, messagecount: messagecount, requestcount : requestcount})
                                 }
