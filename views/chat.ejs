@@ -79,10 +79,10 @@
                                             <span class="msg_time_send"><%=chat[i].date%></span>
                                         </div>
                                         <div class="img_cont_msg">
-                                            <%if(friendurl==''){%>
+                                            <%if(url==''){%>
                                                 <img src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e" class="rounded-circle user_img_msg">
                                             <%}else{%>
-                                            <img src="<%=friendurl%>" class="rounded-circle user_img_msg">
+                                            <img src="<%=url%>" class="rounded-circle user_img_msg">
                                             <%}%>
                                         </div>
                                     </div>
@@ -90,10 +90,10 @@
                                 }else{%>
                                     <div class="d-flex justify-content-start mb-4">
                                         <div class="img_cont_msg">
-                                            <%if(url==''){%>
+                                            <%if(friendurl==''){%>
                                                 <img src="https://firebasestorage.googleapis.com/v0/b/hey-dude-da806.appspot.com/o/male.jpg?alt=media&token=234312ea-722f-4587-825e-64d91cab457e" class="rounded-circle user_img_msg">
                                             <%}else{%>
-                                                <img src="<%=url%>" class="rounded-circle user_img_msg">
+                                                <img src="<%=friendurl%>" class="rounded-circle user_img_msg">
                                             <%}%>
                                         </div>
                                         <div class="msg_cotainer">

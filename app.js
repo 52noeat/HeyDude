@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const ejs = require('ejs');
 const http = require('http');
-const https = require('http');
+const https = require('https');
 var logger = require('morgan');
 
 // Passport Config
@@ -74,12 +74,12 @@ app.use('/chat', require('./routes/chat.js'));
 
 const PORT = process.env.PORT || 5000;
 /////// 서버용
-const IOserver = http.createServer(app);
-IOserver.listen(3000, function() {
-    console.log('Socket running on port 3000');
-});
+//const IOserver = http.createServer(app);
+//IOserver.listen(3000, function() {
+//    console.log('Socket running on port 3000');
+//});
 
-module.exports = IOserver;
+//module.exports = IOserver;
 //////
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
 module.exports = app;
