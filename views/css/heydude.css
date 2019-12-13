@@ -270,9 +270,19 @@ tag {
     background-color: #a6b0b5;
 }
 
+/*Phone*/
+@media all and (max-width: 400px){
+    .justify-content-md-center{
+        font-size: 0.9em;
+    }
+}
+
 /*iPhone 5*/
 @media all and (max-width: 360px){
     .navbar-light li{
         font-size: larger;
+    }
+    .justify-content-md-center{
+        font-size: 0.75em;
     }
 }

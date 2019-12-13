@@ -5,7 +5,10 @@ const ChatRoomSchema = new mongoose.Schema({
     userID: [{type: String}],
     userName: [{type: String}],
     url: [{type: String}],
-    exit: {type: Boolean, default: false}
+    exit: {type: Boolean, default: false},
+    message : {type: String, default: ""},
+    date: {type: String, default: ""},
+    read: {type: Number, default: 0}
 });
 
 const ChatRoom = mongoose.model('chatRoom', ChatRoomSchema);

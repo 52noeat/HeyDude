@@ -49,13 +49,13 @@
                         <tr>
                             <td class='profileinfo'>
                                 <h1><%=chatRoom[i].userName[0]%></h1>
-                                <p class='bio'><%=message[i]%></p>
+                                <p class='bio'><%=chatRoom[i].message%></p>
                             </td>
                             <td class='chatInfo'>
-                                <%if(read[i]>0){%>
-                                <span class='alarmNum'><%=read[i]%></span>
+                                <%if(chatRoom[i].read>0){%>
+                                <span class='alarmNum'><%=chatRoom[i].read%></span>
                                 <%}%>
-                                <span class='chatTime'><%=date[i]%></span>
+                                <span class='chatTime'><%=chatRoom[i].date%></span>
                             </td>
                         </tr>
                         <tr>
