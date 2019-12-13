@@ -41,6 +41,99 @@
                 <div class='tendency' style="margin-left: 3%;">
                     <button type='button' class='btn' id="study" style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
                 </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="form-group">
+                    <select class="btn btn-secondary dropdown-toggle" type="button" id="nationality" style="background-color: white; color: black"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="nationality">
+                        <option value="">---- Select Nationality ----</option>
+                        <option value="south korean">South Korean</option>
+                        <option value="american">American</option>
+                        <option value="argentinean">Argentinean</option>
+                        <option value="australian">Australian</option>
+                        <option value="austrian">Austrian</option>
+                        <option value="bangladeshi">Bangladeshi</option>
+                        <option value="barbadian">Barbadian</option>
+                        <option value="barbudans">Barbudans</option>
+                        <option value="batswana">Batswana</option>
+                        <option value="belgian">Belgian</option>
+                        <option value="belizean">Belizean</option>
+                        <option value="beninese">Beninese</option>
+                        <option value="bosnian">Bosnian</option>
+                        <option value="brazilian">Brazilian</option>
+                        <option value="cambodian">Cambodian</option>
+                        <option value="canadian">Canadian</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="colombian">Colombian</option>
+                        <option value="cuban">Cuban</option>
+                        <option value="czech">Czech</option>
+                        <option value="dominican">Dominican</option>
+                        <option value="dutch">Dutch</option>
+                        <option value="egyptian">Egyptian</option>
+                        <option value="ethiopian">Ethiopian</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="ghanaian">Ghanaian</option>
+                        <option value="greek">Greek</option>
+                        <option value="honduran">Honduran</option>
+                        <option value="hungarian">Hungarian</option>
+                        <option value="icelander">Icelander</option>
+                        <option value="indian">Indian</option>
+                        <option value="indonesian">Indonesian</option>
+                        <option value="iranian">Iranian</option>
+                        <option value="iraqi">Iraqi</option>
+                        <option value="irish">Irish</option>
+                        <option value="israeli">Israeli</option>
+                        <option value="italian">Italian</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="kazakhstani">Kazakhstani</option>
+                        <option value="kenyan">Kenyan</option>
+                        <option value="kuwaiti">Kuwaiti</option>
+                        <option value="malaysian">Malaysian</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="monacan">Monacan</option>
+                        <option value="mongolian">Mongolian</option>
+                        <option value="moroccan">Moroccan</option>
+                        <option value="nepalese">Nepalese</option>
+                        <option value="new zealander">New Zealander</option>
+                        <option value="ni-vanuatu">Ni-Vanuatu</option>
+                        <option value="nicaraguan">Nicaraguan</option>
+                        <option value="nigerien">Nigerien</option>
+                        <option value="northern irish">Northern Irish</option>
+                        <option value="norwegian">Norwegian</option>
+                        <option value="omani">Omani</option>
+                        <option value="pakistani">Pakistani</option>
+                        <option value="paraguayan">Paraguayan</option>
+                        <option value="peruvian">Peruvian</option>
+                        <option value="polish">Polish</option>
+                        <option value="portuguese">Portuguese</option>
+                        <option value="russian">Russian</option>
+                        <option value="salvadoran">Salvadoran</option>
+                        <option value="saudi">Saudi</option>
+                        <option value="scottish">Scottish</option>
+                        <option value="singaporean">Singaporean</option>
+                        <option value="slovakian">Slovakian</option>
+                        <option value="slovenian">Slovenian</option>
+                        <option value="south korean">South Korean</option>
+                        <option value="spanish">Spanish</option>
+                        <option value="swedish">Swedish</option>
+                        <option value="swiss">Swiss</option>
+                        <option value="taiwanese">Taiwanese</option>
+                        <option value="thai">Thai</option>
+                        <option value="togolese">Togolese</option>
+                        <option value="tongan">Tongan</option>
+                        <option value="tunisian">Tunisian</option>
+                        <option value="turkish">Turkish</option>
+                        <option value="ugandan">Ugandan</option>
+                        <option value="ukrainian">Ukrainian</option>
+                        <option value="uruguayan">Uruguayan</option>
+                        <option value="uzbekistani">Uzbekistani</option>
+                        <option value="venezuelan">Venezuelan</option>
+                        <option value="vietnamese">Vietnamese</option>
+                    </select>
+                </div>
+                <div style="margin-left: 3%;">
+                    <button type='button' class='btn' id="select" style= 'height: fit-content; color:white; background-color: #9fcdff;'>select</button>
+                </div>
             </td>
         </tr>
         <%
@@ -69,6 +162,7 @@
                                         <img id="myimage" src="<%=profile[i].url%>">
                                         <%}%>
                                     </span>
+
                                     <div class='profileinfo'>
                                         <h1><%=profile[i].userName%>
                                             <%if(profile[i].tendency=="play"){%>
@@ -169,8 +263,19 @@
     $("#study").click(()=>{
         location.href="/profile/study"
     })
+    $("#select").click(()=>{
+        $.ajax({
+            type:"POST",
+            url: "/profile/select" ,
+            data: {
+                nationality : $('#nationality').val()
+            }
+        }).done(function(result) {
+            if (result) {
+                location.href='/profile/nationality';
+            } else {
+                location.reload();
+            }
+        });
+    })
 </script>
-
-<style>
-
-</style>

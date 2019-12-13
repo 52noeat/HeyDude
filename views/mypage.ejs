@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- Bootstrap core JavaScript -->
-<script src="/views//views/vendor/jquery/jquery.min.js"></script>
+<script src="/views/vendor/jquery/jquery.min.js"></script>
 <script src="/views/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Plugin JavaScript -->
 <script src="/views/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -33,7 +33,7 @@
                 <hr>
             </div>
             <div class="list-group" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action" data-toggle="list" href="/profile/myProfile" role="tab">My Profile</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list" id="myprofile" role="tab">My Profile</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#profile" role="tab">User Info</a>
                 <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Settings</a>
             </div>
@@ -85,6 +85,9 @@
             }
         });
     }
+    $('#myprofile').on('click',function () {
+        location.href="/profile/myProfile"
+    })
 
 </script>
 

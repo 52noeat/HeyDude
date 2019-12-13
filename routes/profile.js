@@ -13,6 +13,7 @@ let this_hate;
 let this_wish;
 let this_introduce;
 let this_friendID;
+let select_nationality;
 let requestcount=0;
 let messagecount=0;
 let user_ID = "";
@@ -226,7 +227,7 @@ router.get('/play',(req,res)=>{
             let state;
             for(i in profile){
                 state=0;
-                if(profile[i].userID==user_ID){
+                if(profile[i].userID==user_ID||profile[i].active==false){
                     state=1;
                 }
                 for(j in profile[i].friend) {
@@ -267,7 +268,7 @@ router.get('/study',(req,res)=>{
             let state;
             for(i in profile){
                 state=0;
-                if(profile[i].userID==user_ID){
+                if(profile[i].userID==user_ID||profile[i].active==false){
                     state=1;
                 }
                 for(j in profile[i].friend) {
@@ -308,7 +309,7 @@ router.get('/culture',(req,res)=>{
             let state;
             for (i in profile) {
                 state = 0;
-                if (profile[i].userID == user_ID) {
+                if (profile[i].userID == user_ID||profile[i].active==false){
                     state = 1;
                 }
                 for (j in profile[i].friend) {
@@ -356,7 +357,58 @@ router.get('/edit', (req, res) => {
     // }
 });
 
-router.post('/edit', (req, res) => {
+router.post('/select', (req,res) => {
+    select_nationality = req.body.nationality;
+    console.log(select_nationality)
+    res.send(true);
+})
+
+router.get('/nationality', (req,res) => {
+    user_ID = req.session.userID;
+    send_check()
+    let community=[]
+    Profile.find().then(profile=> {
+        if (profile.length > 1) {
+            let state;
+            for (i in profile) {
+                state = 0;
+                if (profile[i].userID == user_ID||profile[i].active==false){
+                    state = 1;
+                }
+                if (profile[i].nationality != select_nationality) {
+                    state = 1;
+                }
+                for (j in profile[i].friend) {
+                    if (profile[i].friend[j] == user_ID) {
+                        state = 1;
+                        break;
+                    }
+                }
+                for (j in profile[i].block) {
+                    if (profile[i].block[j] == user_ID) {
+                        state = 1
+                        break;
+                    }
+                }
+                for (j in profile[i].plus) {
+                    if (profile[i].plus[j] == user_ID) {
+                        state = 1
+                        break;
+                    }
+                }
+                console.log(state)
+                if (state === 0) {
+                    community.push(profile[i])
+                }
+            }
+            res.render('../views/community.ejs', {profile: community, messagecount: messagecount, requestcount : requestcount});
+        } else {
+            res.render('../views/community.ejs', {profile: "", messagecount: messagecount, requestcount : requestcount});
+        }
+    });
+})
+
+router.post('/active', (req, res) => {
     user_ID = req.session.userID;
     let active = req.body.active
     // if(!sess.userID){
