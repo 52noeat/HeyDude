@@ -320,7 +320,7 @@ tag {
 
 /*Phone*/
 @media all and (max-width: 400px){
-    .justify-content-md-center{
+    .justify-content-center{
         font-size: 0.9em;
     }
 }
@@ -330,7 +330,7 @@ tag {
     .navbar-light li{
         font-size: larger;
     }
-    .justify-content-md-center{
+    .justify-content-center{
         font-size: 0.75em;
     }
 }
