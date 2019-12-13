@@ -41,23 +41,23 @@
                 <div class='cardList1' id='board' onclick="submit('<%= board[i]._id%>')" value="<%= board[i]._id%>">
                     <table class="table table-hover" style="table-layout: fixed; border: 1px solid lightgrey; border-radius: 10px">
                         <thead style="border: none">
-                        <tr style="border: none">
+                        <tr class="board_img" style="border: none">
                             <% if(board[i].url == ""){ %>
-                                <th width="20%" style="border: none;"><img src="/views/image/noimage.png" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
-                                <th width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
+                                <th class="board_img" style="border: none;"><img src="/views/image/noimage.png" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
+                                <th class="board_text" width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
                                     <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
                                     <i class="far fa-thumbs-up" style="color: red"><%= board[i].like%></i>
                                     &nbsp;
                                     <i class="far fa-comment-dots" style="color: #007bff"><%= board[i].comments.length%></i></th>
-                                <th width="30%" style="border: none"><h6 style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></h6></th>
+                                <th class="board_info" width="30%" style="border: none"><div style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></div></th>
                             <%}else{%>
-                            <th width="20%" style="border: none"><img src="<%=board[i].url%>" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
-                            <th width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
+                            <th class="board_img" style="border: none"><img src="<%=board[i].url%>" style="width: 100px; height: 100px; margin-left: 5px" class="img-thumbnail"></th>
+                            <th class="board_text" width="50%" style="border: none"><h5 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].title%></h5><p></p>
                                 <h6 style="text-overflow: ellipsis; white-space:nowrap; overflow:hidden"><%= board[i].contents%></h6>
                                 <i class="far fa-thumbs-up" style="color: red"><%= board[i].like%></i>
                                 &nbsp;
                                 <i class="far fa-comment-dots" style="color: #007bff"><%= board[i].comments.length%></i></th>
-                            <th width="30%" style="border: none"><h6 style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></h6></th>
+                            <th class="board_info" width="30%" style="border: none"><div style="color: grey; font-weight: lighter; text-align: center; margin-bottom: 20px"><%= board[i].date%>&nbsp;<%= board[i].time%> <br> <%= board[i].userName%> <br> views <%= board[i].view_num%></div></th>
                             <%}%>
                         </tr>
                         </thead>
@@ -145,15 +145,6 @@
 </script>
 
 <style>
-    .cardList1 {
-        width: 100%;
-        min-height: 100px;
-        border-radius: 3px;
-        background-color: white;
-        position: relative;
-        overflow: hidden;
-        padding: 10px;
-    }
     .hr1{
         margin: 0px;
     }

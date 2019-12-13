@@ -270,6 +270,29 @@ tag {
     background-color: #a6b0b5;
 }
 
+.board_img img{
+    width: 15em;
+    height: 15em;
+    object-fit: cover;
+}
+
+.board_info{
+    font-size: 0.7em;
+    width: 23%;
+}
+
+/*Phone*/
+@media all and (max-width: 425px){
+    .board_text{
+        font-size: 0.8em;
+        width: 45%;
+    }
+    .board_info{
+        font-size: 0.5em;
+        width: 23%;
+    }
+}
+
 /*Phone*/
 @media all and (max-width: 400px){
     .justify-content-md-center{
