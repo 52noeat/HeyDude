@@ -151,6 +151,8 @@
             }
         }).done(function(result) {
             if (result) {
+                alert("Sign up is complete and verification code was sent to your Ajou Mail.");
+                alert("Please log in and enter your verification code.");
                 location.replace('/signin');
             } else {
                 showErrorMsg($('#submit_feedback'), "Please try again.");
