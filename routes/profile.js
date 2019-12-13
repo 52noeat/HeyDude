@@ -19,7 +19,7 @@ let messagecount=0;
 let user_ID = "";
 
 function send_check(){
-    count=0;
+    let count=0;
     Request.find({friendID :user_ID}, function (err, requestList) {
         if(requestList) {
             requestcount = requestList.length;
@@ -29,24 +29,7 @@ function send_check(){
         .then(chatRoom=>{
             if(chatRoom){
                 for(i in chatRoom){
-                    Chat.find({chatCode: chatRoom[i].chatCode})
-                        .then(chat=>{
-                            if(chat.length>0){
-                                for(j in chat) {
-                                    if (chat[j].read == false&&chat[j].userID != user_ID){
-                                        count++;
-                                    }
-                                }
-                                if(i==chatRoom.length-1){
-                                    if(count!=messagecount)
-                                        messagecount=count;
-                                    return;
-                                }
-                            }
-                            else{
-                                return;
-                            }
-                        })
+                    messagecount=+chatRoom[i].read;
                 }
             }
             else{

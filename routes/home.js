@@ -22,33 +22,16 @@ let user_ID = "";
 
 function send_check(){
     let count=0;
-     Request.find({friendID :user_ID}, function (err, requestList) {
+    Request.find({friendID :user_ID}, function (err, requestList) {
         if(requestList) {
-            request = requestList.length;
+            requestcount = requestList.length;
         }
     });
     ChatRoom.find({userID : user_ID})
         .then(chatRoom=>{
             if(chatRoom){
                 for(i in chatRoom){
-                    Chat.find({chatCode: chatRoom[i].chatCode})
-                        .then(chat=>{
-                            if(chat.length>0){
-                                for(j in chat) {
-                                    if (chat[j].read == false&&chat[j].userID != user_ID){
-                                        count++;
-                                    }
-                                }
-                                if(i==chatRoom.length-1){
-                                    if(count!=message)
-                                        message=count
-                                    return;
-                                }
-                            }
-                            else{
-                                return;
-                            }
-                        })
+                    messagecount=+chatRoom[i].read;
                 }
             }
             else{

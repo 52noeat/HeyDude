@@ -1,6 +1,6 @@
 const app = require('../app');
 const moment = require("moment");
-const {Chat}=require('../models/index');
+const {Chat,ChatRoom}=require('../models/index');
 //////서버용
 //const IOserver = require('../app');
 //const io = require('socket.io')(IOserver);
@@ -58,11 +58,28 @@ io.on('connect', (socket) => {
                 date: date,
                 read : read
             });
-            newChat.save()
-                .then(result => {
-                    io.to(chatCode).emit('receive', result)
+            let count=0;
+            console.log(date,data.message,count)
+            Chat.find({chatCode:chatCode})
+                .then(chat=>{
+                    for(i in chat) {
+                        if (chat[i].read==false){
+                            count++;
+                        }
+                    }
+                    ChatRoom.findOneAndUpdate({chatCode :chatCode},
+                        {
+                        date: date,
+                        message: data.message,
+                        read: count
+                    }).then(()=>{
+                        console.log(date,data.message,count)
+                        newChat.save()
+                            .then(result => {
+                                io.to(chatCode).emit('receive', result)
+                            })
+                    })
                 })
-                .catch(err => console.log(err))
         });
     });
 

@@ -23,24 +23,7 @@ function send_check(){
         .then(chatRoom=>{
             if(chatRoom){
                 for(i in chatRoom){
-                    Chat.find({chatCode: chatRoom[i].chatCode})
-                        .then(chat=>{
-                            if(chat.length>0){
-                                for(j in chat) {
-                                    if (chat[j].read == false&&chat[j].userID != user_ID){
-                                        count++;
-                                    }
-                                }
-                                if(i==chatRoom.length-1){
-                                    if(count!=messagecount)
-                                        messagecount=count
-                                    return;
-                                }
-                            }
-                            else{
-                                return;
-                            }
-                        })
+                    messagecount=+chatRoom[i].read;
                 }
             }
             else{
@@ -92,28 +75,9 @@ router.get('/chatRoom', (req, res)=>{
                             chatRoom[i].url.splice(j,1);
                         }
                     }
-                    Chat.find({chatCode: chatRoom[i].chatCode})
-                        .then(chat=>{
-                            if(chat.length>0){
-                                let count=0;
-                                for(j in chat) {
-                                    if (chat[j].read == false&&chat[j].userID != user_ID){
-                                            count++;
-                                    }
-                                }
-                                let end= chat.length-1;
-                                message.push(chat[end].message);
-                                date.push(chat[end].date);
-                                read.push(count);
-                                console.log(message)
-                                if(i==chatRoom.length-1){
-                                    res.render('../views/chatList.ejs',{chatRoom : chatRoom, message: message, date: date, read : read, messagecount: messagecount, requestcount : requestcount})
-                                }
-                            }else{
-                                res.render('../views/chatList.ejs',{chatRoom : chatRoom, message: message, date: date, read : read, messagecount: messagecount, requestcount : requestcount})
-                            }
-                        })
+
                 }
+                res.render('../views/chatList.ejs',{chatRoom : chatRoom, messagecount: messagecount, requestcount : requestcount})
             }
             else{
                 res.render('../views/chatList.ejs',{chatRoom : "", message: message, date: date, read : read, messagecount: messagecount, requestcount : requestcount})
