@@ -276,13 +276,38 @@ tag {
     object-fit: cover;
 }
 
+.board_img{
+    width: 15%;
+}
+.board_text{
+    font-size: 0.8em;
+    width: 45%;
+}
 .board_info{
     font-size: 0.7em;
     width: 23%;
 }
 
 /*Phone*/
+@media all and (max-width: 550px){
+    .board_img{
+        width: 30%;
+    }
+    .board_text{
+        font-size: 0.8em;
+        width: 50%;
+    }
+    .board_info{
+        font-size: 0.6em;
+        width: 20%;
+    }
+}
+
+/*Phone*/
 @media all and (max-width: 425px){
+    .board_img{
+        width: 32%;
+    }
     .board_text{
         font-size: 0.8em;
         width: 45%;
