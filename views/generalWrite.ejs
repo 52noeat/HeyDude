@@ -157,9 +157,7 @@
         // Listen for state changes, errors, and completion of the upload.
         task.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
             function(snapshot) {
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
+                // Get task progress, including the number  ne');
                 //uploader.value = progress;
                 switch (snapshot.state) {
                     case firebase.storage.TaskState.PAUSED: // or 'paused'
@@ -226,7 +224,7 @@
                 }
 
             });
-        }, 1000);
+        }, 3000);
     });
 
     $("#submit").click(function () {
