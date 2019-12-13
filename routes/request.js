@@ -92,7 +92,7 @@ router.post('/block',(req,res)=>{
     Profile.updateOne(
         {userID : friendID},
         {
-            $push:{block : friendID}
+            $push:{block : userID}
         })
         .then(result=>{
             res.send(true)

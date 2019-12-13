@@ -100,7 +100,6 @@
 </body>
 </html>
 <script>
-    setTable()
     function PageToHome() {
         location.href="/"
     }
@@ -153,7 +152,7 @@
     function disconnect(chatCode) {
         $.ajax({
             type:"POST",
-            url: "/request/discconet",
+            url: "/request/disconnect",
             data: {
                 chatCode : chatCode
             }

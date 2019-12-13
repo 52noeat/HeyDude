@@ -175,6 +175,7 @@ router.get('/community',async (req,res)=>{
                 }
                 for(j in profile[i].friend) {
                     if (profile[i].friend[j] == user_ID) {
+                        console.log(j);
                         state=1;
                         break;
                     }
