@@ -13,7 +13,8 @@ let messagecount=0;
 let user_ID = "";
 
 function send_check(){
-    let count=0;
+    requestcount=0;
+    messagecount=0;
     Request.find({friendID :user_ID}, function (err, requestList) {
         if(requestList) {
             requestcount = requestList.length;
@@ -39,23 +40,26 @@ router.get('/enter',(req, res)=>{
 
     Chat.updateMany({chatCode : this_chatCode},{read :true})
         .then(()=>{
-            Chat.find({chatCode : this_chatCode}).then(chat=> {
-                if(chat.length>1) {
-                    res.render('../views/chat.ejs', {
-                        chatCode : this_chatCode, chat: chat,
-                        userID: user_ID, userName: user_Name,
-                        url: this_url, friendurl : this_friendurl,
-                        friendName : this_friendName,
-                        messagecount: messagecount, requestcount : requestcount});
-                }else {
-                    res.render('../views/chat.ejs', {
-                        chatCode : this_chatCode ,chat: "",
-                        userID: user_ID, userName: user_Name,
-                        url: this_url, friendurl : this_friendurl,
-                        friendName : this_friendName,
-                        messagecount: messagecount, requestcount : requestcount});
-                }
-            });
+            ChatRoom.findOneAndUpdate({chatCode : this_chatCode},{read :0})
+                .then(()=>{
+                    Chat.find({chatCode : this_chatCode}).then(chat=> {
+                        if(chat.length>1) {
+                            res.render('../views/chat.ejs', {
+                                chatCode : this_chatCode, chat: chat,
+                                userID: user_ID, userName: user_Name,
+                                url: this_url, friendurl : this_friendurl,
+                                friendName : this_friendName,
+                                messagecount: messagecount, requestcount : requestcount});
+                        }else {
+                            res.render('../views/chat.ejs', {
+                                chatCode : this_chatCode ,chat: "",
+                                userID: user_ID, userName: user_Name,
+                                url: this_url, friendurl : this_friendurl,
+                                friendName : this_friendName,
+                                messagecount: messagecount, requestcount : requestcount});
+                        }
+                    });
+                })
         })
 })
 

@@ -60,14 +60,14 @@ io.on('connect', (socket) => {
             });
             let count=0;
             console.log(date,data.message,count)
-            Chat.find({chatCode:chatCode})
+            Chat.find({chatCode:data.chatCode})
                 .then(chat=>{
                     for(i in chat) {
-                        if (chat[i].read==false){
+                        if (chat[i].read==false&&chat[i].userID!=data.userID){
                             count++;
                         }
                     }
-                    ChatRoom.findOneAndUpdate({chatCode :chatCode},
+                    ChatRoom.findOneAndUpdate({chatCode :data.chatCode},
                         {
                         date: date,
                         message: data.message,

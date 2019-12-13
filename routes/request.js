@@ -7,7 +7,8 @@ let messagecount=0;
 let user_ID = "";
 
 function send_check(){
-    let count=0;
+    requestcount=0;
+    messagecount=0;
     Request.find({friendID :user_ID}, function (err, requestList) {
         if(requestList) {
             requestcount = requestList.length;

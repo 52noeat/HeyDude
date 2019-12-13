@@ -21,17 +21,18 @@ let message=0;
 let user_ID = "";
 
 function send_check(){
-    let count=0;
+    request=0;
+    message=0;
     Request.find({friendID :user_ID}, function (err, requestList) {
         if(requestList) {
-            requestcount = requestList.length;
+            request = requestList.length;
         }
     });
     ChatRoom.find({userID : user_ID})
         .then(chatRoom=>{
             if(chatRoom){
                 for(i in chatRoom){
-                    messagecount=+chatRoom[i].read;
+                    message=+chatRoom[i].read;
                 }
             }
             else{
