@@ -29,23 +29,23 @@
 </nav>
 <div class="content-scroll">
     <!--요안에만 채우시면됩니다.-->
-    <table>
+    <br>
+    <table style="table-layout: fixed">
         <tr style="text-align: center;">
             <td style="display: inline-flex;">
-                <div class='tendency' style="margin-left: 3%;">
+                <div class='tendency'>
                     <button type='button' class='btn' id="play" style= 'height: fit-content; color:white; background-color: #FFB6B9;'>play</button>
                 </div>
-                <div class='tendency' style="margin-left: 3%;">
+                <div class='tendency' style="">
                     <button type='button' class='btn' id="culture"  style= 'height: fit-content; color:white; background-color: #FAE3D9;'>culture</button>
                 </div>
-                <div class='tendency' style="margin-left: 3%;">
+                <div class='tendency' style="">
                     <button type='button' class='btn' id="study" style= 'height: fit-content; color:white; background-color: #BBDED6;'>study</button>
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;
                 <div class="form-group">
-                    <select class="btn btn-secondary dropdown-toggle" type="button" id="nationality" style="background-color: white; color: black"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="nationality">
-                        <option value="">---- Select Nationality ----</option>
+                    <select class="form-control" id="nationality" style="background-color: white; color: black;" name="nationality">
+                        <option value="">Nationality</option>
                         <option value="south korean">South Korean</option>
                         <option value="american">American</option>
                         <option value="argentinean">Argentinean</option>
@@ -130,9 +130,6 @@
                         <option value="venezuelan">Venezuelan</option>
                         <option value="vietnamese">Vietnamese</option>
                     </select>
-                </div>
-                <div style="margin-left: 3%;">
-                    <button type='button' class='btn' id="select" style= 'height: fit-content; color:white; background-color: #9fcdff;'>select</button>
                 </div>
             </td>
         </tr>
@@ -263,19 +260,23 @@
     $("#study").click(()=>{
         location.href="/profile/study"
     })
-    $("#select").click(()=>{
+    $("#nationality").change(function(){
+        console.log('Selected value: ' + $(this).val());
+        SortNationality($(this).val());
+    });
+    function SortNationality(nationality){
         $.ajax({
             type:"POST",
             url: "/profile/select" ,
             data: {
-                nationality : $('#nationality').val()
+                nationality: nationality
             }
-        }).done(function(result) {
-            if (result) {
-                location.href='/profile/nationality';
+        }).done(function (result) {
+            if(result){
+                location.href = '/profile/nationality';
             } else {
-                location.reload();
+                Location.reload();
             }
         });
-    })
+    }
 </script>

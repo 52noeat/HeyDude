@@ -35,8 +35,9 @@
         <div style="justify-content: right;">
             <div style="margin-left: 1%">
                 <h5>Title : <%=board.title%> </h5>
+                <hr>
                 <h5>Contents : <% if(board.url !== ""){ %> <br> <img src ="<%=board.url%>" style="width: 200px; height: 200px"> <br> <%}%> <%=board.contents%> </h5>
-                <br>
+                <hr>
                 <h6 style="color: grey; font-weight: lighter;">author : <%=board.userName%> </h6>
                 <h6 style="color: grey; font-weight: lighter;">time : <%=board.date%> <%=board.time%> </h6>
                 <br>
