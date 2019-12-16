@@ -642,7 +642,7 @@ router.get('/helpSetboard/like', (req, res)=> {
         auth3 = 1;
     }
     sessionName3 = req.session.userName;
-    res.render('../views/generalBoard.ejs',{title:"title",board :board3, auth:auth3, sessionName:sessionName3, messagecount: message, requestcount : request});
+    res.render('../views/helpBoard.ejs',{title:"title",board :board3, auth:auth3, sessionName:sessionName3, messagecount: message, requestcount : request});
     auth3 = 0;
 });
 router.post('/semesterlike', (req, res) => {

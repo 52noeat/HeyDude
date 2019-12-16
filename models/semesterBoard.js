@@ -20,7 +20,7 @@ var semesterBoardSchema = new Schema({
     time: String,
     date: String,
     view_num: {type: Number, default:0},
-    url: [{type : String, default: ""}],
+    url: {type : String, default: ""},
     like: { type: Number, default: 0 },
     comments: [semesterCommentSchema],
     semester: String

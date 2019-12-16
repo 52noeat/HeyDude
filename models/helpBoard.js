@@ -19,7 +19,7 @@ var helpBoardSchema = new Schema({
     userid: String,
     time: String,
     date: String,
-    url: [{type : String, default: ""}],
+    url: {type : String, default: ""},
     like: { type: Number, default: 0 },
     view_num: {type: Number, default:0},
     comments: [helpCommentSchema]

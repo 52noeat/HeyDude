@@ -30,7 +30,7 @@ function send_check(){
 
 // Main Page
 router.get('/', (req, res) => {
-    res.render('../views/index.ejs');
+    res.render('../views/signin.ejs');
 });
 router.get('/signin', (req, res) => {
     res.render('../views/signin.ejs');

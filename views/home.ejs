@@ -101,7 +101,7 @@
                 <tbody>
 
                 <% if (helpBoard !== null){%>
-                <%for(var i = helpBoard.length-1; i >= helpBoard.length-3; i--){ %>
+                <%for(var i = helpBoard.length-1; i >= helpBoard.length-2; i--){ %>
                     <% if(i<0)
                         break;%>
                     <tr id='helpBoard' onclick="helpSubmit('<%= helpBoard[i]._id%>')" value="<%= helpBoard[i]._id%>">
